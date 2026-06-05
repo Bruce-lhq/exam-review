@@ -22,40 +22,6 @@ description: >
 - 用户无参数直接调用此 skill（进入欢迎菜单）
 - 用户要求更新已有复习资料、或用新材料扩充
 
-## 并行执行策略
-
-**凡是可独立完成的步骤，必须使用 fan-out subagents 并行执行，不要串行排队。**
-
-### Phase 1 并行点
-
-| 任务 | 并行方式 |
-|---|---|
-| 读取所有文件 | 每个文件一个 subagent，同时启动 |
-| 图片型 PDF OCR | 多个 PDF 并行调用 `mcp__zai-mcp-server__extract_text_from_screenshot` |
-| **markitdown 提取 PDF 文本** | 优先用 markitdown 提取完整文本再分析，每个 PDF 并行提取 |
-| 提取知识点标签 | 所有文件读完后，按章节/主题分给多个 subagent 并行提取 |
-
-### Phase 2 并行点
-
-| 任务 | 并行方式 |
-|---|---|
-| Part A 各章撰写 | 不同章节分给不同 subagent，并行输出 |
-| Part B 各题型撰写 | 不同题型分给不同 subagent，并行输出 |
-| Part C 各易错点撰写 | 不同陷阱分给不同 subagent，并行输出 |
-| Part D 各真题解析撰写 | 不同真题分给不同 subagent，并行输出（非分析型纯解题步骤） |
-| **Part E 各专题习题撰写** | 不同专题分给不同 subagent，并行输出 |
-| **解答补全** | 标记需完整解答的题目 → 并行启动 Agent，各自读取源 PDF → 撰写完整卡片 |
-| 模拟卷 A/B/C 三套 | 三套卷并行生成 |
-| 难度审核代表题 | A/B/C 三卷的代表题并行生成 |
-| HTML 组装 | 所有 Part 完成后，一个 subagent 负责组装成完整 HTML |
-
-### 原则
-
-- **独立任务 = 并行**。不互相依赖的工作绝不串行。
-- **先并行产出，再串行组装**。内容创作阶段最大化并发，最终整合阶段串行。
-- **等待所有并行任务完成后再进入下一阶段**。Phase 1 全部读完再进入分析；Part A/B/C/D/E 全部写完再组装 HTML。
-- **markitdown 优先**：PDF 文件先用 markitdown 提取完整文本，避免 OCR 遗漏题目。统计题量时必须基于完整文本计数。
-
 ## 工作模式
 
 ### 无参数调用 → 欢迎菜单
@@ -89,7 +55,7 @@ description: >
 ### 1.1 读取资料
 
 扫描用户指定的课程目录，处理以下格式：
-- **PDF**：优先用文本提取；图片型 PDF 调用 `mcp__zai-mcp-server__extract_text_from_screenshot` 进行视觉识别
+- **PDF**：**优先用 markitdown 提取完整文本**（避免 OCR 遗漏题目，统计题量依赖完整文本）。图片型 PDF 无法提取文本时，调用 `mcp__zai-mcp-server__extract_text_from_screenshot` 进行视觉识别
 - **DOCX**：用 `/docx` skill 或 markitdown 提取文本
 - **PPTX**：用 `/pptx` skill 或 markitdown 提取文本
 - **MD**：直接读取
