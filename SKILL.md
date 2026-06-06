@@ -55,10 +55,10 @@ description: >
 ### 1.1 读取资料
 
 扫描用户指定的课程目录，处理以下格式：
-- **PDF**：**优先用 markitdown 提取完整文本**（避免 OCR 遗漏题目，统计题量依赖完整文本）。图片型 PDF 无法提取文本时，调用 `mcp__zai-mcp-server__extract_text_from_screenshot` 进行视觉识别
-- **DOCX**：用 `/docx` skill 或 markitdown 提取文本
-- **PPTX**：用 `/pptx` skill 或 markitdown 提取文本
-- **MD**：直接读取
+- **PDF**：用 `markitdown` 提取完整文本。**禁止设置行数限制或 `head` 截断**，必须读取全文。图片型 PDF 无法提取文本时，调用 `mcp__zai-mcp-server__extract_text_from_screenshot` 进行视觉识别
+- **DOCX**：**必须**用 `/docx` skill 读取。**禁止**对 DOCX 使用 markitdown
+- **PPTX**：**必须**用 `/pptx` skill 读取。**禁止**对 PPTX 使用 markitdown
+- **MD**：直接读取全文
 
 ### 1.2 输出资料清单
 
