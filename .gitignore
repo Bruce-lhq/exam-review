@@ -1,0 +1,11 @@
+# Python 字节码缓存
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 操作系统
+.DS_Store
+
+# 编辑器
+*.swp
+*~
