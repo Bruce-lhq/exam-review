@@ -3,31 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>概率论与数理统计 · 期末复习（exam-review 产出示例）</title>
+<title>概率论与数理统计 · 期末复习笔记（exam-review 产出示例 ①）</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
 <style>
-:root{
-  --bg:#fefcf7;--text:#2c1810;--accent:#c41e3a;--card:#fff9f0;
-  --border:#e0d5c7;--muted:#8a7563;--sidbg:#f7f0e2;--green:#3a8a3a;
-}
-[data-theme="dark"]{
-  --bg:#1a1410;--text:#f0e6d2;--accent:#e83e5c;--card:#2a2018;
-  --border:#4a3a2a;--muted:#b0a090;--sidbg:#221a13;--green:#5cb85c;
-}
+:root{--bg:#fefcf7;--text:#2c1810;--accent:#c41e3a;--card:#fff9f0;--border:#e0d5c7;--muted:#8a7563;--sidbg:#f7f0e2}
+[data-theme="dark"]{--bg:#1a1410;--text:#f0e6d2;--accent:#e83e5c;--card:#2a2018;--border:#4a3a2a;--muted:#b0a090;--sidbg:#221a13}
 *{box-sizing:border-box}
 body{margin:0;font-family:system-ui,-apple-system,"PingFang SC",sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
 header{position:sticky;top:0;background:var(--card);border-bottom:1px solid var(--border);padding:10px 24px;display:flex;justify-content:space-between;align-items:center;z-index:10}
 header h1{font-family:Georgia,serif;font-size:1.05rem;margin:0;color:var(--accent)}
 header .sub{font-size:.8em;color:var(--muted);margin-left:8px}
 .theme-btn{background:var(--bg);border:1px solid var(--border);color:var(--text);padding:5px 11px;border-radius:6px;cursor:pointer;font-size:.88em}
-.layout{display:flex;gap:0;max-width:1180px;margin:0 auto}
-aside{width:230px;flex-shrink:0;background:var(--sidbg);border-right:1px solid var(--border);padding:18px 16px;position:sticky;top:53px;height:calc(100vh - 53px);overflow-y:auto;font-size:.88em}
+.layout{display:flex;gap:0;max-width:1080px;margin:0 auto}
+aside{width:220px;flex-shrink:0;background:var(--sidbg);border-right:1px solid var(--border);padding:18px 16px;position:sticky;top:47px;height:calc(100vh - 47px);overflow-y:auto;font-size:.88em}
 aside h4{margin:14px 0 6px;color:var(--accent);font-size:.82em}
 aside a{display:block;color:var(--text);text-decoration:none;padding:3px 6px;border-radius:4px;cursor:pointer}
 aside a:hover{background:var(--card)}
-aside .taglist span{display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1px 8px;margin:2px 2px;font-size:.85em;cursor:pointer;user-select:none}
+aside .taglist span{display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1px 8px;margin:2px;font-size:.85em;cursor:pointer;user-select:none}
 aside .taglist span.on{background:var(--accent);color:#fff;border-color:var(--accent)}
 main{flex:1;padding:20px 32px;min-width:0}
 .banner{background:var(--card);border:1px dashed var(--border);border-radius:8px;padding:10px 14px;font-size:.85em;color:var(--muted);margin-bottom:12px}
@@ -37,13 +31,12 @@ h2.part{font-family:Georgia,serif;color:var(--accent);border-bottom:2px solid va
 .card .id{font-size:.78em;color:var(--muted);font-weight:normal}
 .meta{font-size:.82em;color:var(--muted);margin:3px 0 10px}
 .back{color:var(--accent);text-decoration:none;font-size:.82em;float:right;cursor:pointer}
-.back:hover{text-decoration:underline}
-.formula{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:8px 14px;margin:8px 0;overflow-x:auto}
 .toggle{background:var(--accent);color:#fff;border:none;padding:5px 13px;border-radius:5px;cursor:pointer;font-size:.85em;margin:5px 0}
 .toggle:hover{opacity:.9}
 .collapse{max-height:0;overflow:hidden;transition:max-height .4s ease}
 .collapse.open{max-height:3000px}
 .emph{background:var(--bg);border-left:3px solid var(--accent);padding:8px 14px;margin:6px 0;border-radius:0 6px 6px 0;font-size:.92em}
+.formula{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:8px 14px;margin:8px 0;overflow-x:auto}
 .dual{display:grid;grid-template-columns:45% 55%;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin:8px 0}
 .dual>div{background:var(--card);padding:10px 14px}
 .dual h4{margin:0 0 6px;font-size:.88em;color:var(--accent)}
@@ -53,24 +46,13 @@ h2.part{font-family:Georgia,serif;color:var(--accent);border-bottom:2px solid va
 .vs h4{margin:0 0 4px;font-size:.88em}
 .wrong{background:#fff5f5!important}.right{background:#f0f9f4!important}
 [data-theme="dark"] .wrong{background:#3a1f1f!important}[data-theme="dark"] .right{background:#1f3320!important}
-.q{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;margin:12px 0}
-.q h3{font-size:1em;color:var(--accent);margin:0 0 6px}
-.ans-input{padding:4px 8px;border:1px solid var(--border);border-radius:5px;background:var(--bg);color:var(--text);width:120px}
-.self button{background:var(--card);border:1px solid var(--border);color:var(--text);padding:3px 10px;border-radius:5px;cursor:pointer;margin-right:6px;font-size:.82em}
-.self button.ok{border-color:var(--green);color:var(--green)}
-.self button.no{border-color:var(--accent);color:var(--accent)}
-.scorebar{position:sticky;bottom:0;background:var(--card);border-top:2px solid var(--accent);padding:10px 24px;display:flex;gap:18px;align-items:center;font-size:.88em;flex-wrap:wrap}
-.timer{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:4px 12px;font-family:ui-monospace,monospace}
-.nav-back{position:fixed;left:16px;bottom:70px;background:var(--accent);color:#fff;padding:8px 14px;border-radius:20px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2);font-size:.85em;display:none;z-index:20}
+.nav-back{position:fixed;left:16px;bottom:16px;background:var(--accent);color:#fff;padding:8px 14px;border-radius:20px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2);font-size:.85em;display:none;z-index:20}
 @media(max-width:760px){aside{display:none}.layout{display:block}main{padding:14px}.dual,.vs{grid-template-columns:1fr}}
-@media print{aside,.toggle,.theme-btn,.scorebar,.nav-back{display:none}.collapse{max-height:none}}
+@media print{aside,.toggle,.theme-btn,.nav-back{display:none}.collapse{max-height:none}}
 </style>
 </head>
 <body>
-<header>
-  <div><h1>概率论与数理统计 · 期末复习</h1><span class="sub">exam-review 产出示例（内容为真实知识点 + 自编题，完整交互 demo）</span></div>
-  <button class="theme-btn" onclick="toggleTheme()">🌙 暗色</button>
-</header>
+<header><div><h1>概率论与数理统计 · 期末复习笔记</h1><span class="sub">exam-review 产出示例 ①（复习笔记）</span></div><button class="theme-btn" onclick="toggleTheme()">🌙 暗色</button></header>
 <div class="layout">
 <aside>
   <h4>复习笔记</h4>
@@ -81,19 +63,15 @@ h2.part{font-family:Georgia,serif;color:var(--accent);border-bottom:2px solid va
   <a onclick="jump('pc')">Part C 易错点</a>
   <a onclick="jump('pd')">Part D 真题详解</a>
   <a onclick="jump('pe')">Part E 习题大全</a>
-  <a onclick="jump('exam')">模拟卷 A</a>
   <h4>🏷️ 标签筛选（OR）</h4>
-  <div class="taglist" id="taglist">
-    <span data-tag="概率">概率</span><span data-tag="估计">估计</span>
-    <span data-tag="分布">分布</span><span data-tag="独立性">独立性</span>
-  </div>
+  <div class="taglist" id="taglist"><span data-tag="概率">概率</span><span data-tag="估计">估计</span><span data-tag="分布">分布</span><span data-tag="独立性">独立性</span></div>
+  <h4>配套</h4>
+  <a href="example-exam.html">→ 模拟卷（另一份 HTML）</a>
 </aside>
 <main>
-<div class="banner">这是 exam-review skill 生成的复习 HTML 的<strong>完整结构示例</strong>：含复习笔记（Part A–E）与模拟卷（A 卷），全部交互可操作——折叠、暗色、导航栈跳转、标签筛选、倒计时、自评计分（刷新不丢失）。数学内容为真实知识点，题目为自编公共难度，不涉及任何真实考题。</div>
+<div class="banner">这是 exam-review 生成的<strong>复习笔记 HTML</strong>（配套的<a href="example-exam.html">模拟卷</a>是另一份独立文件，对应 skill 的两份产出）。含 Part A–E，全部交互可操作：折叠、暗色、导航栈跳转、标签筛选。数学为真实知识点，题目自编，不涉及真实考题。</div>
 
-<!-- ============ Part A ============ -->
 <h2 class="part" id="pa">Part A · 核心概念与定理</h2>
-
 <div class="card" id="pa1" data-tags="概率·分布">
   <a class="back" onclick="goBack()">← 返回</a>
   <h3>A.1 全概率公式与贝叶斯公式 <span class="id">★ 高频</span></h3>
@@ -103,9 +81,7 @@ h2.part{font-family:Georgia,serif;color:var(--accent);border-bottom:2px solid va
   <p><strong>贝叶斯公式</strong>（后验概率）：</p>
   <div class="formula">$$P(A_i\mid B)=\frac{P(A_i)P(B\mid A_i)}{\sum_{j=1}^{n}P(A_j)P(B\mid A_j)}$$</div>
   <button class="toggle" data-on="📌 高频考点提示（展开）" data-off="📌 收起 ▲" onclick="tog(this)">📌 高频考点提示（展开）</button>
-  <div class="collapse">
-    <div class="emph">贝叶斯公式几乎每年一道大题。务必分清<strong>先验</strong> $P(A_i)$ 与<strong>后验</strong> $P(A_i\mid B)$，关键是先写出完备事件组再套公式。</div>
-  </div>
+  <div class="collapse"><div class="emph">贝叶斯公式几乎每年一道大题。务必分清<strong>先验</strong> $P(A_i)$ 与<strong>后验</strong> $P(A_i\mid B)$，关键是先写出完备事件组再套公式。</div></div>
   <button class="toggle" data-on="📝 展开做题" data-off="📝 收起 ▲" onclick="tog(this)">📝 展开做题</button>
   <div class="collapse">
     <p><strong>例</strong>：3 条流水线产量占 $0.2, 0.3, 0.5$，次品率分别为 $0.02, 0.01, 0.03$。任取一件是次品，求来自第 1 条线的概率。</p>
@@ -129,7 +105,7 @@ h2.part{font-family:Georgia,serif;color:var(--accent);border-bottom:2px solid va
   <a class="back" onclick="goBack()">← 返回</a>
   <h3>A.2 极大似然估计 <span class="id">★ 高频</span></h3>
   <p class="meta">考频: ████ 极高 | 难度: 综合 | 来源: 课件11 · 课堂笔记11</p>
-  <p><strong>定义</strong>：设样本 $X_1,\dots,X_n$ 来自密度族 $f(x;\theta)$，似然函数 $L(\theta)=\prod_{i=1}^{n}f(x_i;\theta)$，MLE 为 $\hat\theta=\arg\max_\theta L(\theta)$。</p>
+  <p><strong>定义</strong>：设样本 $X_1,\dots,X_n$ 来自密度族 $f(x;\theta)$，似然函数 $L(\theta)=\prod_{i=1}^{n}f(x_i;\theta)$，MLE 为 $\hat\theta=\operatorname*{argmax}_{\theta} L(\theta)$。</p>
   <button class="toggle" data-on="📝 展开做题" data-off="📝 收起 ▲" onclick="tog(this)">📝 展开做题</button>
   <div class="collapse">
     <p><strong>例</strong>：$X\sim Exp(\lambda)$，$f(x)=\lambda e^{-\lambda x}$，求 $\lambda$ 的 MLE。</p>
@@ -143,14 +119,13 @@ h2.part{font-family:Georgia,serif;color:var(--accent);border-bottom:2px solid va
       <div><h4>具体推导</h4>
         <div class="step">① $L(\lambda)=\lambda^n e^{-\lambda\sum x_i}$</div>
         <div class="step">② $\ln L=n\ln\lambda-\lambda\sum x_i$</div>
-        <div class="step">③ $\frac{\partial\ln L}{\partial\lambda}=\frac n\lambda-\sum x_i=0$</div>
-        <div class="step">④ $\hat\lambda=\dfrac{n}{\sum x_i}=\dfrac1{\bar X}$</div>
+        <div class="step">③ $\frac{\partial\ln L}{\partial\lambda}=\frac{n}{\lambda}-\sum x_i=0$</div>
+        <div class="step">④ $\hat\lambda=\dfrac{n}{\sum x_i}=\dfrac{1}{\bar X}$</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ============ Part B ============ -->
 <h2 class="part" id="pb">Part B · 题型与解题方法归纳</h2>
 <div class="card" data-tags="分布">
   <a class="back" onclick="goBack()">← 返回</a>
@@ -165,14 +140,13 @@ h2.part{font-family:Georgia,serif;color:var(--accent);border-bottom:2px solid va
     </div>
     <div><h4>具体例题</h4>
       <div class="step">$X\sim U(0,1)$，$Y=X^2$</div>
-      <div class="step">② $F_Y(y)=P(X^2\le y)=P(X\le\sqrt y)=\sqrt y$</div>
-      <div class="step">③ $f_Y(y)=\frac1{2\sqrt y}$，$0<y<1$</div>
+      <div class="step">② $F_Y(y)=P(X^2\le y)=P(X\le\sqrt{y})=\sqrt{y}$</div>
+      <div class="step">③ $f_Y(y)=\frac{1}{2\sqrt{y}}$，$0&lt;y&lt;1$</div>
     </div>
   </div>
   <p class="meta">📝 变体：单调函数可用公式法 $f_Y(y)=f_X(h(y))|h'(y)|$　·　🧪 真题实战 → <a class="back" onclick="jump('pd')" style="float:none">§D</a></p>
 </div>
 
-<!-- ============ Part C ============ -->
 <h2 class="part" id="pc">Part C · 高频考点 & 易错点</h2>
 <div class="card" data-tags="独立性">
   <a class="back" onclick="goBack()">← 返回</a>
@@ -187,27 +161,25 @@ h2.part{font-family:Georgia,serif;color:var(--accent);border-bottom:2px solid va
   <p class="meta">🎯 考试怎么考：给一个联合分布，问"协方差为 0 是否意味独立"。<br>📝 配套练习 → <a class="back" onclick="jump('pe')" style="float:none">§E.1</a></p>
 </div>
 
-<!-- ============ Part D ============ -->
 <h2 class="part" id="pd">Part D · 真题/例题详解</h2>
 <div class="card" data-tags="分布·估计">
   <a class="back" onclick="goBack()">← 返回</a>
   <h3>例题 D.1 · 联合分布与参数估计（自编，12 分） <span class="id">题型 → §B · 陷阱 → §C.1</span></h3>
-  <p>设 $(X,Y)$ 的联合密度 $f(x,y)=\begin{cases}cxy,&0<x<1,0<y<1\\0,&\text{其他}\end{cases}$</p>
+  <p>设 $(X,Y)$ 的联合密度：</p>
+  <div class="formula">$$f(x,y)=\begin{cases}cxy,&0&lt;x&lt;1,\ 0&lt;y&lt;1\\0,&\text{其他}\end{cases}$$</div>
   <p>(1) 求常数 $c$；（4 分）　(2) 求边缘密度并判断独立性；（4 分）　(3) 求 $E[X]$。（4 分）</p>
-
   <p><strong>(1)</strong> <button class="toggle" data-on="▶ 展开答案" data-off="▶ 收起" onclick="tog(this)">▶ 展开答案</button></p>
   <div class="collapse"><div class="emph">$c=4$。由 $\int_0^1\int_0^1 cxy\,dxdy=c/4=1$ 得 $c=4$。</div></div>
   <p><strong>(2)</strong> <button class="toggle" data-on="▶ 展开答案与解析" data-off="▶ 收起" onclick="tog(this)">▶ 展开答案与解析</button></p>
   <div class="collapse">
-    <div class="emph">$f_X(x)=\int_0^1 4xy\,dy=2x$（$0<x<1$），同理 $f_Y(y)=2y$。因 $f(x,y)=4xy=f_X\cdot f_Y$，故 $X,Y$ <strong>独立</strong>。</div>
-    <p class="meta">💡 解析：边缘乘积等于联合 ⟹ 独立。注意与 §C.1 区分：这里是通过定义验证独立，不是用相关性。</p>
+    <div class="emph">$f_X(x)=\int_0^1 4xy\,dy=2x$（$0&lt;x&lt;1$），同理 $f_Y(y)=2y$。因 $f(x,y)=4xy=f_X\cdot f_Y$，故 $X,Y$ <strong>独立</strong>。</div>
+    <p class="meta">💡 解析：边缘乘积等于联合 ⟹ 独立。注意与 §C.1 区分：这里通过定义验证独立，不是用相关性。</p>
   </div>
   <p><strong>(3)</strong> <button class="toggle" data-on="▶ 展开答案" data-off="▶ 收起" onclick="tog(this)">▶ 展开答案</button></p>
   <div class="collapse"><div class="emph">$E[X]=\int_0^1 x\cdot 2x\,dx=2/3$。</div></div>
   <p class="meta">📝 同类题 → <a class="back" onclick="jump('pe')" style="float:none">§E.1</a></p>
 </div>
 
-<!-- ============ Part E ============ -->
 <h2 class="part" id="pe">Part E · 习题大全</h2>
 <div class="card" data-tags="独立性">
   <a class="back" onclick="goBack()">← 返回</a>
@@ -219,94 +191,17 @@ h2.part{font-family:Georgia,serif;color:var(--accent);border-bottom:2px solid va
     <p class="meta">📂 出处：配套练习（自编）　📎 同类 → <a class="back" onclick="jump('pc')" style="float:none">§C.1</a></p>
   </div>
 </div>
-
-<!-- ============ 模拟卷 A ============ -->
-<h2 class="part" id="exam">期末模拟卷 · A 卷（基础巩固，满分 100 / 90 分钟）</h2>
-<div class="banner">倒计时与自评计分会自动保存到浏览器，刷新不丢失。</div>
-
-<div class="q" data-tags="概率">
-  <h3>一、（1）· 选择题（5 分）</h3>
-  <p>设 $A,B$ 互斥，$P(A)=0.3$，$P(B)=0.4$，则 $P(A\cup B)=$</p>
-  <p>✏️ 你的答案：<input class="ans-input" data-q="q1" placeholder="如 0.7" oninput="saveAns('q1',this.value)"></p>
-  <button class="toggle" data-on="▶ 展开答案与解析" data-off="▶ 收起" onclick="tog(this)">▶ 展开答案与解析</button>
-  <div class="collapse"><div class="emph">答案：$0.7$。互斥 ⟹ $P(A\cup B)=P(A)+P(B)=0.7$。</div></div>
-  <p class="self">自评：<button class="ok" onclick="selfScore('q1',5,true,this)">✓ 对</button><button class="no" onclick="selfScore('q1',5,false,this)">✗ 错</button></p>
-</div>
-
-<div class="q" data-tags="分布">
-  <h3>一、（2）· 填空题（5 分）</h3>
-  <p>设 $X\sim B(n,p)$，则 $E[X]=$ <input class="ans-input" data-q="q2" placeholder="np" oninput="saveAns('q2',this.value)">，$D(X)=$ <input class="ans-input" data-q="q2b" placeholder="np(1-p)" oninput="saveAns('q2b',this.value)">。</p>
-  <button class="toggle" data-on="▶ 展开答案" data-off="▶ 收起" onclick="tog(this)">▶ 展开答案</button>
-  <div class="collapse"><div class="emph">$E[X]=np$，$D(X)=np(1-p)$。</div></div>
-  <p class="self">自评：<button class="ok" onclick="selfScore('q2',5,true,this)">✓ 对</button><button class="no" onclick="selfScore('q2',5,false,this)">✗ 错</button></p>
-</div>
-
-<div class="q" data-tags="估计">
-  <h3>二、· 计算题（15 分）</h3>
-  <p>设 $X_1,\dots,X_n$ 来自 $U(0,\theta)$，求 $\theta$ 的矩估计与 MLE。</p>
-  <button class="toggle" data-on="▶ 展开答案与解析" data-off="▶ 收起" onclick="tog(this)">▶ 展开答案与解析</button>
-  <div class="collapse">
-    <div class="emph">矩估计：$E[X]=\theta/2=\bar X$ ⟹ $\hat\theta_{MM}=2\bar X$。<br>MLE：$L(\theta)=\theta^{-n}\cdot\mathbf{1}_{\max x_i\le\theta}$，在 $[ \max x_i, \infty)$ 上递减 ⟹ $\hat\theta_{ML}=\max_i X_i=X_{(n)}$。</div>
-    <p class="meta">⚠️ 陷阱：MLE 不是求导极值，而是看似然的定义域边界。</p>
-  </div>
-  <p class="self">自评：<button class="ok" onclick="selfScore('q3',15,true,this)">✓ 全对</button><button class="no" onclick="selfScore('q3',15,false,this)">✗ 有错</button></p>
-</div>
 </main>
 </div>
-
-<div class="scorebar">
-  <span class="timer" id="timer">⏱ 90:00</span>
-  <button class="theme-btn" onclick="timerCtrl(this)" id="tbtn">▶ 开始</button>
-  <button class="theme-btn" onclick="timerReset()">↺ 重置</button>
-  <span style="flex:1"></span>
-  <strong>得分：<span id="score">0</span> / 25</strong>
-  <span style="color:var(--muted)">（本示例卷 3 题，共 25 分）</span>
-  <button class="theme-btn" onclick="clearScore()">清空记录</button>
-</div>
 <div class="nav-back" id="navback" onclick="goBack()">← 返回</div>
-
 <script>
-// 主题
 function toggleTheme(){const h=document.documentElement,t=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',t);document.querySelector('.theme-btn').textContent=t==='dark'?'☀️ 亮色':'🌙 暗色';localStorage.setItem('er-theme',t)}
 (function(){const t=localStorage.getItem('er-theme');if(t){document.documentElement.setAttribute('data-theme',t);document.querySelector('.theme-btn').textContent=t==='dark'?'☀️ 亮色':'🌙 暗色'}})();
-// 折叠
-function tog(btn){const b=btn.nextElementSibling;const open=b.classList.toggle('open');btn.textContent=open?btn.dataset.off:btn.dataset.on}
-// 导航栈
+function tog(btn){let b=btn.nextElementSibling;if(!b||!b.classList.contains('collapse')){b=btn.parentElement.nextElementSibling}if(!b)return;const open=b.classList.toggle('open');btn.textContent=open?btn.dataset.off:btn.dataset.on}
 const navStack=[];
 function jump(id){const cur=window.scrollY;if(navStack.length===0||navStack[navStack.length-1]!==cur)navStack.push(cur);document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});document.getElementById('navback').style.display='block'}
 function goBack(){if(navStack.length){window.scrollTo({top:navStack.pop(),behavior:'smooth'});if(navStack.length===0)document.getElementById('navback').style.display='none'}}
-// 标签筛选（OR）
-document.querySelectorAll('#taglist span').forEach(s=>s.onclick=()=>{
-  s.classList.toggle('on');
-  const sel=[...document.querySelectorAll('#taglist span.on')].map(x=>x.dataset.tag);
-  document.querySelectorAll('.card,.q').forEach(c=>{
-    if(sel.length===0){c.style.display='';return}
-    const tags=c.dataset.tags||'';
-    c.style.display=sel.some(t=>tags.includes(t))?'':'none';
-  });
-});
-// 答案持久化
-function saveAns(k,v){localStorage.setItem('er-'+k,v)}
-(function(){document.querySelectorAll('.ans-input').forEach(i=>{const v=localStorage.getItem('er-'+i.dataset.q);if(v)i.value=v})})();
-// 自评计分
-const scores={};
-function selfScore(q,full,ok,btn){
-  scores[q]=ok?full:0;
-  localStorage.setItem('er-score',JSON.stringify(scores));
-  document.querySelectorAll(`[onclick^="selfScore('${q}"]`).forEach(b=>{b.style.fontWeight='normal';b.style.opacity='.6'});
-  btn.style.fontWeight='bold';btn.style.opacity='1';
-  const total=Object.values(scores).reduce((a,b)=>a+b,0);
-  document.getElementById('score').textContent=total;
-}
-(function(){const s=JSON.parse(localStorage.getItem('er-score')||'{}');Object.assign(scores,s);document.getElementById('score').textContent=Object.values(scores).reduce((a,b)=>a+b,0)})();
-function clearScore(){Object.keys(scores).forEach(k=>delete scores[k]);localStorage.removeItem('er-score');document.getElementById('score').textContent='0';document.querySelectorAll('.self button').forEach(b=>{b.style.fontWeight='normal';b.style.opacity='1'});location.reload()}
-// 倒计时
-let tLeft=90*60,timer=null;
-function fmt(s){return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}
-function timerCtrl(btn){if(timer){clearInterval(timer);timer=null;btn.textContent='▶ 继续'}else{timer=setInterval(()=>{tLeft--;document.getElementById('timer').textContent='⏱ '+fmt(tLeft);if(tLeft<=0){clearInterval(timer);timer=null;alert('时间到！')}},1000);btn.textContent='⏸ 暂停'}localStorage.setItem('er-tleft',tLeft)}
-function timerReset(){clearInterval(timer);timer=null;tLeft=90*60;document.getElementById('timer').textContent='⏱ 90:00';document.getElementById('tbtn').textContent='▶ 开始';localStorage.setItem('er-tleft',tLeft)}
-(function(){const s=localStorage.getItem('er-tleft');if(s){tLeft=+s;document.getElementById('timer').textContent='⏱ '+fmt(tLeft)}})();
-// KaTeX
+document.querySelectorAll('#taglist span').forEach(s=>s.onclick=()=>{s.classList.toggle('on');const sel=[...document.querySelectorAll('#taglist span.on')].map(x=>x.dataset.tag);document.querySelectorAll('.card').forEach(c=>{if(sel.length===0){c.style.display='';return}const tags=c.dataset.tags||'';c.style.display=sel.some(t=>tags.includes(t))?'':'none'})});
 document.addEventListener('DOMContentLoaded',()=>{if(window.renderMathInElement)renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false})});
 </script>
 </body>

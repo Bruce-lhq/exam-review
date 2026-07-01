@@ -54,7 +54,8 @@
 真实案例：**《概率论与数理统计》**——85+ 份资料（14 份 PDF 课件 + 15 份课堂笔记 + 14 份小结 + 习题课 + 真题 + 作业）→ `概统期末复习.html`（5 个 Part、81 张卡片）+ `期末模拟真题.html`（3 卷、48 题）。
 
 - 完整使用流程：见 [`tests/example-usage.md`](tests/example-usage.md)
-- 完整产出 demo（浏览器可直开，含复习笔记 5 个 Part + 模拟卷 + 全部交互）：见 [`resources/example-full.html`](resources/example-full.html)
+- 复习笔记 demo（浏览器可直开，Part A–E + 全部交互）：见 [`resources/example-review.html`](resources/example-review.html)
+- 模拟卷 demo（浏览器可直开，三卷 Tab + 倒计时 + 自评计分）：见 [`resources/example-exam.html`](resources/example-exam.html)
 
 ## 目录结构
 
@@ -70,7 +71,8 @@ exam-review/
 ├── tests/
 │   └── example-usage.md      # 详细使用示例（概统真实案例）
 └── resources/
-    └── example-full.html     # 完整产出 demo（浏览器可直开）
+    ├── example-review.html   # 复习笔记 demo（Part A–E）
+    └── example-exam.html     # 模拟卷 demo（三卷 + 计分）
 ```
 
 ## 设计亮点
