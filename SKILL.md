@@ -55,7 +55,7 @@ metadata:
 
 本 skill **自包含，不调用任何外部 skill**（不依赖 docx / pptx / brainstorming 等）。运行所需能力均在仓库内或通过依赖声明提供：
 
-- **文件读取**：统一用 `markitdown`（PyPI 包）提取 PDF / DOCX / PPTX / XLS / EPUB 等格式的文本。安装：`uv pip install -r requirements.txt`
+- **文件读取**：统一用 `markitdown`（PyPI 包）提取 PDF / DOCX / PPTX / XLS / EPUB 等格式的文本。安装：`pip install -r requirements.txt`（各系统标准 pip 即可，详见 README）
 - **读取入口脚本**：`python scripts/extract.py <文件路径>`（markitdown 薄封装，处理大文件与编码边界）
 - **数学公式渲染**：生成的 HTML 通过 KaTeX CDN 在线渲染，无需本地依赖
 - **图片型 PDF / 扫描件**：若宿主具备视觉识别能力则使用，否则提示用户补充该文件文本（不强制依赖特定 MCP）
@@ -72,7 +72,7 @@ metadata:
 
 扫描用户指定的课程目录，**统一用 `markitdown` 提取所有格式的文本**（PDF / DOCX / PPTX / XLS / EPUB 等），MD 直接读取全文。
 
-- 推荐通过本 skill 自带脚本提取：`python scripts/extract.py <文件路径>`（依赖见 `requirements.txt`，用 `uv pip install -r requirements.txt` 安装）
+- 推荐通过本 skill 自带脚本提取：`python scripts/extract.py <文件路径>`（依赖见 `requirements.txt`，用 `pip install -r requirements.txt` 安装）
 - 若宿主环境已内置文件读取能力，也可直接使用宿主能力，效果等价
 - **禁止设置行数限制或 `head` 截断**，必须读取全文
 - **图片型 PDF / 扫描件**：markitdown 无法提取文字时，若宿主具备视觉识别能力则用之；否则提示用户补充该文件的文本内容（不强制依赖特定 MCP）

@@ -22,9 +22,15 @@
 
 需 Python ≥ 3.9。
 
-```bash
-uv pip install -r requirements.txt
-```
+各系统安装依赖：
+
+| 系统 | 命令 |
+|---|---|
+| Windows | `pip install -r requirements.txt` |
+| macOS | `pip3 install -r requirements.txt` |
+| Linux | `pip install -r requirements.txt` |
+
+或跨平台统一写法（推荐）：`python -m pip install -r requirements.txt`
 
 唯一核心依赖是 [`markitdown[all]`](https://github.com/microsoft/markitdown)（微软开源，统一文档转 Markdown）。**无 MCP 依赖、不调用任何外部 skill——本 skill 完全自包含。**
 
@@ -48,7 +54,7 @@ uv pip install -r requirements.txt
 真实案例：**《概率论与数理统计》**——85+ 份资料（14 份 PDF 课件 + 15 份课堂笔记 + 14 份小结 + 习题课 + 真题 + 作业）→ `概统期末复习.html`（5 个 Part、81 张卡片）+ `期末模拟真题.html`（3 卷、48 题）。
 
 - 完整使用流程：见 [`tests/example-usage.md`](tests/example-usage.md)
-- 产出实物片段（浏览器可直接打开）：见 [`resources/example-fragment.html`](resources/example-fragment.html)
+- 完整产出 demo（浏览器可直开，含复习笔记 5 个 Part + 模拟卷 + 全部交互）：见 [`resources/example-full.html`](resources/example-full.html)
 
 ## 目录结构
 
@@ -64,7 +70,7 @@ exam-review/
 ├── tests/
 │   └── example-usage.md      # 详细使用示例（概统真实案例）
 └── resources/
-    └── example-fragment.html # 产出片段 demo（浏览器可直开）
+    └── example-full.html     # 完整产出 demo（浏览器可直开）
 ```
 
 ## 设计亮点

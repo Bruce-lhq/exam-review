@@ -55,8 +55,8 @@ def main() -> None:
     except ImportError:
         sys.exit(
             "❌ 未安装 markitdown。\n"
-            "   安装依赖：uv pip install -r requirements.txt\n"
-            "   或单独安装：uv pip install 'markitdown[all]'"
+            "   安装依赖：pip install -r requirements.txt\n"
+            "   或单独安装：pip install 'markitdown[all]'"
         )
 
     md = MarkItDown()
