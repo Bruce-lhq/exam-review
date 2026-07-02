@@ -12,25 +12,36 @@
 [data-theme="dark"]{--bg:#1a1410;--text:#f0e6d2;--accent:#e83e5c;--card:#2a2018;--border:#4a3a2a;--muted:#b0a090;--sidbg:#221a13}
 *{box-sizing:border-box}
 body{margin:0;font-family:system-ui,-apple-system,"PingFang SC",sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
-header{position:sticky;top:0;background:var(--card);border-bottom:1px solid var(--border);padding:10px 24px;display:flex;justify-content:space-between;align-items:center;z-index:10}
-header h1{font-family:Georgia,serif;font-size:1.05rem;margin:0;color:var(--accent)}
-header .sub{font-size:.8em;color:var(--muted);margin-left:8px}
-.theme-btn{background:var(--bg);border:1px solid var(--border);color:var(--text);padding:5px 11px;border-radius:6px;cursor:pointer;font-size:.88em}
-.layout{display:flex;gap:0;max-width:1080px;margin:0 auto}
-aside{width:220px;flex-shrink:0;background:var(--sidbg);border-right:1px solid var(--border);padding:18px 16px;position:sticky;top:47px;height:calc(100vh - 47px);overflow-y:auto;font-size:.88em}
-aside h4{margin:14px 0 6px;color:var(--accent);font-size:.82em}
-aside a{display:block;color:var(--text);text-decoration:none;padding:3px 6px;border-radius:4px;cursor:pointer}
-aside a:hover{background:var(--card)}
-aside .taglist span{display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1px 8px;margin:2px;font-size:.85em;cursor:pointer;user-select:none}
-aside .taglist span.on{background:var(--accent);color:#fff;border-color:var(--accent)}
-main{flex:1;padding:20px 32px;min-width:0}
-.banner{background:var(--card);border:1px dashed var(--border);border-radius:8px;padding:10px 14px;font-size:.85em;color:var(--muted);margin-bottom:12px}
-h2.part{font-family:Georgia,serif;color:var(--accent);border-bottom:2px solid var(--accent);padding-bottom:4px;margin:28px 0 4px;font-size:1.2rem}
-.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 20px;margin:14px 0;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+header{position:sticky;top:0;background:var(--card);border-bottom:1px solid var(--border);padding:8px 18px;display:flex;align-items:center;gap:10px;z-index:50}
+header h1{font-family:Georgia,serif;font-size:1.02rem;margin:0;color:var(--accent);flex:1}
+header .sub{font-size:.76em;color:var(--muted);margin-left:6px;font-weight:normal}
+.icon-btn,.theme-btn{background:var(--bg);border:1px solid var(--border);color:var(--text);padding:5px 10px;border-radius:6px;cursor:pointer;font-size:.9em}
+.icon-btn:hover,.theme-btn:hover{background:var(--sidbg)}
+.layout{display:flex;max-width:1200px;margin:0 auto}
+aside{width:262px;flex-shrink:0;background:var(--sidbg);border-right:1px solid var(--border);padding:14px 12px;position:sticky;top:43px;height:calc(100vh - 43px);overflow-y:auto;transition:width .3s;font-size:.9em}
+aside.collapsed{width:46px;padding:10px 6px;overflow:hidden}
+aside.collapsed .col-only{display:none!important}
+.search-box{width:100%;padding:6px 10px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--text);margin-bottom:10px;font-size:.92em}
+.search-box:focus{outline:none;border-color:var(--accent)}
+.nav-back{position:fixed;left:20px;bottom:24px;background:var(--accent);color:#fff;padding:11px 22px;border-radius:24px;cursor:pointer;box-shadow:0 6px 18px rgba(196,30,58,.5);font-size:1em;z-index:40;display:none;font-weight:600;transition:opacity .2s}
+.nav-back:hover{opacity:.9}
+aside h4{margin:14px 0 5px;color:var(--accent);font-size:.8em;display:flex;justify-content:space-between;align-items:center}
+aside h4 .mode-btn{background:var(--card);border:1px solid var(--border);color:var(--muted);font-size:.85em;padding:1px 7px;border-radius:9px;cursor:pointer}
+.nav-item{display:flex;justify-content:space-between;align-items:center;gap:6px;color:var(--text);text-decoration:none;padding:4px 8px;border-radius:5px;cursor:pointer;font-size:.92em;border-left:3px solid transparent}
+.nav-item:hover{background:var(--card)}
+.nav-item.active{background:var(--card);color:var(--accent);font-weight:600;border-left-color:var(--accent)}
+.nav-item .stars{color:var(--accent);font-size:.78em;flex-shrink:0}
+.taglist span{display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1px 9px;margin:2px;font-size:.82em;cursor:pointer;user-select:none}
+.taglist span.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+main{flex:1;padding:20px 30px;min-width:0}
+.banner{background:var(--card);border:1px dashed var(--border);border-radius:8px;padding:10px 14px;font-size:.85em;color:var(--muted);margin-bottom:14px}
+h2.part{font-family:Georgia,serif;color:var(--accent);border-bottom:2px solid var(--accent);padding-bottom:4px;margin:30px 0 4px;font-size:1.2rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 20px;margin:14px 0;box-shadow:0 1px 3px rgba(0,0,0,.05);scroll-margin-top:55px}
 .card h3{margin:0 0 2px;color:var(--accent);font-family:Georgia,serif;font-size:1.05rem}
 .card .id{font-size:.78em;color:var(--muted);font-weight:normal}
 .meta{font-size:.82em;color:var(--muted);margin:3px 0 10px}
-.back{color:var(--accent);text-decoration:none;font-size:.82em;float:right;cursor:pointer}
+.xref{color:var(--accent);text-decoration:none;font-size:.82em;float:right;cursor:pointer}
+.xref:hover{text-decoration:underline}
 .toggle{background:var(--accent);color:#fff;border:none;padding:5px 13px;border-radius:5px;cursor:pointer;font-size:.85em;margin:5px 0}
 .toggle:hover{opacity:.9}
 .collapse{max-height:0;overflow:hidden;transition:max-height .4s ease}
@@ -46,34 +57,39 @@ h2.part{font-family:Georgia,serif;color:var(--accent);border-bottom:2px solid va
 .vs h4{margin:0 0 4px;font-size:.88em}
 .wrong{background:#fff5f5!important}.right{background:#f0f9f4!important}
 [data-theme="dark"] .wrong{background:#3a1f1f!important}[data-theme="dark"] .right{background:#1f3320!important}
-.nav-back{position:fixed;left:16px;bottom:16px;background:var(--accent);color:#fff;padding:8px 14px;border-radius:20px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2);font-size:.85em;display:none;z-index:20}
+.hidden{display:none!important}
 @media(max-width:760px){aside{display:none}.layout{display:block}main{padding:14px}.dual,.vs{grid-template-columns:1fr}}
-@media print{aside,.toggle,.theme-btn,.nav-back{display:none}.collapse{max-height:none}}
+@media print{aside,.toggle,.theme-btn,.icon-btn{display:none}.collapse{max-height:none}.layout{display:block}main{padding:10px}}
 </style>
 </head>
 <body>
-<header><div><h1>概率论与数理统计 · 期末复习笔记</h1><span class="sub">exam-review 产出示例 ①（复习笔记）</span></div><div style="display:flex;gap:8px"><button class="theme-btn" onclick="window.print()">🖨 导出 PDF</button><button class="theme-btn" onclick="toggleTheme()">🌙 暗色</button></div></header>
+<header>
+  <button class="icon-btn" onclick="toggleSidebar()" title="折叠侧边栏">☰</button>
+  <h1>概率论与数理统计 · 期末复习笔记<span class="sub">exam-review 产出示例 ①</span></h1>
+  <button class="theme-btn" onclick="window.print()" title="导出 PDF">🖨</button>
+  <button class="theme-btn" onclick="toggleTheme()" title="暗色">🌙</button>
+</header>
 <div class="layout">
-<aside>
-  <h4>复习笔记</h4>
-  <a onclick="jump('pa')">Part A 核心概念</a>
-  <a onclick="jump('pa1')">　A.1 贝叶斯公式</a>
-  <a onclick="jump('pa2')">　A.2 极大似然估计</a>
-  <a onclick="jump('pb')">Part B 题型归纳</a>
-  <a onclick="jump('pc')">Part C 易错点</a>
-  <a onclick="jump('pd')">Part D 真题详解</a>
-  <a onclick="jump('pe')">Part E 习题大全</a>
-  <h4>🏷️ 标签筛选（OR）</h4>
-  <div class="taglist" id="taglist"><span data-tag="概率">概率</span><span data-tag="估计">估计</span><span data-tag="分布">分布</span><span data-tag="独立性">独立性</span></div>
-  <h4>配套</h4>
-  <a href="example-exam.html">→ 模拟卷（另一份 HTML）</a>
+<aside id="sidebar">
+  <input class="search-box col-only" placeholder="🔍 搜索卡片内容..." oninput="applyFilter()">
+  <h4 class="col-only">目录 <span style="font-weight:normal;color:var(--muted)">（★ 考频）</span></h4>
+  <a class="nav-item col-only" data-target="pa1"><span>A.1 全概率/贝叶斯</span><span class="stars">★★★★</span></a>
+  <a class="nav-item col-only" data-target="pa2"><span>A.2 极大似然估计</span><span class="stars">★★★★</span></a>
+  <a class="nav-item col-only" data-target="pb"><span>B.1 求函数的分布</span><span class="stars">★★★</span></a>
+  <a class="nav-item col-only" data-target="pc"><span>C.1 不相关⇏独立</span><span class="stars">★★★</span></a>
+  <a class="nav-item col-only" data-target="pd"><span>D.1 联合分布综合</span><span class="stars">★★★★</span></a>
+  <a class="nav-item col-only" data-target="pe"><span>E.1 独立判定</span><span class="stars">★★</span></a>
+  <h4 class="col-only">🏷️ 标签 <button class="mode-btn" id="modeBtn" onclick="toggleTagMode()">OR</button></h4>
+  <div class="taglist col-only" id="taglist"><span data-tag="概率">概率</span><span data-tag="估计">估计</span><span data-tag="分布">分布</span><span data-tag="独立性">独立性</span></div>
+  <h4 class="col-only">配套</h4>
+  <a class="nav-item col-only" href="example-exam.html"><span>→ 模拟卷</span></a>
 </aside>
 <main>
-<div class="banner">这是 exam-review 生成的<strong>复习笔记 HTML</strong>（配套的<a href="example-exam.html">模拟卷</a>是另一份独立文件，对应 skill 的两份产出）。含 Part A–E，全部交互可操作：折叠、暗色、导航栈跳转、标签筛选。数学为真实知识点，题目自编，不涉及真实考题。</div>
+<div class="banner">这是 exam-review 生成的<strong>复习笔记 HTML</strong>（配套 <a href="example-exam.html">模拟卷</a> 是另一份独立文件）。全部交互可操作：🔍 搜索、📍 返回按钮（点目录或卡片内 § 链接跳转后，左下角浮动"← 返回 [来源]"，点击回跳转前位置）、🏷️ 标签 OR/AND、☰ 折叠侧边栏、滚动高亮、🌙 暗色、🖨 导出 PDF。</div>
 
 <h2 class="part" id="pa">Part A · 核心概念与定理</h2>
 <div class="card" id="pa1" data-tags="概率·分布">
-  <a class="back" onclick="goBack()">← 返回</a>
+  <span class="xref" onclick="back()">← 返回</span>
   <h3>A.1 全概率公式与贝叶斯公式 <span class="id">★ 高频</span></h3>
   <p class="meta">考频: ████ 极高 | 难度: 中等 | 来源: 课件3 · 课堂笔记3</p>
   <p><strong>全概率公式</strong>（划分完备事件组 $A_1,\dots,A_n$）：</p>
@@ -97,12 +113,12 @@ h2.part{font-family:Georgia,serif;color:var(--accent);border-bottom:2px solid va
         <div class="step">③ $P(A_1\mid B)=0.004/0.022\approx0.182$</div>
       </div>
     </div>
-    <p class="meta">⚠️ 易错：分母漏加某一项 → 见 <a class="back" onclick="jump('pc')" style="float:none">§C.1</a></p>
+    <p class="meta">⚠️ 易错：分母漏加某一项 → 见 <a class="xref" onclick="navigate('pc','§C.1 易错')" style="float:none">§C.1</a></p>
   </div>
 </div>
 
 <div class="card" id="pa2" data-tags="估计">
-  <a class="back" onclick="goBack()">← 返回</a>
+  <span class="xref" onclick="back()">← 返回</span>
   <h3>A.2 极大似然估计 <span class="id">★ 高频</span></h3>
   <p class="meta">考频: ████ 极高 | 难度: 综合 | 来源: 课件11 · 课堂笔记11</p>
   <p><strong>定义</strong>：设样本 $X_1,\dots,X_n$ 来自密度族 $f(x;\theta)$，似然函数 $L(\theta)=\prod_{i=1}^{n}f(x_i;\theta)$，MLE 为 $\hat\theta=\operatorname*{argmax}_{\theta} L(\theta)$。</p>
@@ -127,8 +143,8 @@ h2.part{font-family:Georgia,serif;color:var(--accent);border-bottom:2px solid va
 </div>
 
 <h2 class="part" id="pb">Part B · 题型与解题方法归纳</h2>
-<div class="card" data-tags="分布">
-  <a class="back" onclick="goBack()">← 返回</a>
+<div class="card" id="pb" data-tags="分布">
+  <span class="xref" onclick="back()">← 返回</span>
   <h3>B.1 求一维随机变量函数的分布 <span class="id">关联 §A</span></h3>
   <p class="meta">考频: ███ 高 | 出现: 几乎每年一道</p>
   <p><strong>识别</strong>：已知 $X$ 的密度，$Y=g(X)$，求 $Y$ 的密度。</p>
@@ -144,12 +160,12 @@ h2.part{font-family:Georgia,serif;color:var(--accent);border-bottom:2px solid va
       <div class="step">③ $f_Y(y)=\frac{1}{2\sqrt{y}}$，$0&lt;y&lt;1$</div>
     </div>
   </div>
-  <p class="meta">📝 变体：单调函数可用公式法 $f_Y(y)=f_X(h(y))|h'(y)|$　·　🧪 真题实战 → <a class="back" onclick="jump('pd')" style="float:none">§D</a></p>
+  <p class="meta">📝 变体：单调函数可用公式法 $f_Y(y)=f_X(h(y))|h'(y)|$　·　🧪 真题实战 → <a class="xref" onclick="navigate('pd','§D 真题')" style="float:none">§D</a></p>
 </div>
 
 <h2 class="part" id="pc">Part C · 高频考点 & 易错点</h2>
-<div class="card" data-tags="独立性">
-  <a class="back" onclick="goBack()">← 返回</a>
+<div class="card" id="pc" data-tags="独立性">
+  <span class="xref" onclick="back()">← 返回</span>
   <h3>C.1 不相关 ⇏ 独立 <span class="id">关联 §A</span></h3>
   <p class="meta">出现频率: 几乎每年选择/判断题</p>
   <p><strong>陷阱本质</strong>："不相关"只意味着协方差为 0（线性关系层面），不保证统计独立。独立 ⟹ 不相关（反之不成立）。</p>
@@ -158,12 +174,12 @@ h2.part{font-family:Georgia,serif;color:var(--accent);border-bottom:2px solid va
     <div class="right"><h4>✓ 正确理解</h4><p>独立 ⟹ 不相关；不相关仅无线性关系，可能有非线性依赖。</p></div>
   </div>
   <p><strong>反例</strong>：$X\sim N(0,1)$，$Y=X^2$。则 $\operatorname{Cov}(X,Y)=E[X^3]-E[X]E[X^2]=0$（不相关），但 $Y$ 完全由 $X$ 决定（不独立）。</p>
-  <p class="meta">🎯 考试怎么考：给一个联合分布，问"协方差为 0 是否意味独立"。<br>📝 配套练习 → <a class="back" onclick="jump('pe')" style="float:none">§E.1</a></p>
+  <p class="meta">🎯 考试怎么考：给一个联合分布，问"协方差为 0 是否意味独立"。<br>📝 配套练习 → <a class="xref" onclick="navigate('pe','§E.1')" style="float:none">§E.1</a></p>
 </div>
 
 <h2 class="part" id="pd">Part D · 真题/例题详解</h2>
-<div class="card" data-tags="分布·估计">
-  <a class="back" onclick="goBack()">← 返回</a>
+<div class="card" id="pd" data-tags="分布·估计">
+  <span class="xref" onclick="back()">← 返回</span>
   <h3>例题 D.1 · 联合分布与参数估计（自编，12 分） <span class="id">题型 → §B · 陷阱 → §C.1</span></h3>
   <p>设 $(X,Y)$ 的联合密度：</p>
   <div class="formula">$$f(x,y)=\begin{cases}cxy,&0&lt;x&lt;1,\ 0&lt;y&lt;1\\0,&\text{其他}\end{cases}$$</div>
@@ -177,32 +193,90 @@ h2.part{font-family:Georgia,serif;color:var(--accent);border-bottom:2px solid va
   </div>
   <p><strong>(3)</strong> <button class="toggle" data-on="▶ 展开答案" data-off="▶ 收起" onclick="tog(this)">▶ 展开答案</button></p>
   <div class="collapse"><div class="emph">$E[X]=\int_0^1 x\cdot 2x\,dx=2/3$。</div></div>
-  <p class="meta">📝 同类题 → <a class="back" onclick="jump('pe')" style="float:none">§E.1</a></p>
+  <p class="meta">📝 同类题 → <a class="xref" onclick="navigate('pe','§E.1')" style="float:none">§E.1</a></p>
 </div>
 
 <h2 class="part" id="pe">Part E · 习题大全</h2>
-<div class="card" data-tags="独立性">
-  <a class="back" onclick="goBack()">← 返回</a>
+<div class="card" id="pe" data-tags="独立性">
+  <span class="xref" onclick="back()">← 返回</span>
   <h3>E.1 不相关与独立判定 <span class="id">关联题型 → §C.1</span></h3>
   <p><strong>题</strong>：设 $X$ 在 $(-1,1)$ 均匀分布，$Y=|X|$。求 $\operatorname{Cov}(X,Y)$，并判断 $X,Y$ 是否独立。</p>
   <button class="toggle" data-on="▶ 展开解答" data-off="▶ 收起" onclick="tog(this)">▶ 展开解答</button>
   <div class="collapse">
     <p>$E[X]=0$，$E[Y]=E[|X|]=1/2$，$E[XY]=E[X|X|]=0$（奇函数）。故 $\operatorname{Cov}(X,Y)=0$（不相关）。但 $Y$ 由 $X$ 完全决定，<strong>不独立</strong>。</p>
-    <p class="meta">📂 出处：配套练习（自编）　📎 同类 → <a class="back" onclick="jump('pc')" style="float:none">§C.1</a></p>
+    <p class="meta">📂 出处：配套练习（自编）　📎 同类 → <a class="xref" onclick="navigate('pc','§C.1')" style="float:none">§C.1</a></p>
   </div>
 </div>
 </main>
 </div>
-<div class="nav-back" id="navback" onclick="goBack()">← 返回</div>
+<div class="nav-back" id="navback" onclick="back()"><span id="navback-label">← 返回</span></div>
 <script>
-function toggleTheme(){const h=document.documentElement,t=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',t);document.querySelector('.theme-btn').textContent=t==='dark'?'☀️ 亮色':'🌙 暗色';localStorage.setItem('er-theme',t)}
-(function(){const t=localStorage.getItem('er-theme');if(t){document.documentElement.setAttribute('data-theme',t);document.querySelector('.theme-btn').textContent=t==='dark'?'☀️ 亮色':'🌙 暗色'}})();
+// ===== 主题 =====
+function toggleTheme(){const h=document.documentElement,t=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',t);document.querySelectorAll('.theme-btn').forEach(b=>{if(b.title==='暗色')b.textContent=t==='dark'?'☀️':'🌙'});localStorage.setItem('er-theme',t)}
+(function(){const t=localStorage.getItem('er-theme');if(t){document.documentElement.setAttribute('data-theme',t);document.querySelectorAll('.theme-btn').forEach(b=>{if(b.title==='暗色')b.textContent=t==='dark'?'☀️':'🌙'})}})();
+
+// ===== 侧边栏折叠 =====
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('collapsed')}
+
+// ===== 折叠内容（兼容 button 在 p 内）=====
 function tog(btn){let b=btn.nextElementSibling;if(!b||!b.classList.contains('collapse')){b=btn.parentElement.nextElementSibling}if(!b)return;const open=b.classList.toggle('open');btn.textContent=open?btn.dataset.off:btn.dataset.on}
+
+// ===== 搜索 + 标签筛选（统一 applyFilter）=====
+let tagMode='OR';
+function toggleTagMode(){tagMode=tagMode==='OR'?'AND':'OR';document.getElementById('modeBtn').textContent=tagMode;applyFilter()}
+document.querySelectorAll('#taglist span').forEach(s=>s.onclick=()=>{s.classList.toggle('on');applyFilter()});
+function applyFilter(){
+  const q=(document.querySelector('.search-box').value||'').toLowerCase().trim();
+  const sel=[...document.querySelectorAll('#taglist span.on')].map(x=>x.dataset.tag);
+  document.querySelectorAll('.card').forEach(c=>{
+    const textOk=!q||c.textContent.toLowerCase().includes(q);
+    const tags=c.dataset.tags||'';
+    const tagOk=sel.length===0||(tagMode==='OR'?sel.some(t=>tags.includes(t)):sel.every(t=>tags.includes(t)));
+    c.classList.toggle('hidden',!(textOk&&tagOk));
+  });
+}
+
+// ===== 导航栈 + 左下角浮动返回按钮 =====
 const navStack=[];
-function jump(id){const cur=window.scrollY;if(navStack.length===0||navStack[navStack.length-1]!==cur)navStack.push(cur);document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});document.getElementById('navback').style.display='block'}
-function goBack(){if(navStack.length){window.scrollTo({top:navStack.pop(),behavior:'smooth'});if(navStack.length===0)document.getElementById('navback').style.display='none'}}
-document.querySelectorAll('#taglist span').forEach(s=>s.onclick=()=>{s.classList.toggle('on');const sel=[...document.querySelectorAll('#taglist span.on')].map(x=>x.dataset.tag);document.querySelectorAll('.card').forEach(c=>{if(sel.length===0){c.style.display='';return}const tags=c.dataset.tags||'';c.style.display=sel.some(t=>tags.includes(t))?'':'none'})});
-document.addEventListener('DOMContentLoaded',()=>{if(window.renderMathInElement)renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false})});
+function scrollToId(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}
+function navigate(id,label){
+  if(navStack.length===0||navStack[navStack.length-1].id!==id)navStack.push({id,label});
+  scrollToId(id);showNavBack();
+}
+function navToFresh(id,label){
+  navStack.length=0;navStack.push({id,label});scrollToId(id);showNavBack();
+}
+function backTo(index){if(index<-1)index=-1;navStack.splice(index+1);if(navStack.length>0)scrollToId(navStack[navStack.length-1].id);else window.scrollTo({top:0,behavior:'smooth'});showNavBack()}
+function back(){backTo(navStack.length-2)}
+function showNavBack(){
+  const nb=document.getElementById('navback');
+  if(navStack.length>1){document.getElementById('navback-label').textContent='← 返回 '+navStack[navStack.length-2].label;nb.style.display='block'}
+  else nb.style.display='none';
+}
+document.querySelectorAll('.nav-item[data-target]').forEach(n=>{
+  n.onclick=()=>navToFresh(n.dataset.target,n.querySelector('span').textContent.trim());
+});
+
+// ===== 滚动高亮（IntersectionObserver）=====
+const visibleIds=new Set();
+function refreshActive(){
+  let cur=null;
+  document.querySelectorAll('.card[id],h2.part[id]').forEach(el=>{
+    const rect=el.getBoundingClientRect();
+    if(rect.top<180&&rect.bottom>80)cur=el.id;
+  });
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active',n.dataset.target===cur));
+}
+window.addEventListener('scroll',refreshActive,{passive:true});
+refreshActive();
+
+// ===== KaTeX =====
+document.addEventListener('DOMContentLoaded',()=>{
+  function render(){if(window.renderMathInElement)renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false})}
+  render();
+  // KaTeX 还在 defer 加载时再试一次
+  setTimeout(render,300);
+});
 </script>
 </body>
 </html>
