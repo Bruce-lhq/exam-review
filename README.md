@@ -54,28 +54,28 @@
 真实案例：**《概率论与数理统计》**——85+ 份资料（14 份 PDF 课件 + 15 份课堂笔记 + 14 份小结 + 习题课 + 真题 + 作业）→ `概统期末复习.html`（5 个 Part、81 张卡片）+ `期末模拟真题.html`（3 卷、48 题）。
 
 - 完整使用流程：见 [`tests/example-usage.md`](tests/example-usage.md)
-- 复习笔记 demo（浏览器可直开，Part A–E + 全部交互）：见 [`resources/example-review.html`](resources/example-review.html)
-- 模拟卷 demo（浏览器可直开，三卷 Tab + 倒计时 + 自评计分）：见 [`resources/example-exam.html`](resources/example-exam.html)
+- 复习笔记 demo（浏览器可直开，Part A–E + 全部交互）：见 [`resources/example-math-review.html`](resources/example-math-review.html)
+- 模拟卷 demo（浏览器可直开，三卷 Tab + 倒计时 + 自评计分）：见 [`resources/example-math-exam.html`](resources/example-math-exam.html)
 
 ## 目录结构
 
 ```
 exam-review/
-├── SKILL.md                  # 主入口：YAML 元数据 + 执行指令
-├── README.md                 # 本文件
-├── requirements.txt          # markitdown[all]
+├── SKILL.md                         # 主入口：YAML 元数据 + 执行指令
+├── README.md                        # 本文件
+├── requirements.txt                 # markitdown[all]
 ├── scripts/
-│   └── extract.py            # markitdown 统一读取入口（文件/目录）
+│   └── extract.py                   # markitdown 统一读取入口（文件/目录）
 ├── templates/
-│   ├── math/                 # 数学型模板（特有规格见 templates/math/README.md）
-│   └── physics/              # 物理型模板（力学/热/电/光，见 templates/physics/README.md）
+│   ├── math/                        # 数学型模板（特有规格见 templates/math/README.md）
+│   └── physics/                     # 物理型模板（力学/热/电/光，见 templates/physics/README.md）
 ├── tests/
-│   └── example-usage.md      # 详细使用示例（概统真实案例）
+│   └── example-usage.md             # 详细使用示例（概统真实案例）
 └── resources/
-    ├── example-review.html           # 数学复习笔记 demo（Part A–E）
-    ├── example-exam.html             # 数学模拟卷 demo（三卷 + 计分）
-    ├── example-physics-review.html   # 物理复习笔记 demo（Part A–E，C 为模型图鉴 + SVG）
-    └── example-physics-exam.html     # 物理模拟卷 demo（完整三卷，120 分钟保真）
+    ├── example-math-review.html     # 数学复习笔记 demo（Part A–E）
+    ├── example-math-exam.html       # 数学模拟卷 demo（三卷 + 计分）
+    ├── example-physics-review.html  # 物理复习笔记 demo（Part A–E，C 为模型图鉴 + SVG）
+    └── example-physics-exam.html    # 物理模拟卷 demo（完整三卷，120 分钟保真）
 ```
 
 ## 设计亮点

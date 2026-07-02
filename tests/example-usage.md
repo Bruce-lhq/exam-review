@@ -150,8 +150,8 @@ skill 依次生成 Part A → B → C → D → E，再生成模拟卷，最后�
   暗色模式 / 倒计时器 / 自评系统 + 底部计分栏(localStorage 持久化) / 打印适配 / KaTeX 公式
 ```
 
-复习笔记产出 demo（浏览器可直开，Part A–E + 全部交互）：[`../resources/example-review.html`](../resources/example-review.html)
-模拟卷产出 demo（浏览器可直开，三卷 Tab + 倒计时 + 自评计分）：[`../resources/example-exam.html`](../resources/example-exam.html)
+复习笔记产出 demo（浏览器可直开，Part A–E + 全部交互）：[`../resources/example-math-review.html`](../resources/example-math-review.html)
+模拟卷产出 demo（浏览器可直开，三卷 Tab + 倒计时 + 自评计分）：[`../resources/example-math-exam.html`](../resources/example-math-exam.html)
 
 ## Step 7 · 增量更新（第二次使用）
 

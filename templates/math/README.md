@@ -4,7 +4,7 @@
 
 > 本文件是数学模板的**特有规格**：Part 集合、各 Part 字段、数学题型示例。
 > 通用件——页面结构、交互机制（双栏对齐、导航栈、课堂强调、折叠、搜索、标签、暗色、打印）、KaTeX、样式基调、模拟卷三卷——见 `SKILL.md` §Phase 2。
-> 完整范例见 `resources/example-review.html`、`resources/example-exam.html`。
+> 完整范例见 `resources/example-math-review.html`、`resources/example-math-exam.html`。
 
 ## Part 集合：A–E
 
