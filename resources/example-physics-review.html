@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大学物理B1 期末复习</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+:root {
+  --bg: #fefcf7;
+  --card-bg: #fff9f0;
+  --border: #e0d5c7;
+  --text: #2c1810;
+  --text-light: #6b5a4a;
+  --red: #c41e3a;
+  --red-bg: #fff5f5;
+  --red-border: #feb2b2;
+  --green-bg: #f0f9f4;
+  --green-border: #9ae6b4;
+  --sidebar-bg: #faf6ee;
+  --sidebar-width: 280px;
+  --topbar-height: 56px;
+  --shadow: 0 2px 8px rgba(44,24,16,0.08);
+  --radius: 8px;
+  --font-serif: Georgia, 'Times New Roman', serif;
+  --font-sans: system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 15px;
+}
+/* 暗色模式 */
+body.dark {
+  --bg: #1a1410;
+  --card-bg: #2c241e;
+  --border: #3d3228;
+  --text: #e8ddd0;
+  --text-light: #a89888;
+  --red-bg: #3d2020;
+  --red-border: #6b3030;
+  --green-bg: #1a3025;
+  --green-border: #2a5a3a;
+  --sidebar-bg: #221c16;
+  --shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+/* 顶栏 */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--topbar-height);
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px; z-index: 100;
+  backdrop-filter: blur(8px);
+}
+.topbar h1 { font-family: var(--font-serif); font-size: 18px; color: var(--red); }
+.theme-btn, .print-btn {
+  background: none; border: 1px solid var(--border); border-radius: 6px;
+  padding: 6px 14px; cursor: pointer; font-size: 14px; color: var(--text);
+  margin-left: 8px;
+}
+.theme-btn:hover, .print-btn:hover { background: var(--border); }
+@media print { .theme-btn, .print-btn { display: none !important; } }
+/* 侧边栏 */
+.sidebar {
+  position: fixed; top: var(--topbar-height); left: 0;
+  width: var(--sidebar-width); height: calc(100vh - var(--topbar-height));
+  background: var(--sidebar-bg); border-right: 1px solid var(--border);
+  overflow-y: auto; z-index: 50; transition: width 0.3s;
+  padding: 16px 0;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.sidebar.collapsed { width: 44px; }
+.sidebar.collapsed .sidebar-toggle { transform: rotate(180deg); }
+.sidebar.collapsed .sidebar-section { display: none; }
+.sidebar-toggle {
+  position: absolute; top: 8px; right: 8px;
+  background: none; border: none; font-size: 18px; cursor: pointer;
+  color: var(--text); z-index: 2;
+}
+.sidebar-search {
+  margin: 8px 12px; padding: 6px 10px;
+  border: 1px solid var(--border); border-radius: 6px;
+  background: var(--bg); color: var(--text); width: calc(100% - 24px);
+  font-size: 13px;
+}
+.sidebar-search:focus { outline: none; border-color: var(--red); }
+.sidebar-section { margin: 4px 0; }
+.sidebar-part {
+  font-weight: 600; font-size: 13px; color: var(--red);
+  padding: 6px 16px; cursor: pointer; display: block;
+  text-decoration: none;
+}
+.sidebar-topic {
+  font-size: 12px; color: var(--text-light); padding: 3px 16px 3px 28px;
+  cursor: pointer; display: block; text-decoration: none;
+  transition: color 0.2s;
+}
+.sidebar-topic:hover { color: var(--red); }
+.star { color: #d4a017; font-size: 11px; margin-left: 2px; }
+/* 标签筛选 */
+.tag-filter {
+  margin: 12px; padding: 8px; background: var(--bg); border-radius: 6px;
+  border: 1px solid var(--border);
+}
+.tag-filter-label { font-size: 11px; font-weight: 600; color: var(--text-light); margin-bottom: 6px; }
+.tag-logic-toggle {
+  font-size: 11px; background: none; border: 1px solid var(--border);
+  border-radius: 4px; padding: 2px 8px; cursor: pointer; color: var(--text);
+  margin-bottom: 6px;
+}
+.tag-option {
+  display: inline-block; font-size: 11px; padding: 2px 8px; margin: 2px;
+  border: 1px solid var(--border); border-radius: 12px; cursor: pointer;
+  color: var(--text); background: var(--card-bg); transition: all 0.2s;
+}
+.tag-option.active { background: var(--red); color: white; border-color: var(--red); }
+/* 主内容 */
+.main {
+  margin-left: var(--sidebar-width); margin-top: var(--topbar-height);
+  padding: 32px 48px; max-width: 960px;
+}
+@media (max-width: 768px) {
+  .sidebar { width: 44px; }
+  .sidebar .sidebar-section { display: none; }
+  .main { margin-left: 44px; padding: 24px 16px; }
+}
+/* 卡片 */
+.card {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px; margin-bottom: 24px;
+  box-shadow: var(--shadow); transition: box-shadow 0.3s;
+  scroll-margin-top: calc(var(--topbar-height) + 16px);
+}
+.card:hover { box-shadow: 0 4px 16px rgba(44,24,16,0.12); }
+.card-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 12px; flex-wrap: wrap; gap: 8px;
+}
+.card-title { font-family: var(--font-serif); font-size: 18px; color: var(--red); }
+.card-meta { font-size: 12px; color: var(--text-light); display: flex; gap: 12px; align-items: center; }
+.card-tags { margin: 8px 0; }
+.card-tag {
+  display: inline-block; font-size: 11px; padding: 1px 8px;
+  background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
+  color: var(--text-light); margin-right: 4px;
+}
+/* 折叠 */
+.collapse-content {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+.collapse-content.open { max-height: 4000px; }
+.collapse-btn {
+  background: none; border: 1px solid var(--border);
+  border-radius: 6px; padding: 4px 12px; cursor: pointer;
+  font-size: 13px; color: var(--red); margin: 8px 0;
+  transition: background 0.2s;
+}
+.collapse-btn:hover { background: var(--border); }
+/* 双栏对齐表 */
+.two-col {
+  display: grid; grid-template-columns: 45% 55%; gap: 16px;
+  margin: 12px 0;
+}
+.two-col .left { border-right: 1px solid var(--border); padding-right: 16px; }
+.two-col .right { padding-left: 0; }
+.two-col .row { display: flex; margin: 4px 0; align-items: flex-start; }
+.two-col .step { font-weight: 600; min-width: 24px; color: var(--text-light); }
+@media (max-width: 600px) {
+  .two-col { grid-template-columns: 1fr; }
+  .two-col .left { border-right: none; padding-right: 0; }
+}
+/* 正误对比 */
+.compare-block { margin: 12px 0; border-radius: 6px; overflow: hidden; }
+.compare-wrong { background: var(--red-bg); border-left: 4px solid var(--red-border); padding: 12px 16px; margin-bottom: 8px; }
+.compare-right { background: var(--green-bg); border-left: 4px solid var(--green-border); padding: 12px 16px; }
+.compare-label { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+/* 来源 */
+.source-list { font-size: 12px; color: var(--text-light); margin: 8px 0; }
+.source-list details { margin: 2px 0; }
+.source-list summary { cursor: pointer; color: var(--text-light); }
+/* Part 标题 */
+.part-title {
+  font-family: var(--font-serif); font-size: 26px; color: var(--red);
+  margin: 48px 0 24px; padding-bottom: 8px;
+  border-bottom: 2px solid var(--border);
+}
+.part-desc { font-size: 14px; color: var(--text-light); margin-bottom: 24px; }
+/* KaTeX fallback */
+.katex-error { color: var(--red); font-size: 13px; padding: 8px; background: var(--red-bg); border-radius: 4px; }
+/* 返回按钮 */
+.back-btn {
+  display: none; position: fixed; left: 16px; bottom: 16px;
+  background: var(--red); color: white; border: none; border-radius: 6px;
+  padding: 8px 16px; cursor: pointer; font-size: 14px; z-index: 200;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+/* 搜索高亮 */
+mark { background: #fef08a; color: #2c1810; padding: 0 2px; border-radius: 2px; }
+.highlight { scroll-margin-top: calc(var(--topbar-height) + 16px); }
+/* 课堂强调 */
+.class-note {
+  font-size: 13px; padding: 12px 16px; background: var(--bg);
+  border-left: 3px solid var(--red); border-radius: 4px; margin: 8px 0;
+}
+.class-note .source { font-size: 11px; color: var(--text-light); margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<!-- 返回按钮 -->
+<button class="back-btn" id="backBtn" onclick="goBack()">← 返回</button>
+
+<!-- 顶栏 -->
+<header class="topbar">
+  <h1>📘 大学物理 B1 · 期末复习</h1>
+  <div>
+    <button class="theme-btn" onclick="toggleDark()">🌙 暗色</button>
+    <button class="print-btn" onclick="window.print()">🖨 导出 PDF</button>
+  </div>
+</header>
+
+<!-- 侧边栏 -->
+<nav class="sidebar" id="sidebar">
+  <button class="sidebar-toggle" onclick="toggleSidebar()">◀</button>
+  <input class="sidebar-search" id="sidebarSearch" placeholder="🔍 搜索..." oninput="searchContent(this.value)">
+
+  <!-- 标签筛选 -->
+  <div class="tag-filter">
+    <div class="tag-filter-label">🏷️ 标签筛选</div>
+    <div style="display:flex;gap:4px;margin-bottom:6px;">
+      <button class="tag-logic-toggle" id="tagLogic" onclick="toggleTagLogic()">逻辑: OR</button>
+      <button class="tag-logic-toggle" onclick="clearTags()">清除</button>
+    </div>
+    <div id="tagList"></div>
+  </div>
+
+  <div class="sidebar-section" id="sidebarToc"></div>
+</nav>
+
+<!-- 主内容区 -->
+<main class="main" id="mainContent">
+
+<!-- ===================== Part A ===================== -->
+<h2 class="part-title" id="partA">Part A · 核心概念与定律</h2>
+<p class="part-desc">大学物理力学部分的核心定律、公式、适用条件与量纲。</p>
+
+<!-- A1: 质点运动学 -->
+<div class="card" id="a1" data-tags="质点运动学·参考系·位矢位移速度加速度">
+  <div class="card-header">
+    <div class="card-title">§A.1 质点运动学基础</div>
+    <div class="card-meta">考频 ★★★★☆ <span style="margin:0 8px;">|</span> 难度 ★★☆☆☆</div>
+  </div>
+  <div class="card-tags">
+    <span class="card-tag">质点运动学</span>
+    <span class="card-tag">参考系</span>
+    <span class="card-tag">位矢位移速度加速度</span>
+  </div>
+  <div class="source-list"><details><summary>📂 来源</summary>课件第1章</details></div>
+
+  <p><strong>定律/公式：</strong></p>
+  <p>速度：$\boldsymbol{v} = \dfrac{d\boldsymbol{r}}{dt}$，加速度：$\boldsymbol{a} = \dfrac{d\boldsymbol{v}}{dt} = \dfrac{d^2\boldsymbol{r}}{dt^2}$</p>
+  <p>自然坐标系中：$\boldsymbol{a} = \dfrac{dv}{dt}\boldsymbol{e}_t + \dfrac{v^2}{\rho}\boldsymbol{e}_n$（切向+法向）</p>
+  <p>圆周运动：$v = R\omega$，$a_t = R\alpha$，$a_n = R\omega^2$</p>
+
+  <p><strong>适用条件：</strong>经典力学低速运动 ($v \ll c$)，惯性参考系</p>
+  <p><strong>量纲：</strong>$[v] = LT^{-1}$，$[a] = LT^{-2}$</p>
+
+  <div class="class-note">
+    📌 <strong>课堂强调：</strong>分清 $\Delta\boldsymbol{r}$（位移）、$\Delta r$（位矢大小的增量）、$|\Delta\boldsymbol{r}|$（位移大小）三者的区别。
+    <div class="source">来源：课件第1章</div>
+  </div>
+
+  <div class="collapse-btn" onclick="toggleCollapse(this)">▶【速例】一步验证</div>
+  <div class="collapse-content">
+    <p>质点沿 $x$ 轴运动，$a = 4t$，$t=0$ 时 $v_0 = 2$ m/s，则 $t=3$ s 时：</p>
+    <p>$v = v_0 + \int_0^3 4t\,dt = 2 + 2t^2\big|_0^3 = 2 + 18 = 20$ m/s</p>
+  </div>
+
+  <div class="collapse-btn" onclick="toggleCollapse(this)">▶【实例解析】抛体运动</div>
+  <div class="collapse-content">
+    <div class="two-col">
+      <div class="left">
+        <div class="row"><span class="step">①</span> 分解为 $x$、$y$ 方向独立运动</div>
+        <div class="row"><span class="step">②</span> $x$ 方向匀速：$x = v_0\cos\theta\cdot t$</div>
+        <div class="row"><span class="step">③</span> $y$ 方向匀加速：$y = v_0\sin\theta\cdot t - \frac12 gt^2$</div>
+        <div class="row"><span class="step">④</span> 最高点：$v_y = 0$</div>
+      </div>
+      <div class="right">
+        <div class="row"><span class="step">①</span> 令 $v_0 = 20$ m/s，$\theta = 30^\circ$</div>
+        <div class="row"><span class="step">②</span> $x(t) = 20\cos30^\circ \cdot t = 17.32t$</div>
+        <div class="row"><span class="step">③</span> $y(t) = 10t - 4.9t^2$</div>
+        <div class="row"><span class="step">④</span> $t_{\text{上}} = \frac{10}{9.8} \approx 1.02$ s</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- A2: 牛顿定律 -->
+<div class="card" id="a2" data-tags="牛顿动力学·牛顿三定律·惯性力">
+  <div class="card-header">
+    <div class="card-title">§A.2 牛顿运动定律与非惯性系</div>
+    <div class="card-meta">考频 ★★★★★ <span style="margin:0 8px;">|</span> 难度 ★★★☆☆</div>
+  </div>
+  <div class="card-tags">
+    <span class="card-tag">牛顿动力学</span>
+    <span class="card-tag">牛顿三定律</span>
+    <span class="card-tag">惯性力</span>
+  </div>
+  <div class="source-list"><details><summary>📂 来源</summary>课件第2章</details></div>
+
+  <p><strong>定律/公式：</strong></p>
+  <p>牛顿第二定律：$\boldsymbol{F} = m\boldsymbol{a} = \dfrac{d\boldsymbol{p}}{dt}$</p>
+  <p>平移惯性力：$\boldsymbol{F}_0 = -m\boldsymbol{a}_0$（在平动非惯性系中）</p>
+  <p>惯性离心力：$\boldsymbol{F}_c = m\omega^2\boldsymbol{r}_\perp'$（在转动参考系中）</p>
+  <p>科里奥利力：$\boldsymbol{F}_{\text{cor}} = 2m\boldsymbol{v}'\times\boldsymbol{\omega}$</p>
+
+  <p><strong>适用条件：</strong>牛顿定律只在惯性系中成立；惯性力适用于非惯性系中的动力学问题</p>
+  <p><strong>量纲：</strong>$[F] = MLT^{-2}$（牛顿，N）</p>
+
+  <div class="class-note">
+    📌 <strong>课堂强调：</strong>惯性力是虚拟力，无反作用力，但有真实效果（如潮汐、傅科摆、落体偏东）。
+    <div class="source">来源：课件第2章</div>
+  </div>
+
+  <div class="collapse-btn" onclick="toggleCollapse(this)">▶【实例解析】旋转水面形状</div>
+  <div class="collapse-content">
+    <p>水桶绕 $z$ 轴以 $\omega$ 匀速转动，水面形状：$z = \dfrac{\omega^2}{2g}r^2 + z_0$（旋转抛物面）</p>
+    <p>推导：在转动系中，表面水受力平衡，$\tan\theta = \frac{dz}{dr} = \frac{m\omega^2 r}{mg} \Rightarrow z = \frac{\omega^2}{2g}r^2$</p>
+  </div>
+</div>
+
+<!-- ===================== Part B ===================== -->
+<h2 class="part-title" id="partB">Part B · 题型归纳</h2>
+<p class="part-desc">跨章节题型整理，包含通用解题策略与具体例题。</p>
+
+<!-- B1: 受力分析与动力学 -->
+<div class="card" id="b1" data-tags="牛顿动力学·受力分析">
+  <div class="card-header">
+    <div class="card-title">§B.1 受力分析与动力学综合题</div>
+    <div class="card-meta">考频 ★★★★★ <span style="margin:0 8px;">|</span> 难度 ★★★☆☆ <span style="margin:0 8px;">|</span> 年份: 历年</div>
+  </div>
+  <div class="card-tags">
+    <span class="card-tag">牛顿动力学</span>
+    <span class="card-tag">受力分析</span>
+  </div>
+  <p><strong>题型描述：</strong>对物体进行隔离体受力分析，列牛顿方程求解运动</p>
+  <p><strong>识别标志：</strong>涉及加速度、力、绳/杆连接体、斜面、滑轮等</p>
+
+  <div class="collapse-btn" onclick="toggleCollapse(this)">▶【双栏对齐】解题流程</div>
+  <div class="collapse-content">
+    <div class="two-col">
+      <div class="left">
+        <div class="row"><span class="step">①</span> 选对象（隔离体）</div>
+        <div class="row"><span class="step">②</span> 看运动（分析加速度）</div>
+        <div class="row"><span class="step">③</span> 查受力（重力、支持力、摩擦力、张力）</div>
+        <div class="row"><span class="step">④</span> 列方程（$\sum F = ma$）</div>
+        <div class="row"><span class="step">⑤</span> 约束方程（几何关系）</div>
+        <div class="row"><span class="step">⑥</span> 验结果（量纲、特例）</div>
+      </div>
+      <div class="right">
+        <div class="row"><span class="step">①</span> 选滑块 $m$ 和斜面 $M$</div>
+        <div class="row"><span class="step">②</span> $m$ 沿斜面加速，$M$ 水平加速</div>
+        <div class="row"><span class="step">③</span> $mg$、$N$、$N'$</div>
+        <div class="row"><span class="step">④</span> $Ma_M = N\sin\theta$，$ma' = mg\sin\theta + F_{\text{惯}}$</div>
+        <div class="row"><span class="step">⑤</span> $a_{Mx} = a_{mx}'$ 关系</div>
+        <div class="row"><span class="step">⑥</span> $a_M = \frac{mg\cos\theta\sin\theta}{M + m\sin^2\theta}$</div>
+      </div>
+    </div>
+  </div>
+
+  <p>📝 <strong>变体训练：</strong>含摩擦的斜面问题、多体连接体问题、含弹簧的动力学问题</p>
+  <p>关联模型 → <a href="#c1" onclick="saveAndJump(event, '#c1')">[§C.1 斜面模型]</a></p>
+</div>
+
+<!-- ===================== Part C ===================== -->
+<h2 class="part-title" id="partC">Part C · 经典模型图鉴</h2>
+<p class="part-desc">物理模型库：每模型包含物理图像、核心方程、通解流程与易混对比。</p>
+
+<!-- C1: 斜面模型 -->
+<div class="card" id="c1" data-tags="牛顿动力学·受力分析">
+  <div class="card-header">
+    <div class="card-title">§C.1 斜面模型</div>
+    <div class="card-meta">分类: <span style="color:var(--red)">[动力学模型]</span></div>
+  </div>
+  <div class="card-tags">
+    <span class="card-tag">牛顿动力学</span>
+    <span class="card-tag">受力分析</span>
+  </div>
+
+  <p><strong>物理图像：</strong></p>
+  <svg viewBox="0 0 360 300" style="width:100%;max-width:340px;display:block;margin:8px auto;" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c41e3a"/></marker>
+      <marker id="ar2m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b5a48f"/></marker>
+    </defs>
+    <g stroke="#2c1810" stroke-width="1">
+      <line x1="60" y1="252" x2="52" y2="262"/><line x1="80" y1="252" x2="72" y2="262"/><line x1="100" y1="252" x2="92" y2="262"/><line x1="120" y1="252" x2="112" y2="262"/><line x1="140" y1="252" x2="132" y2="262"/><line x1="160" y1="252" x2="152" y2="262"/><line x1="180" y1="252" x2="172" y2="262"/><line x1="200" y1="252" x2="192" y2="262"/><line x1="220" y1="252" x2="212" y2="262"/><line x1="240" y1="252" x2="232" y2="262"/><line x1="260" y1="252" x2="252" y2="262"/><line x1="280" y1="252" x2="272" y2="262"/>
+    </g>
+    <polygon points="60,252 60,105 290,252" fill="#f3ede3" stroke="#2c1810" stroke-width="2.2"/>
+    <rect x="149" y="148" width="58" height="30" rx="3" fill="#fffdf8" stroke="#2c1810" stroke-width="2" transform="rotate(32.6 178 163)"/>
+    <line x1="178" y1="163" x2="225.2" y2="193.1" stroke="#b5a48f" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#ar2m)"/>
+    <line x1="178" y1="163" x2="147.9" y2="210.2" stroke="#b5a48f" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#ar2m)"/>
+    <line x1="178" y1="163" x2="216.7" y2="102.4" stroke="#c41e3a" stroke-width="2.2" marker-end="url(#ar2)"/>
+    <line x1="178" y1="163" x2="178" y2="243" stroke="#c41e3a" stroke-width="2.2" marker-end="url(#ar2)"/>
+    <line x1="178" y1="163" x2="135.9" y2="136.1" stroke="#c41e3a" stroke-width="2.2" marker-end="url(#ar2)"/>
+    <path d="M 248 252 A 42 42 0 0 0 254.6 229.4" fill="none" stroke="#2c1810" stroke-width="1.3"/>
+    <text x="238" y="244" font-size="15" fill="#2c1810">θ</text>
+    <text x="208" y="98" font-size="14" font-style="italic" fill="#c41e3a">N</text>
+    <text x="186" y="212" font-size="14" font-style="italic" fill="#c41e3a">mg</text>
+    <text x="108" y="133" font-size="14" font-style="italic" fill="#c41e3a">f</text>
+  </svg>
+
+  <p><strong>核心方程：</strong>$mg\sin\theta = ma$（无摩擦）；$N = mg\cos\theta$</p>
+
+  <p><strong>模型假设：</strong>质点 · 斜面固定 · 光滑或给定摩擦系数</p>
+
+  <p><strong>通解流程：</strong></p>
+  <p>① 沿斜面方向建坐标 ② 分解重力为 $mg\sin\theta$（下滑）和 $mg\cos\theta$（法向）③ 列牛顿方程</p>
+
+  <p><strong>易混模型对比：</strong>固定斜面 vs 可动斜面（需加平移惯性力）</p>
+  <p><strong>变体：</strong>→ 可动斜面（$m$-$M$ 系统动量守恒）</p>
+  <p>关联：→ <a href="#b1" onclick="saveAndJump(event, '#b1')">[§B.1]</a> → <a href="#d1" onclick="saveAndJump(event, '#d1')">[§D.1]</a></p>
+</div>
+
+<!-- C2: 单摆/圆锥摆 -->
+<div class="card" id="c2" data-tags="振动·牛顿动力学">
+  <div class="card-header">
+    <div class="card-title">§C.2 单摆与圆锥摆</div>
+    <div class="card-meta">分类: <span style="color:var(--red)">[动力学模型 · 圆周运动]</span></div>
+  </div>
+  <div class="card-tags">
+    <span class="card-tag">振动</span>
+    <span class="card-tag">牛顿动力学</span>
+  </div>
+
+  <p><strong>物理图像：</strong></p>
+  <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin:8px 0;">
+    <div style="flex:1;min-width:200px;max-width:300px;">
+<svg viewBox="0 0 360 300" style="width:100%;display:block;" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c41e3a"/></marker>
+          <marker id="ar3b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c41e3a"/></marker>
+        </defs>
+        <line x1="140" y1="45" x2="220" y2="45" stroke="#2c1810" stroke-width="2"/>
+        <g stroke="#2c1810" stroke-width="1">
+          <line x1="150" y1="45" x2="144" y2="37"/><line x1="164" y1="45" x2="158" y2="37"/><line x1="178" y1="45" x2="172" y2="37"/><line x1="192" y1="45" x2="186" y2="37"/><line x1="206" y1="45" x2="200" y2="37"/>
+        </g>
+        <line x1="180" y1="45" x2="180" y2="248" stroke="#b5a48f" stroke-width="1" stroke-dasharray="4 4"/>
+        <path d="M 103 202 A 175 175 0 0 1 257 202" fill="none" stroke="#b5a48f" stroke-width="1" stroke-dasharray="4 4"/>
+        <line x1="180" y1="45" x2="257" y2="202" stroke="#2c1810" stroke-width="2"/>
+        <circle cx="257" cy="202" r="11" fill="#2c1810"/>
+        <line x1="257" y1="202" x2="210.4" y2="224.9" stroke="#c41e3a" stroke-width="2.8" marker-end="url(#ar3b)"/>
+        <line x1="257" y1="202" x2="228" y2="142.8" stroke="#c41e3a" stroke-width="2.2" marker-end="url(#ar3)"/>
+        <line x1="257" y1="202" x2="257" y2="268" stroke="#c41e3a" stroke-width="2.2" marker-end="url(#ar3)"/>
+        <path d="M 180 79 A 34 34 0 0 1 194.96 75.5" fill="none" stroke="#2c1810" stroke-width="1.3"/>
+        <text x="200" y="76" font-size="15" fill="#2c1810">θ</text>
+        <text x="218" y="124" font-size="14" font-style="italic" fill="#2c1810">L</text>
+        <text x="236" y="152" font-size="14" font-style="italic" fill="#c41e3a">T</text>
+        <text x="264" y="240" font-size="14" font-style="italic" fill="#c41e3a">mg</text>
+      </svg>
+      <p style="text-align:center;font-size:13px;color:var(--text-light);margin:4px 0 0;">单摆 · 回复力 $F=-mg\sin\theta$</p>
+    </div>
+    <div style="flex:1;min-width:200px;max-width:300px;">
+<svg viewBox="0 0 360 300" style="width:100%;display:block;" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c41e3a"/></marker>
+        </defs>
+        <line x1="138" y1="42" x2="222" y2="42" stroke="#2c1810" stroke-width="2"/>
+        <g stroke="#2c1810" stroke-width="1">
+          <line x1="148" y1="42" x2="142" y2="34"/><line x1="162" y1="42" x2="156" y2="34"/><line x1="176" y1="42" x2="170" y2="34"/><line x1="190" y1="42" x2="184" y2="34"/><line x1="204" y1="42" x2="198" y2="34"/><line x1="218" y1="42" x2="212" y2="34"/>
+        </g>
+        <line x1="180" y1="42" x2="180" y2="240" stroke="#b5a48f" stroke-width="1" stroke-dasharray="4 4"/>
+        <ellipse cx="180" cy="188" rx="75" ry="16" fill="none" stroke="#b5a48f" stroke-width="1" stroke-dasharray="4 4"/>
+        <line x1="180" y1="42" x2="105" y2="188" stroke="#b5a48f" stroke-width="1" stroke-dasharray="4 4"/>
+        <line x1="180" y1="188" x2="255" y2="188" stroke="#b5a48f" stroke-width="1" stroke-dasharray="3 3"/>
+        <line x1="180" y1="42" x2="255" y2="188" stroke="#2c1810" stroke-width="2"/>
+        <circle cx="255" cy="188" r="10" fill="#2c1810"/>
+        <line x1="255" y1="188" x2="223.4" y2="126.5" stroke="#c41e3a" stroke-width="2.2" marker-end="url(#ar)"/>
+        <line x1="255" y1="188" x2="255" y2="242" stroke="#c41e3a" stroke-width="2.2" marker-end="url(#ar)"/>
+        <path d="M 180 74 A 32 32 0 0 1 194.8 70.9" fill="none" stroke="#2c1810" stroke-width="1.3"/>
+        <text x="200" y="71" font-size="15" fill="#2c1810">θ</text>
+        <text x="206" y="118" font-size="14" font-style="italic" fill="#2c1810">L</text>
+        <text x="210" y="201" font-size="12" font-style="italic" fill="#6b5b4a">r</text>
+        <text x="232" y="152" font-size="14" font-style="italic" fill="#c41e3a">T</text>
+        <text x="263" y="225" font-size="14" font-style="italic" fill="#c41e3a">mg</text>
+      </svg>
+      <p style="text-align:center;font-size:13px;color:var(--text-light);margin:4px 0 0;">圆锥摆 · $T\cos\theta=mg$</p>
+    </div>
+  </div>
+
+  <p><strong>核心方程：</strong>单摆：$T = 2\pi\sqrt{L/g}$；圆锥摆：$T\cos\theta = mg$，$T\sin\theta = m\omega^2 L\sin\theta$</p>
+  <p><strong>模型假设：</strong>不可伸长轻绳 · 质点 · 小幅振动（单摆）</p>
+  <p><strong>通解流程：</strong>① 受力分解 ② 竖直方向平衡 ③ 水平方向向心力方程 ④ 几何关系</p>
+  <p><strong>易混对比：</strong>单摆（重力恢复力）vs 圆锥摆（向心力维持圆周）vs 傅科摆（科氏力引起进动）</p>
+  <p><strong>变体：</strong>→ 傅科摆（证明地球自转）→ 锥体上滚</p>
+  <p>关联：→ <a href="#a6" onclick="saveAndJump(event, '#a6')">[§A.6]</a></p>
+</div>
+
+<!-- ===================== Part D ===================== -->
+<h2 class="part-title" id="partD">Part D · 易错点</h2>
+<p class="part-desc">概念与方法常见陷阱，附错误与正确做法对比。</p>
+
+<!-- D1 -->
+<div class="card" id="d1" data-tags="质点运动学">
+  <div class="card-header">
+    <div class="card-title">§D.1 位移与路程的混淆</div>
+    <div class="card-meta">频率 ★★★★☆ <span style="margin:0 8px;">|</span> 类型: 概念类</div>
+  </div>
+  <div class="card-tags">
+    <span class="card-tag">质点运动学</span>
+  </div>
+  <p><strong>陷阱本质：</strong>错误地将位移大小当作路程，或混淆 $|\Delta\boldsymbol{r}|$ 与 $\Delta r$</p>
+  <div class="compare-block">
+    <div class="compare-wrong">
+      <div class="compare-label">❌ 错误做法</div>
+      <p>认为 $\Delta s = |\Delta\boldsymbol{r}|$，即路程等于位移大小</p>
+    </div>
+    <div class="compare-right">
+      <div class="compare-label">✓ 正确做法</div>
+      <p>$\Delta s \ge |\Delta\boldsymbol{r}|$，仅当直线运动且方向不变时等号成立。</p>
+      <p>分清 $|\Delta\boldsymbol{r}|$（位移大小）、$\Delta r$（位矢大小增量）、$\Delta\boldsymbol{r}$（位移矢量）</p>
+    </div>
+  </div>
+  <p>🎯 <strong>考试套路：</strong>曲线运动中求路程 vs 位移时，务必先分辨题目问的是什么。</p>
+  <p>🔗 关联：→ <a href="#a1" onclick="saveAndJump(event, '#a1')">[§A.1]</a></p>
+</div>
+
+<!-- ===================== Part E ===================== -->
+<h2 class="part-title" id="partE">Part E · 真题详解</h2>
+<p class="part-desc">历年期中期末真题，含完整解析与评分要点。</p>
+
+<!-- E1 -->
+<div class="card" id="e1" data-tags="牛顿动力学·动量与角动量">
+  <div class="card-header">
+    <div class="card-title">§E.1 2009年期中 · 带阻力斜抛</div>
+    <div class="card-meta">题型: 计算题 <span style="margin:0 8px;">|</span> 分值: 10分</div>
+  </div>
+  <div class="card-tags">
+    <span class="card-tag">牛顿动力学</span>
+    <span class="card-tag">动量与角动量</span>
+  </div>
+  <p>📂 来源：2009年期中试题 第1题</p>
+
+  <p><strong>【题目】</strong></p>
+  <p>以初速 $v_0$、仰角 $\theta$ 斜抛一质量为 $m$ 的小球，设空气阻力 $\boldsymbol{f} = -k\boldsymbol{v}$，求：(1) 在上升的 $t$ 时刻小球的速度；(2) $k$ 很小时的速度近似表达式。</p>
+
+  <div class="collapse-btn" onclick="toggleCollapse(this)">▶【展开答案】</div>
+  <div class="collapse-content">
+    <p>$v_x = v_0\cos\theta \cdot e^{-kt/m}$</p>
+    <p>$v_y = (\frac{mg}{k} + v_0\sin\theta)e^{-kt/m} - \frac{mg}{k}$</p>
+  </div>
+
+  <div class="collapse-btn" onclick="toggleCollapse(this)">▶【展开解析】</div>
+  <div class="collapse-content">
+    <div class="two-col">
+      <div class="left">
+        <div class="row"><span class="step">①</span> 分离变量：$m\frac{dv_x}{dt} = -kv_x$</div>
+        <div class="row"><span class="step">②</span> 积分得 $v_x$</div>
+        <div class="row"><span class="step">③</span> $y$ 方向：$m\frac{dv_y}{dt} = -mg - kv_y$</div>
+        <div class="row"><span class="step">④</span> 分离变量积分</div>
+        <div class="row"><span class="step">⑤</span> $k$ 小时 Taylor 展开</div>
+      </div>
+      <div class="right">
+        <div class="row"><span class="step">①</span> $\frac{dv_x}{v_x} = -\frac{k}{m}dt$</div>
+        <div class="row"><span class="step">②</span> $v_x = v_{0x}e^{-kt/m}$</div>
+        <div class="row"><span class="step">③</span> $\frac{dv_y}{mg+kv_y} = -\frac{dt}{m}$</div>
+        <div class="row"><span class="step">④</span> $v_y = (v_{0y} + \frac{mg}{k})e^{-kt/m} - \frac{mg}{k}$</div>
+        <div class="row"><span class="step">⑤</span> $v_y \approx v_0\sin\theta - gt - \frac{k}{m}v_0\sin\theta\cdot t$</div>
+      </div>
+    </div>
+    <p>⚠️ <strong>陷阱：</strong> 注意 $y$ 方向的积分中 $mg$ 是常数项，不要遗漏。</p>
+  </div>
+</div>
+
+</main>
+
+<script>
+// ===== KaTeX render =====
+function renderMath() {
+  if (typeof katex !== 'undefined') {
+    document.querySelectorAll('.card p, .card .row').forEach(el => {
+      try {
+        renderMathInElement(el, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ],
+          strict: false
+        });
+      } catch(e) {
+        const m = el.innerHTML.match(/\$[^\$]+\$/g);
+        if (m) m.forEach(match => {
+          el.innerHTML = el.innerHTML.replace(match, `<span class="katex-error">${match}</span>`);
+        });
+      }
+    });
+  }
+}
+
+// ===== 折叠 =====
+function toggleCollapse(btn) {
+  const content = btn.nextElementSibling;
+  const isOpen = content.classList.contains('open');
+  content.classList.toggle('open');
+  btn.textContent = (isOpen ? '▶' : '▼') + btn.textContent.slice(1);
+}
+
+// ===== 暗色模式 =====
+function toggleDark() {
+  document.body.classList.toggle('dark');
+  const btn = document.querySelector('.theme-btn');
+  btn.textContent = document.body.classList.contains('dark') ? '☀️ 亮色' : '🌙 暗色';
+}
+
+// ===== 侧边栏折叠 =====
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('collapsed');
+}
+
+// ===== 导航栈 =====
+let navStack = [];
+function saveAndJump(e, target) {
+  e.preventDefault();
+  navStack.push(window.scrollY);
+  document.getElementById('backBtn').style.display = 'block';
+  document.querySelector(target).scrollIntoView({behavior: 'smooth'});
+}
+function goBack() {
+  if (navStack.length > 0) {
+    window.scrollTo({top: navStack.pop(), behavior: 'smooth'});
+  }
+  if (navStack.length === 0) {
+    document.getElementById('backBtn').style.display = 'none';
+  }
+}
+// 侧边栏目录点击用导航栈
+document.addEventListener('click', function(e) {
+  if (e.target.closest('.sidebar-topic') || e.target.closest('.sidebar-part')) {
+    navStack.push(window.scrollY);
+    document.getElementById('backBtn').style.display = 'block';
+  }
+});
+
+// ===== 目录生成 =====
+function buildToc() {
+  const toc = document.getElementById('sidebarToc');
+  const parts = document.querySelectorAll('.part-title');
+  parts.forEach(part => {
+    const partLink = document.createElement('a');
+    partLink.className = 'sidebar-part';
+    partLink.href = '#' + part.id;
+    partLink.textContent = part.textContent;
+    toc.appendChild(partLink);
+
+    const partId = part.id;
+    const cards = document.querySelectorAll(`#${partId} ~ .card`);
+    const nextPart = part.nextElementSibling;
+    // 找到直到下一个 part-title 之前的 card
+    let siblings = [];
+    let el = part.nextElementSibling;
+    while (el && !el.classList.contains('part-title')) {
+      if (el.classList.contains('card')) {
+        siblings.push(el);
+      }
+      el = el.nextElementSibling;
+    }
+    siblings.forEach(card => {
+      const topic = document.createElement('a');
+      topic.className = 'sidebar-topic';
+      const titleEl = card.querySelector('.card-title');
+      topic.textContent = titleEl ? titleEl.textContent : '(卡片)';
+      topic.href = '#' + card.id;
+      toc.appendChild(topic);
+    });
+  });
+}
+
+// ===== 搜索 =====
+function searchContent(q) {
+  const cards = document.querySelectorAll('.card');
+  const sidebarTopics = document.querySelectorAll('.sidebar-topic');
+
+  if (!q.trim()) {
+    cards.forEach(c => { c.style.display = ''; c.classList.remove('highlight'); });
+    sidebarTopics.forEach(t => t.style.display = '');
+    // 清除高亮
+    document.querySelectorAll('mark').forEach(m => {
+      const parent = m.parentNode;
+      parent.replaceChild(document.createTextNode(m.textContent), m);
+      parent.normalize();
+    });
+    return;
+  }
+
+  const lower = q.toLowerCase();
+  cards.forEach(card => {
+    const text = card.textContent.toLowerCase();
+    const match = text.includes(lower);
+    card.style.display = match ? '' : 'none';
+
+    if (match) {
+      card.classList.add('highlight');
+      // 高亮匹配文字（仅在卡片标题和内容中）
+      const walker = document.createTreeWalker(card, NodeFilter.SHOW_TEXT, null, false);
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker);
+      nodes.forEach(node => {
+        const idx = node.textContent.toLowerCase().indexOf(lower);
+        if (idx >= 0 && node.parentNode.nodeName !== 'MARK' && node.parentNode.closest('.collapse-content') === null) {
+          const span = document.createElement('span');
+          span.innerHTML = node.textContent.slice(0, idx) + '<mark>' + node.textContent.slice(idx, idx + q.length) + '</mark>' + node.textContent.slice(idx + q.length);
+          node.parentNode.replaceChild(span, node);
+        }
+      });
+    } else {
+      card.classList.remove('highlight');
+    }
+  });
+
+  // 侧边栏显示
+  sidebarTopics.forEach(t => {
+    t.style.display = t.textContent.toLowerCase().includes(lower) ? '' : 'none';
+  });
+}
+
+// ===== 标签筛选 =====
+const allTags = ['质点运动学','牛顿动力学','动量与角动量','功与能','刚体力学','振动','波动','狭义相对论',
+  '参考系','位矢位移速度加速度','牛顿三定律','惯性力','动量守恒','角动量守恒','机械能守恒','保守力',
+  '定轴转动','转动惯量','纯滚动','简谐振动','简谐波','多普勒效应','洛伦兹变换','质能关系','受力分析'];
+let selectedTags = [];
+let tagLogic = 'OR'; // OR or AND
+
+function buildTags() {
+  const container = document.getElementById('tagList');
+  const tagSet = new Set();
+  document.querySelectorAll('.card').forEach(card => {
+    const tags = card.dataset.tags || '';
+    tags.split('·').forEach(t => { if (t.trim()) tagSet.add(t.trim()); });
+  });
+  // 按一级标签组织
+  const level1 = ['质点运动学','牛顿动力学','动量与角动量','功与能','刚体力学','振动','波动','狭义相对论'];
+  const sorted = Array.from(tagSet).sort();
+  sorted.forEach(tag => {
+    const el = document.createElement('span');
+    el.className = 'tag-option';
+    el.textContent = tag;
+    el.dataset.tag = tag;
+    el.onclick = () => toggleTag(tag);
+    container.appendChild(el);
+  });
+}
+
+function toggleTag(tag) {
+  const idx = selectedTags.indexOf(tag);
+  if (idx >= 0) selectedTags.splice(idx, 1);
+  else selectedTags.push(tag);
+  document.querySelectorAll('.tag-option').forEach(el => {
+    el.classList.toggle('active', selectedTags.includes(el.dataset.tag));
+  });
+  applyTagFilter();
+}
+
+function toggleTagLogic() {
+  tagLogic = tagLogic === 'OR' ? 'AND' : 'OR';
+  document.getElementById('tagLogic').textContent = '逻辑: ' + tagLogic;
+  applyTagFilter();
+}
+
+function clearTags() {
+  selectedTags = [];
+  document.querySelectorAll('.tag-option').forEach(el => el.classList.remove('active'));
+  applyTagFilter();
+}
+
+function applyTagFilter() {
+  if (selectedTags.length === 0) {
+    document.querySelectorAll('.card').forEach(c => c.style.display = '');
+    document.querySelectorAll('.sidebar-topic').forEach(t => t.style.display = '');
+    return;
+  }
+  document.querySelectorAll('.card').forEach(card => {
+    const tags = card.dataset.tags || '';
+    let match = false;
+    if (tagLogic === 'OR') {
+      match = selectedTags.some(t => tags.includes(t));
+    } else {
+      match = selectedTags.every(t => tags.includes(t));
+    }
+    card.style.display = match ? '' : 'none';
+  });
+  document.querySelectorAll('.sidebar-topic').forEach(t => {
+    const cardId = t.getAttribute('href') ? t.getAttribute('href').slice(1) : '';
+    const card = document.getElementById(cardId);
+    t.style.display = card ? card.style.display : '';
+  });
+}
+
+// ===== 初始化 =====
+buildToc();
+buildTags();
+renderMath();
+window.onload = renderMath;
+</script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 `exam-review` 的物理型模板，适用于大学物理（力学 / 热 / 电 / 光 / 近代物理）等以「模型 → 定律 → 公式 → 题型」为主干的课程。
 
 > 本文件只记物理模板的**特有部分**（Part A–F 的 delta、Part C 模型图鉴、SVG 约定、专题分类规则）。
-> **通用件**——页面结构、交互机制（双栏对齐、导航栈、课堂强调、折叠、搜索、暗色、打印）、KaTeX、样式基调、模拟卷三卷、Part 类型骨架——见 `SKILL.md` §Phase 2。模型卡 SVG + KaTeX 样例见 `resources/physics-models-svg-demo.html`。
+> **通用件**——页面结构、交互机制（双栏对齐、导航栈、课堂强调、折叠、搜索、暗色、打印）、KaTeX、样式基调、模拟卷三卷、Part 类型骨架——见 `SKILL.md` §Phase 2。完整 demo 见 `resources/example-physics-review.html` 与 `resources/example-physics-exam.html`。
 
 ## 与数学型模板（math）的核心差异
 
@@ -47,7 +47,7 @@
 
 **按专题分类**：运动学 / 动力学 / 守恒（碰撞 · 天体 · 弹簧）/ 刚体 / 振动波 / 相对论 / 非惯性系模型。
 
-**SVG 约定**（样例 `resources/physics-models-svg-demo.html`）：
+**SVG 约定**（样例见 `resources/example-physics-review.html` §C）：
 
 - SVG 只画**几何 + 力矢量方向**，标签用**单符号**（T / N / f / θ / L / mg / r）
 - **多符号表达式交给 KaTeX**，放图下 caption（`mg sinθ` 这类**不进 SVG**）

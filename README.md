@@ -72,9 +72,10 @@ exam-review/
 ├── tests/
 │   └── example-usage.md      # 详细使用示例（概统真实案例）
 └── resources/
-    ├── example-review.html      # 数学复习笔记 demo（Part A–E）
-    ├── example-exam.html        # 模拟卷 demo（三卷 + 计分）
-    └── physics-models-svg-demo.html  # 物理模型图鉴 demo（SVG + KaTeX）
+    ├── example-review.html           # 数学复习笔记 demo（Part A–E）
+    ├── example-exam.html             # 数学模拟卷 demo（三卷 + 计分）
+    ├── example-physics-review.html   # 物理复习笔记 demo（Part A–E，C 为模型图鉴 + SVG）
+    └── example-physics-exam.html     # 物理模拟卷 demo（完整三卷，120 分钟保真）
 ```
 
 ## 设计亮点

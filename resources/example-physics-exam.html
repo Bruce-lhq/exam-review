@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大学物理B1 期末模拟真题</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+:root {
+  --bg: #fefcf7;
+  --card-bg: #fff9f0;
+  --border: #e0d5c7;
+  --text: #2c1810;
+  --text-light: #6b5a4a;
+  --red: #c41e3a;
+  --green: #2d7a3a;
+  --shadow: 0 2px 8px rgba(44,24,16,0.08);
+  --radius: 8px;
+  --font-serif: Georgia, 'Times New Roman', serif;
+  --font-sans: system-ui, -apple-system, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 15px;
+}
+body.dark {
+  --bg: #1a1410;
+  --card-bg: #2c241e;
+  --border: #3d3228;
+  --text: #e8ddd0;
+  --text-light: #a89888;
+  --shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+/* 顶栏 */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 56px; background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px; z-index: 100;
+}
+.topbar h1 { font-family: var(--font-serif); font-size: 17px; color: var(--red); }
+.theme-btn, .print-btn {
+  background: none; border: 1px solid var(--border); border-radius: 6px;
+  padding: 6px 14px; cursor: pointer; font-size: 13px; color: var(--text);
+  margin-left: 6px;
+}
+.theme-btn:hover, .print-btn:hover { background: var(--border); }
+@media print { .theme-btn, .print-btn, .exam-tabs, .timer-bar, .score-bar { display: none !important; } }
+
+/* Tab 切换 */
+.exam-tabs {
+  position: fixed; top: 56px; left: 0; right: 0;
+  background: var(--card-bg); border-bottom: 1px solid var(--border);
+  display: flex; z-index: 99; padding: 0 24px;
+}
+.exam-tab {
+  padding: 10px 24px; cursor: pointer; font-size: 14px;
+  border-bottom: 3px solid transparent; transition: all 0.2s;
+  color: var(--text-light);
+}
+.exam-tab:hover { color: var(--text); }
+.exam-tab.active { border-bottom-color: var(--red); color: var(--red); font-weight: 600; }
+
+/* 计时器 */
+.timer-bar {
+  position: fixed; top: 104px; left: 0; right: 0;
+  background: var(--bg); border-bottom: 1px solid var(--border);
+  padding: 8px 24px; display: flex; align-items: center; gap: 12px;
+  z-index: 98;
+}
+.timer-bar .timer-display { font-size: 20px; font-weight: 600; color: var(--red); font-family: var(--font-mono, monospace); }
+.timer-bar button {
+  font-size: 12px; padding: 4px 10px; border: 1px solid var(--border);
+  border-radius: 4px; background: var(--card-bg); cursor: pointer; color: var(--text);
+}
+.timer-bar .exam-info { font-size: 12px; color: var(--text-light); margin-left: auto; }
+
+/* 主内容 */
+.main {
+  margin-top: 156px; padding: 24px 32px 80px;
+  max-width: 900px; margin-left: auto; margin-right: auto;
+}
+.exam-section { display: none; }
+.exam-section.active { display: block; }
+
+/* 大题标题 */
+.question-group { margin-bottom: 32px; }
+.question-group h2 {
+  font-family: var(--font-serif); font-size: 18px; color: var(--red);
+  border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 16px;
+}
+
+/* 题目卡片 */
+.q-card {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px; margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+.q-card .q-meta {
+  font-size: 12px; color: var(--text-light); margin-bottom: 8px;
+  display: flex; gap: 12px; flex-wrap: wrap;
+}
+.q-card .q-body { margin: 12px 0; }
+.q-card .q-input {
+  margin: 8px 0; padding: 6px 10px; border: 1px solid var(--border);
+  border-radius: 4px; width: 200px; font-size: 14px; background: var(--bg); color: var(--text);
+}
+.q-card .q-btn {
+  font-size: 12px; padding: 4px 10px; border: 1px solid var(--border);
+  border-radius: 4px; background: var(--card-bg); cursor: pointer; color: var(--red);
+  margin: 4px 4px 0 0;
+}
+.q-card .q-btn:hover { background: var(--border); }
+.q-card .q-answer, .q-card .q-solution {
+  max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+  margin-top: 8px;
+}
+.q-card .q-answer.open, .q-card .q-solution.open { max-height: 3000px; }
+.q-card .self-check { margin-top: 8px; font-size: 13px; }
+.q-card .self-check button {
+  padding: 3px 10px; margin: 2px; border: 1px solid var(--border);
+  border-radius: 4px; background: var(--card-bg); cursor: pointer; font-size: 12px;
+}
+.q-card .self-check button:hover { background: var(--border); }
+.q-card .self-check button.correct { background: var(--green); color: white; border-color: var(--green); }
+.q-card .self-check button.wrong { background: var(--red); color: white; border-color: var(--red); }
+
+/* 计分栏 */
+.score-bar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--card-bg); border-top: 1px solid var(--border);
+  padding: 8px 24px; display: flex; align-items: center; gap: 16px;
+  z-index: 99; font-size: 13px;
+}
+.score-bar .score-total { font-weight: 600; color: var(--red); }
+.score-bar button {
+  font-size: 12px; padding: 3px 10px; border: 1px solid var(--border);
+  border-radius: 4px; background: var(--bg); cursor: pointer;
+}
+/* 双栏 */
+.two-col {
+  display: grid; grid-template-columns: 45% 55%; gap: 12px; margin: 8px 0;
+}
+.two-col .left { border-right: 1px solid var(--border); padding-right: 12px; }
+.two-col .row { display: flex; margin: 3px 0; }
+.two-col .step { min-width: 20px; color: var(--text-light); }
+@media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } .two-col .left { border-right: none; } }
+
+/* 考卷差异提示 */
+.diff-table {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;
+  margin: 12px 0 20px;
+}
+.diff-item {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 12px; text-align: center;
+}
+.diff-item h3 { color: var(--red); font-size: 14px; margin-bottom: 4px; }
+.diff-item p { font-size: 12px; color: var(--text-light); }
+@media (max-width: 600px) { .diff-table { grid-template-columns: 1fr; } }
+
+/* KaTeX */
+.katex-error { color: var(--red); font-size: 13px; padding: 4px; background: #fff5f5; border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<!-- 顶栏 -->
+<header class="topbar">
+  <h1>📝 大学物理 B1 · 期末模拟真题</h1>
+  <div>
+    <button class="theme-btn" onclick="toggleDark()">🌙 暗色</button>
+    <button class="print-btn" onclick="window.print()">🖨 导出 PDF</button>
+  </div>
+</header>
+
+<!-- Tab 切换 -->
+<nav class="exam-tabs" id="examTabs">
+  <div class="exam-tab active" onclick="switchExam('a')">📗 A卷·基础巩固</div>
+  <div class="exam-tab" onclick="switchExam('b')">📘 B卷·综合提升</div>
+  <div class="exam-tab" onclick="switchExam('c')">📕 C卷·冲刺挑战</div>
+  <div class="exam-tab" onclick="switchExam('info')">📋 考试信息</div>
+</nav>
+
+<!-- 计时器 -->
+<div class="timer-bar">
+  <span class="timer-display" id="timerDisplay">02:00:00</span>
+  <button onclick="toggleTimer()" id="timerToggle">▶ 开始</button>
+  <button onclick="resetTimer()">↺ 重置</button>
+  <button onclick="hideTimer()">隐藏</button>
+  <span class="exam-info">总分 100分 · 12题 · 120分钟</span>
+</div>
+
+<!-- 主内容 -->
+<main class="main">
+
+<!-- ========== 考试信息 ========== -->
+<section class="exam-section" id="examInfo">
+  <h2 class="part-title" style="font-family:var(--font-serif);font-size:24px;color:var(--red);margin-bottom:16px;">📋 考试信息</h2>
+  <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:24px;">
+    <p><strong>课程：</strong>大学物理 B1（力学 + 狭义相对论）</p>
+    <p><strong>教师：</strong>王山鹰（清华大学）</p>
+    <p><strong>考试时间：</strong>120 分钟</p>
+    <p><strong>总分：</strong>100 分</p>
+    <p><strong>题型分布：</strong></p>
+    <ul style="margin-left:20px;">
+      <li>一、填空题 · 10空 × 3分 = 30分</li>
+      <li>二、计算题 · 6题 = 70分</li>
+    </ul>
+    <p style="margin-top:8px;"><strong>章节范围：</strong>第1章 质点运动学 ~ 第8章 狭义相对论基础</p>
+  </div>
+
+  <h3 style="font-size:16px;color:var(--red);margin:16px 0 12px;">三卷差异说明</h3>
+  <div class="diff-table">
+    <div class="diff-item">
+      <h3>📗 A卷·基础巩固</h3>
+      <p>思维难度 ★★</p>
+      <p>计算量 ★★</p>
+      <p>综合度 ★</p>
+      <p>每章1–2道直接题</p>
+    </div>
+    <div class="diff-item">
+      <h3>📘 B卷·综合提升</h3>
+      <p>思维难度 ★★★</p>
+      <p>计算量 ★★★</p>
+      <p>综合度 ★★★</p>
+      <p>2–3章交叉综合题</p>
+    </div>
+    <div class="diff-item">
+      <h3>📕 C卷·冲刺挑战</h3>
+      <p>思维难度 ★★★★</p>
+      <p>计算量 ★★★★</p>
+      <p>综合度 ★★★★</p>
+      <p>多章综合 + 难题</p>
+    </div>
+  </div>
+
+  <p style="font-size:13px;color:var(--text-light);">💡 建议：A卷用于检验基础知识，B卷训练综合运用能力，C卷挑战高分。<br>
+  答案和解析可点击展开，自评后更新底部计分栏。状态自动保存至本地。</p>
+</section>
+
+<!-- ========== A卷 ========== -->
+<section class="exam-section active" id="examA">
+  <h2 class="part-title" style="font-family:var(--font-serif);font-size:22px;color:var(--red);margin-bottom:16px;">📗 A卷·基础巩固</h2>
+
+  <!-- 一大题：填空 -->
+  <div class="question-group">
+    <h2>一、填空题（每空3分，共30分）</h2>
+
+    <div class="q-card" id="a-f1" data-score="3" data-exam="a">
+      <div class="q-meta">
+        <span>📂 §1.2 质点运动学</span>
+        <span>难度 ★</span>
+      </div>
+      <div class="q-body">
+        <p><strong>1.</strong> 一质点在 $x$ 轴上运动，加速度 $a = 4t$ (SI制)，$t=0$ 时 $x_0=0$，$v_0=2$ m/s，则 $t=3$ s 时质点的速度 $v =$ <input class="q-input" type="text" style="width:60px;" data-answer="20"> m/s。</p>
+      </div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <button class="q-btn" onclick="toggleSolution(this)">▶ 展开解析</button>
+      <div class="q-answer"><p><strong>答案：</strong>$v = 20$ m/s</p></div>
+      <div class="q-solution">
+        <p><strong>解析：</strong>$v = v_0 + \int_0^3 a\,dt = 2 + \int_0^3 4t\,dt = 2 + 2t^2\big|_0^3 = 2 + 18 = 20$ m/s</p>
+      </div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'a-f1', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'a-f1', false)">✗ 答错了</button>
+      </div>
+    </div>
+
+    <div class="q-card" id="a-f2" data-score="3" data-exam="a">
+      <div class="q-meta">
+        <span>📂 §2.6 非惯性系</span>
+        <span>难度 ★★</span>
+      </div>
+      <div class="q-body">
+        <p><strong>2.</strong> 地球自转角速度为 $\omega$，半径为 $R$，在赤道处物体的重力加速度 $g$ 与引力加速度 $g_0$ 的关系是 $g = g_0 -$ <input class="q-input" type="text" style="width:80px;" data-answer="Rω^2">。</p>
+      </div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <button class="q-btn" onclick="toggleSolution(this)">▶ 展开解析</button>
+      <div class="q-answer"><p><strong>答案：</strong>$g = g_0 - R\omega^2$</p></div>
+      <div class="q-solution">
+        <p><strong>解析：</strong>赤道处惯性离心力最大，$F_c = mR\omega^2$，重力为引力减去离心力：$mg = mg_0 - mR\omega^2$。</p>
+      </div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'a-f2', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'a-f2', false)">✗ 答错了</button>
+      </div>
+    </div>
+
+    <div class="q-card" id="a-f3" data-score="3" data-exam="a">
+      <div class="q-meta">
+        <span>📂 §3.1 动量定理</span>
+        <span>难度 ★</span>
+      </div>
+      <div class="q-body">
+        <p><strong>3.</strong> 质量为 $2$ kg 的物体受合力 $F = 6t$ (N) 作用，$t=0$ 时静止，则 $t=2$ s 时物体的动量大小为 <input class="q-input" type="text" style="width:60px;" data-answer="12"> kg·m/s。</p>
+      </div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <button class="q-btn" onclick="toggleSolution(this)">▶ 展开解析</button>
+      <div class="q-answer"><p><strong>答案：</strong>$p = 12$ kg·m/s</p></div>
+      <div class="q-solution">
+        <p><strong>解析：</strong>$p = \int_0^2 F\,dt = \int_0^2 6t\,dt = 3t^2\big|_0^2 = 12$ kg·m/s</p>
+      </div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'a-f3', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'a-f3', false)">✗ 答错了</button>
+      </div>
+    </div>
+
+    <div class="q-card" id="a-f4" data-score="3" data-exam="a">
+      <div class="q-meta">
+        <span>📂 §5.3 转动惯量</span>
+        <span>难度 ★★</span>
+      </div>
+      <div class="q-body">
+        <p><strong>4.</strong> 一均匀细杆长 $l = 1$ m，质量 $m = 2$ kg，绕过一端且垂直于杆的轴的转动惯量 $J =$ <input class="q-input" type="text" style="width:80px;" data-answer="2/3"> kg·m²。</p>
+      </div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <button class="q-btn" onclick="toggleSolution(this)">▶ 展开解析</button>
+      <div class="q-answer"><p><strong>答案：</strong>$J = \frac13 ml^2 = \frac13 \times 2 \times 1^2 = \frac23$ kg·m²</p></div>
+      <div class="q-solution">
+        <p><strong>解析：</strong>均匀细杆绕过端点的轴：$J = \frac13 ml^2 = \frac13 \times 2 \times 1 = \frac23$ kg·m²。</p>
+      </div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'a-f4', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'a-f4', false)">✗ 答错了</button>
+      </div>
+    </div>
+
+    <div class="q-card" id="a-f5" data-score="3" data-exam="a">
+      <div class="q-meta">
+        <span>📂 §4.7 机械能守恒</span>
+        <span>难度 ★★</span>
+      </div>
+      <div class="q-body">
+        <p><strong>5.</strong> 弹簧振子质量 $m=0.5$ kg，劲度系数 $k=8$ N/m，振幅 $A=0.1$ m，则系统的总机械能 $E =$ <input class="q-input" type="text" style="width:60px;" data-answer="0.04"> J。</p>
+      </div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <button class="q-btn" onclick="toggleSolution(this)">▶ 展开解析</button>
+      <div class="q-answer"><p><strong>答案：</strong>$E = \frac12 kA^2 = \frac12 \times 8 \times 0.01 = 0.04$ J</p></div>
+      <div class="q-solution">
+        <p><strong>解析：</strong>弹簧振子机械能守恒，$E = \frac12 kA^2 = \frac12 \times 8 \times (0.1)^2 = 0.04$ J。</p>
+      </div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'a-f5', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'a-f5', false)">✗ 答错了</button>
+      </div>
+    </div>
+
+    <div class="q-card" id="a-f6" data-score="3" data-exam="a">
+      <div class="q-meta">
+        <span>📂 §6.1 简谐振动</span>
+        <span>难度 ★</span>
+      </div>
+      <div class="q-body">
+        <p><strong>6.</strong> 一弹簧振子做简谐振动，振幅 $A=4$ cm，周期 $T=2$ s，$t=0$ 时质点位于 $x=2$ cm 处且向 $x$ 正方向运动，则初相 $\phi =$ <input class="q-input" type="text" style="width:40px;" data-answer="-π/3">。</p>
+      </div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <button class="q-btn" onclick="toggleSolution(this)">▶ 展开解析</button>
+      <div class="q-answer"><p><strong>答案：</strong>$\phi = -\frac{\pi}{3}$</p></div>
+      <div class="q-solution">
+        <p><strong>解析：</strong>$x = A\cos\phi$，$2 = 4\cos\phi$，$\cos\phi = 0.5$，$\phi = \pm\frac\pi3$。$v>0$ 故 $\phi = -\frac\pi3$。</p>
+      </div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'a-f6', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'a-f6', false)">✗ 答错了</button>
+      </div>
+    </div>
+
+    <div class="q-card" id="a-f7" data-score="3" data-exam="a">
+      <div class="q-meta">
+        <span>📂 §7.2 简谐波</span>
+        <span>难度 ★</span>
+      </div>
+      <div class="q-body">
+        <p><strong>7.</strong> 一简谐波沿 $x$ 轴正向传播，波速 $u=4$ m/s，周期 $T=0.5$ s，则波长 $\lambda =$ <input class="q-input" type="text" style="width:40px;" data-answer="2"> m。</p>
+      </div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <button class="q-btn" onclick="toggleSolution(this)">▶ 展开解析</button>
+      <div class="q-answer"><p><strong>答案：</strong>$\lambda = uT = 4 \times 0.5 = 2$ m</p></div>
+      <div class="q-solution">
+        <p><strong>解析：</strong>$\lambda = uT = 4 \times 0.5 = 2$ m。</p>
+      </div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'a-f7', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'a-f7', false)">✗ 答错了</button>
+      </div>
+    </div>
+
+    <div class="q-card" id="a-f8" data-score="3" data-exam="a">
+      <div class="q-meta">
+        <span>📂 §8.7 相对论质量</span>
+        <span>难度 ★★</span>
+      </div>
+      <div class="q-body">
+        <p><strong>8.</strong> 粒子以 $v=0.6c$ 运动时，其相对论质量是静质量的 <input class="q-input" type="text" style="width:40px;" data-answer="1.25"> 倍。</p>
+      </div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <button class="q-btn" onclick="toggleSolution(this)">▶ 展开解析</button>
+      <div class="q-answer"><p><strong>答案：</strong>$\gamma = \frac{1}{\sqrt{1-0.36}} = \frac{1}{0.8} = 1.25$</p></div>
+      <div class="q-solution">
+        <p><strong>解析：</strong>$\gamma = \frac{1}{\sqrt{1-(0.6)^2}} = \frac{1}{\sqrt{0.64}} = \frac{1}{0.8} = 1.25$，$m = \gamma m_0 = 1.25m_0$。</p>
+      </div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'a-f8', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'a-f8', false)">✗ 答错了</button>
+      </div>
+    </div>
+
+    <div class="q-card" id="a-f9" data-score="3" data-exam="a">
+      <div class="q-meta">
+        <span>📂 §4.4 保守力</span>
+        <span>难度 ★</span>
+      </div>
+      <div class="q-body">
+        <p><strong>9.</strong> 保守力做功与路径 <input class="q-input" type="text" style="width:80px;" data-answer="无关">，只与始末位置有关。</p>
+      </div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <button class="q-btn" onclick="toggleSolution(this)">▶ 展开解析</button>
+      <div class="q-answer"><p><strong>答案：</strong>无关</p></div>
+      <div class="q-solution">
+        <p><strong>解析：</strong>保守力的特征：做功与路径无关，只取决于始末位置。$\oint \boldsymbol{F}_{\text{保}}\cdot d\boldsymbol{r} = 0$。</p>
+      </div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'a-f9', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'a-f9', false)">✗ 答错了</button>
+      </div>
+    </div>
+
+    <div class="q-card" id="a-f10" data-score="3" data-exam="a">
+      <div class="q-meta">
+        <span>📂 §5.6 角动量守恒</span>
+        <span>难度 ★★</span>
+      </div>
+      <div class="q-body">
+        <p><strong>10.</strong> 舞蹈演员旋转时收回手臂，转动惯量由 $J_1$ 变为 $J_2$（$J_2 < J_1$），则角速度之比 $\omega_2/\omega_1 =$ <input class="q-input" type="text" style="width:40px;" data-answer="J_1/J_2">。</p>
+      </div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <button class="q-btn" onclick="toggleSolution(this)">▶ 展开解析</button>
+      <div class="q-answer"><p><strong>答案：</strong>$\frac{\omega_2}{\omega_1} = \frac{J_1}{J_2}$</p></div>
+      <div class="q-solution">
+        <p><strong>解析：</strong>角动量守恒：$J_1\omega_1 = J_2\omega_2$，故 $\omega_2/\omega_1 = J_1/J_2$。</p>
+      </div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'a-f10', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'a-f10', false)">✗ 答错了</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 二大题：计算 -->
+  <div class="question-group">
+    <h2>二、计算题（共70分）</h2>
+
+    <div class="q-card" id="a-c1" data-score="10" data-exam="a">
+      <div class="q-meta">
+        <span>📂 §4.2 动能定理 + §3.1 动量定理</span>
+        <span>难度 ★★★</span>
+        <span>题型: 动力学综合</span>
+      </div>
+      <div class="q-body">
+        <p><strong>1.（10分）</strong>质量为 $m$ 的物体从高度 $h$ 处自由落下，与地面碰撞后弹起，弹起高度为 $h'$（$h' < h$）。求：</p>
+        <p>（1）地面对物体的冲量大小；（5分）</p>
+        <p>（2）若碰撞时间为 $\Delta t$，求地面对物体的平均冲力。（5分）</p>
+      </div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <button class="q-btn" onclick="toggleSolution(this)">▶ 展开解析</button>
+      <div class="q-answer">
+        <p>（1）$I = m(\sqrt{2gh} + \sqrt{2gh'})$</p>
+        <p>（2）$\bar{F} = \frac{m(\sqrt{2gh} + \sqrt{2gh'})}{\Delta t} + mg$</p>
+      </div>
+      <div class="q-solution">
+        <div class="two-col">
+          <div class="left">
+            <div class="row"><span class="step">①</span> 碰前速度 $v_1 = \sqrt{2gh}$（向下）</div>
+            <div class="row"><span class="step">②</span> 碰后速度 $v_2 = \sqrt{2gh'}$（向上）</div>
+            <div class="row"><span class="step">③</span> 动量定理：$I - mg\Delta t = mv_2 - (-mv_1)$</div>
+            <div class="row"><span class="step">④</span> 冲量 $I = m(v_1 + v_2) + mg\Delta t$</div>
+          </div>
+          <div class="right">
+            <div class="row"><span class="step">①</span> $v_1 = \sqrt{2gh}$ ↓</div>
+            <div class="row"><span class="step">②</span> $v_2 = \sqrt{2gh'}$ ↑</div>
+            <div class="row"><span class="step">③</span> $(N-mg)\Delta t = m(v_2+v_1)$</div>
+            <div class="row"><span class="step">④</span> $\bar{N} = \frac{m(v_1+v_2)}{\Delta t} + mg$</div>
+          </div>
+        </div>
+        <p>⚠️ <strong>陷阱：</strong>注意速度的方向性，碰前向下为负，碰后向上为正。</p>
+      </div>
+    </div>
+
+    <div class="q-card" id="a-c2" data-score="12" data-exam="a">
+      <div class="q-meta">
+        <span>📂 §3.5 质心 + §6.1 简谐振动</span>
+        <span>难度 ★★★</span>
+      </div>
+      <div class="q-body">
+        <p><strong>2.（12分）</strong>两个质点质量分别为 $m_1=1$ kg、$m_2=3$ kg，开始时静止相距 $l=0.4$ m，在相互间的万有引力作用下运动（可忽略其他力）。已知引力常量 $G$。</p>
+        <p>（1）求系统的质心位置；（3分）</p>
+        <p>（2）求两质点相遇时的相对速度大小。（9分）<br>（提示：两体问题，利用约化质量）</p>
+      </div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <button class="q-btn" onclick="toggleSolution(this)">▶ 展开解析</button>
+      <div class="q-answer">
+        <p>（1）距 $m_1$ 距离：$x_C = \frac{3}{4}l = 0.3$ m</p>
+        <p>（2）$v_r = \sqrt{\frac{8G}{l}(m_1+m_2)} = \sqrt{\frac{32G}{l}}$（代入 $l=0.4$ m）</p>
+      </div>
+      <div class="q-solution">
+        <div class="two-col">
+          <div class="left">
+            <div class="row"><span class="step">①</span> 质心：$x_C = \frac{m_1 x_1 + m_2 x_2}{m_1+m_2}$</div>
+            <div class="row"><span class="step">②</span> 约化质量 $\mu = \frac{m_1 m_2}{m_1+m_2}$</div>
+            <div class="row"><span class="step">③</span> 机械能守恒：$-\frac{G m_1 m_2}{l} = \frac12 \mu v_r^2 - \frac{G m_1 m_2}{0}$</div>
+          </div>
+          <div class="right">
+            <div class="row"><span class="step">①</span> $x_C = \frac{1\cdot 0 + 3\cdot 0.4}{4} = 0.3$ m</div>
+            <div class="row"><span class="step">②</span> $\mu = \frac{1\times 3}{4} = 0.75$ kg</div>
+            <div class="row"><span class="step">③</span> $v_r = \sqrt{\frac{2Gm_1 m_2}{\mu l}} = \sqrt{\frac{8G}{l}}$</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-card" id="a-c3" data-score="10" data-exam="a">
+      <div class="q-meta">
+        <span>📂 §5.2 定轴转动 + §2.5 牛顿定律应用</span>
+        <span>难度 ★★★</span>
+      </div>
+      <div class="q-body">
+        <p><strong>3.（10分）</strong>轻绳跨过一个质量为 $M=2$ kg、半径为 $R=0.1$ m 的均匀圆盘定滑轮（$J=\frac12 MR^2$），两端悬挂质量 $m_1=1$ kg 和 $m_2=3$ kg 的重物，绳与滑轮无相对滑动，轴承光滑。求：</p>
+        <p>（1）系统的加速度大小；（5分）</p>
+        <p>（2）绳中张力 $T_1$ 和 $T_2$。（5分）</p>
+      </div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <button class="q-btn" onclick="toggleSolution(this)">▶ 展开解析</button>
+      <div class="q-answer">
+        <p>（1）$a = \frac{(m_2-m_1)g}{m_1+m_2+M/2} = \frac{2\times9.8}{1+3+1} = 3.92$ m/s²</p>
+        <p>（2）$T_1 = m_1(g+a) = 13.72$ N，$T_2 = m_2(g-a) = 17.64$ N</p>
+      </div>
+      <div class="q-solution">
+        <p>对 $m_1$：$T_1 - m_1g = m_1a$；对 $m_2$：$m_2g - T_2 = m_2a$</p>
+        <p>对滑轮：$(T_2 - T_1)R = J\alpha = \frac12 MR^2 \cdot \frac{a}{R}$</p>
+        <p>解得：$a = \frac{(m_2-m_1)g}{m_1+m_2+M/2}$</p>
+      </div>
+    </div>
+
+    <div class="q-card" id="a-c4" data-score="10" data-exam="a">
+      <div class="q-meta">
+        <span>📂 §7.9 多普勒效应</span>
+        <span>难度 ★★★</span>
+      </div>
+      <div class="q-body">
+        <p><strong>4.（10分）</strong>一列火车以 $u=30$ m/s 的速度驶近静止的观察者，火车鸣笛频率为 $\nu_0 = 500$ Hz，声速 $v=340$ m/s。求：</p>
+        <p>（1）观察者听到的笛声频率；（5分）</p>
+        <p>（2）火车驶过后观察者听到的频率变化了多少？（5分）</p>
+      </div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <button class="q-btn" onclick="toggleSolution(this)">▶ 展开解析</button>
+      <div class="q-answer">
+        <p>（1）$\nu' = \frac{v}{v-u}\nu_0 = \frac{340}{310}\times500 \approx 548.4$ Hz</p>
+        <p>（2）驶过后 $\nu'' = \frac{v}{v+u}\nu_0 = \frac{340}{370}\times500 \approx 459.5$ Hz，变化约 $88.9$ Hz</p>
+      </div>
+      <div class="q-solution">
+        <p><strong>解析：</strong>多普勒效应公式 $\nu' = \frac{v\pm v_o}{v\mp v_s}\nu_0$。</p>
+        <p>驶近时观察者静止 $v_o=0$，声源移近取减号：$\nu' = \frac{v}{v-u}\nu_0$。</p>
+        <p>驶远时声源远离取加号：$\nu'' = \frac{v}{v+u}\nu_0$。</p>
+      </div>
+    </div>
+
+    <div class="q-card" id="a-c5" data-score="12" data-exam="a">
+      <div class="q-meta">
+        <span>📂 §8.5 尺缩钟慢</span>
+        <span>难度 ★★★</span>
+      </div>
+      <div class="q-body">
+        <p><strong>5.（12分）</strong>一宇宙飞船以 $u=0.8c$ 的速度相对地面飞行。</p>
+        <p>（1）飞船上宇航员测得飞船长度为 $l_0=100$ m，地面观察者测得飞船长度为多少？（4分）</p>
+        <p>（2）地面观察者测得飞船上的时钟走 $1$ 小时，飞船上的宇航员认为过了多长时间？（4分）</p>
+        <p>（3）若飞船相对地面以 $0.8c$ 飞行，同时发射一光束（相对飞船以 $c$ 向前），地面测得光速为多少？（4分）</p>
+      </div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <button class="q-btn" onclick="toggleSolution(this)">▶ 展开解析</button>
+      <div class="q-answer">
+        <p>（1）$l = l_0\sqrt{1-u^2/c^2} = 100\times0.6 = 60$ m</p>
+        <p>（2）$\Delta t_0 = \frac{\Delta t}{\gamma} = \frac{1}{1.25} = 0.8$ 小时</p>
+        <p>（3）光速仍为 $c$（光速不变原理）</p>
+      </div>
+      <div class="q-solution">
+        <p>⚠️ <strong>陷阱：</strong>注意区分固有值和测量值。问题(2)中"地面测得飞船上的时钟"是地面系看飞船钟，$\Delta t$ 是地面时间，$\Delta t_0$ 是飞船时间（固有时）。</p>
+      </div>
+    </div>
+
+    <div class="q-card" id="a-c6" data-score="16" data-exam="a">
+      <div class="q-meta">
+        <span>📂 §5.7 平面平行运动 + §3.8 角动量守恒</span>
+        <span>难度 ★★★★</span>
+      </div>
+      <div class="q-body">
+        <p><strong>6.（16分）</strong>一质量为 $m$、半径为 $R$ 的均匀圆盘（$J=\frac12 mR^2$）在水平面上以质心速度 $v_0$ 向右做纯滚动。</p>
+        <p>（1）求圆盘的角速度 $\omega_0$ 和总动能；（4分）</p>
+        <p>（2）若圆盘前进中与一高 $h=\frac12 R$ 的台阶发生完全非弹性碰撞，求碰后瞬间圆盘的角速度。（6分）</p>
+        <p>（3）要使圆盘能翻上台阶，$v_0$ 至少多大？（6分）</p>
+      </div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <button class="q-btn" onclick="toggleSolution(this)">▶ 展开解析</button>
+      <div class="q-answer">
+        <p>（1）$\omega_0 = \frac{v_0}{R}$，$E_k = \frac12 mv_0^2 + \frac12 J\omega_0^2 = \frac34 mv_0^2$</p>
+        <p>（2）碰后 $\omega = \omega_0 \cdot \frac{1}{1+\frac{2h}{R}}$（对台阶边缘角动量守恒）</p>
+        <p>（3）由机械能守恒：$\frac12 J\omega^2 + \frac12 mv_C^2 \ge mgh$ → 可解出 $v_{0\min}$</p>
+      </div>
+      <div class="q-solution">
+        <p><strong>解析：</strong></p>
+        <p>（1）纯滚动条件 $v_C = R\omega_0$，$E_k = \frac12 mv_0^2 + \frac12(\frac12 mR^2)\omega_0^2 = \frac34 mv_0^2$</p>
+        <p>（2）碰撞时间极短，重力通过台阶边缘，对碰撞点的角动量守恒。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="score-bar-a" style="display:none;"></div>
+</section>
+
+<!-- ========== B卷（部分 - 简化版） ========== -->
+<section class="exam-section" id="examB">
+  <h2 class="part-title" style="font-family:var(--font-serif);font-size:22px;color:var(--red);margin-bottom:16px;">📘 B卷·综合提升</h2>
+
+  <div class="question-group">
+    <h2>一、填空题（每空3分，共30分）</h2>
+
+    <div class="q-card" id="b-f1" data-score="3" data-exam="b">
+      <div class="q-meta"><span>📂 §1.7 相对运动</span><span>难度 ★★</span></div>
+      <div class="q-body"><p><strong>1.</strong> 一人向东以 $v_1=4$ m/s 行走，感觉风从正北吹来；当速率为 $v_2=6$ m/s 向东时，感觉风从东北吹来，则风速大小为 <input class="q-input" type="text" style="width:60px;" data-answer="2√5"> m/s。</p></div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <button class="q-btn" onclick="toggleSolution(this)">▶ 展开解析</button>
+      <div class="q-answer"><p><strong>答案：</strong>$v = 2\sqrt{5} \approx 4.47$ m/s</p></div>
+      <div class="q-solution"><p>设风速 $\boldsymbol{v} = (v_x, v_y)$。由题意：$v_x - 4 = 0$（正面风）→ $v_x = 4$；$v_y - 0 = 0$。第二次：$v_x - 6 = v_y$（东北风45°）→ $v_y = 4-6 = -2$。所以 $v = \sqrt{4^2+2^2}=2\sqrt5$ m/s，方向东南。</p></div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'b-f1', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'b-f1', false)">✗ 答错了</button>
+      </div>
+    </div>
+
+    <div class="q-card" id="b-f2" data-score="3" data-exam="b">
+      <div class="q-meta"><span>📂 §3.4 变质量</span><span>难度 ★★★</span></div>
+      <div class="q-body"><p><strong>2.</strong> 火箭初始质量 $M_0$，燃料喷出相对速度 $u$，燃料燃尽后火箭质量 $M_f$，不计重力，则火箭最终速度 $v_f =$ <input class="q-input" type="text" style="width:120px;" data-answer="u ln(M_0/M_f)">。</p></div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <button class="q-btn" onclick="toggleSolution(this)">▶ 展开解析</button>
+      <div class="q-answer"><p><strong>答案：</strong>$v_f = u\ln\frac{M_0}{M_f}$</p></div>
+      <div class="q-solution"><p>由动量守恒：$M dv = -u\,dM$，积分得 $v_f - v_i = u\ln\frac{M_i}{M_f}$。</p></div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'b-f2', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'b-f2', false)">✗ 答错了</button>
+      </div>
+    </div>
+
+    <div class="q-card" id="b-f3" data-score="3" data-exam="b">
+      <div class="q-meta"><span>📂 §4.12 伯努利方程</span><span>难度 ★★</span></div>
+      <div class="q-body"><p><strong>3.</strong> 理想流体在水平管中定常流动，截面积 $S$ 处的流速 $v$，压强 $p$，密度 $\rho$，则同一流管中截面积 $S/2$ 处的压强为 <input class="q-input" type="text" style="width:100px;" data-answer="p-3ρv²/2">。</p></div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <div class="q-answer"><p><strong>答案：</strong>$p' = p - \frac32 \rho v^2$</p></div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'b-f3', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'b-f3', false)">✗ 答错了</button>
+      </div>
+    </div>
+
+    <div class="q-card" id="b-f4" data-score="3" data-exam="b">
+      <div class="q-meta"><span>📂 §6.2 振动合成</span><span>难度 ★★</span></div>
+      <div class="q-body"><p><strong>4.</strong> 质点同时参与两个同方向同频率的简谐振动：$x_1=0.04\cos(2t+\frac\pi3)$，$x_2=0.03\cos(2t-\frac{2\pi}{3})$，则合振幅 $A=$ <input class="q-input" type="text" style="width:40px;" data-answer="0.01"> m。</p></div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <div class="q-answer"><p><strong>答案：</strong>$A = \sqrt{0.04^2+0.03^2+2\times0.04\times0.03\cos(\pi)} = 0.01$ m（两振动反相）</p></div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'b-f4', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'b-f4', false)">✗ 答错了</button>
+      </div>
+    </div>
+
+    <div class="q-card" id="b-f5" data-score="3" data-exam="b">
+      <div class="q-meta"><span>📂 §7.7 驻波</span><span>难度 ★★★</span></div>
+      <div class="q-body"><p><strong>5.</strong> 两列同振幅 $A$、同频率的平面简谐波在媒质中相向传播形成驻波，相邻波节间的距离为 <input class="q-input" type="text" style="width:40px;" data-answer="λ/2">。</p></div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <div class="q-answer"><p><strong>答案：</strong>$\frac{\lambda}{2}$</p></div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'b-f5', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'b-f5', false)">✗ 答错了</button>
+      </div>
+    </div>
+
+    <div class="q-card" id="b-f6" data-score="3" data-exam="b">
+      <div class="q-meta"><span>📂 §8.9 质能关系</span><span>难度 ★★★</span></div>
+      <div class="q-body"><p><strong>6.</strong> 一粒子的动能 $E_k$ 等于其静能 $E_0$，则其速度 $v =$ <input class="q-input" type="text" style="width:80px;" data-answer="0.866c">。</p></div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <div class="q-answer"><p><strong>答案：</strong>$v = \frac{\sqrt3}{2}c \approx 0.866c$</p></div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'b-f6', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'b-f6', false)">✗ 答错了</button>
+      </div>
+    </div>
+
+    <div class="q-card" id="b-f7" data-score="3" data-exam="b">
+      <div class="q-meta"><span>📂 §5.3 平行轴定理</span><span>难度 ★★</span></div>
+      <div class="q-body"><p><strong>7.</strong> 均匀细杆质量 $m$、长 $l$，对过质心且垂直于杆的轴的 $J_C = \frac{1}{12}ml^2$，则对距质心 $d$ 的平行轴的 $J =$ <input class="q-input" type="text" style="width:80px;" data-answer="J_C+md^2">。</p></div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <div class="q-answer"><p><strong>答案：</strong>$J = J_C + md^2$</p></div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'b-f7', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'b-f7', false)">✗ 答错了</button>
+      </div>
+    </div>
+
+    <div class="q-card" id="b-f8" data-score="3" data-exam="b">
+      <div class="q-meta"><span>📂 §2.6 科里奥利力</span><span>难度 ★★★</span></div>
+      <div class="q-body"><p><strong>8.</strong> 北半球河流右岸冲刷较严重，这是由于 <input class="q-input" type="text" style="width:120px;" data-answer="科里奥利力"> 的作用。</p></div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <div class="q-answer"><p><strong>答案：</strong>科里奥利力（Coriolis force）</p></div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'b-f8', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'b-f8', false)">✗ 答错了</button>
+      </div>
+    </div>
+
+    <div class="q-card" id="b-f9" data-score="3" data-exam="b">
+      <div class="q-meta"><span>📂 §4.7 机械能守恒</span><span>难度 ★★</span></div>
+      <div class="q-body"><p><strong>9.</strong> 一质点在保守力 $F(x) = -12x + 4x^3$ (SI) 作用下沿 $x$ 轴运动，平衡位置是 $x=$ <input class="q-input" type="text" style="width:60px;" data-answer="0,±√3">，其中稳定平衡位置是 <input class="q-input" type="text" style="width:40px;" data-answer="x=±√3">。</p></div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <div class="q-answer"><p><strong>答案：</strong>平衡位置 $x=0, \pm\sqrt3$，稳定平衡 $x=\pm\sqrt3$（$F=0$ 且 $\frac{dF}{dx}<0$）</p></div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'b-f9', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'b-f9', false)">✗ 答错了</button>
+      </div>
+    </div>
+
+    <div class="q-card" id="b-f10" data-score="3" data-exam="b">
+      <div class="q-meta"><span>📂 §5.8 进动</span><span>难度 ★★★</span></div>
+      <div class="q-body"><p><strong>10.</strong> 陀螺自转角动量 $L$，自转轴与竖直方向夹角 $\theta$，质心距支点 $l$，则进动角速度 $\Omega =$ <input class="q-input" type="text" style="width:80px;" data-answer="mgl/L">。</p></div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <div class="q-answer"><p><strong>答案：</strong>$\Omega = \frac{mgl}{L}$（精确：$\Omega = \frac{mgl\sin\theta}{L\sin\theta} = \frac{mgl}{L}$）</p></div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'b-f10', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'b-f10', false)">✗ 答错了</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="question-group">
+    <h2>二、计算题（共70分）</h2>
+
+    <div class="q-card" id="b-c1" data-score="10" data-exam="b">
+      <div class="q-meta"><span>📂 §2.5 + §3.2 动力学综合</span><span>难度 ★★★</span></div>
+      <div class="q-body">
+        <p><strong>1.（10分）</strong>质量 $M=2$ kg 的楔块置于光滑水平面上，楔面光滑、倾角 $\theta=30^\circ$，质量 $m=1$ kg 的小滑块从楔块顶端静止滑下。求：</p>
+        <p>（1）楔块的加速度 $a_M$；（5分）</p>
+        <p>（2）小滑块相对楔块的加速度 $a'$。（5分）</p>
+      </div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <button class="q-btn" onclick="toggleSolution(this)">▶ 展开解析</button>
+      <div class="q-answer">
+        <p>$a_M = \frac{mg\cos\theta\sin\theta}{M+m\sin^2\theta} \approx 1.96$ m/s²</p>
+        <p>$a' = \frac{(M+m)g\sin\theta}{M+m\sin^2\theta} \approx 4.9$ m/s²</p>
+      </div>
+      <div class="q-solution">
+        <p><strong>解析：</strong>利用非惯性系。在楔块参考系中，滑块受重力 $mg$、支持力 $N$ 和平移惯性力 $F_0 = -ma_M$。</p>
+        <p>滑块沿斜面方向：$mg\sin\theta + ma_M\cos\theta = ma'$</p>
+        <p>楔块水平方向：$N\sin\theta = Ma_M$</p>
+        <p>滑块法向：$N + ma_M\sin\theta = mg\cos\theta$</p>
+        <p>联立可解得。</p>
+      </div>
+    </div>
+
+    <div class="q-card" id="b-c2" data-score="12" data-exam="b">
+      <div class="q-meta"><span>📂 §3.7-3.9 角动量 + §4.7 机械能</span><span>难度 ★★★★</span></div>
+      <div class="q-body">
+        <p><strong>2.（12分）</strong>质量为 $m$、速度为 $v_0$ 的小球与长为 $l$、质量为 $2m$ 的均匀细杆的一端发生完全非弹性碰撞（粘合），杆可绕光滑水平轴 $O$ 在竖直面内转动。</p>
+        <p>（1）求碰后瞬间杆的角速度；（6分）</p>
+        <p>（2）求杆能摆过的最大角度。（6分）</p>
+      </div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <button class="q-btn" onclick="toggleSolution(this)">▶ 展开解析</button>
+      <div class="q-answer">
+        <p>（1）$\omega = \frac{mv_0 l}{J}$，其中 $J = \frac13 (2m)l^2 + ml^2 = \frac53 ml^2$</p>
+        <p>$\omega = \frac{3v_0}{5l}$</p>
+        <p>（2）由机械能守恒：$\frac12 J\omega^2 = mgl(1-\cos\theta_{\max}) + 2mg\frac{l}{2}(1-\cos\theta_{\max})$</p>
+      </div>
+      <div class="q-solution">
+        <p>⚠️ <strong>陷阱：</strong>完全非弹性碰撞过程中机械能不守恒，但角动量守恒（对 $O$ 点合外力矩为零）。碰后的摆动过程机械能守恒。</p>
+        <p>杆的转动惯量对 $O$ 端：$J_{\text{杆}} = \frac13 (2m)l^2$，小球视为质点 $J_{\text{球}} = ml^2$。</p>
+      </div>
+    </div>
+
+    <div class="q-card" id="b-c3" data-score="12" data-exam="b">
+      <div class="q-meta"><span>📂 §4.4 + §5.3 有心力 + 进动</span><span>难度 ★★★★</span></div>
+      <div class="q-body">
+        <p><strong>3.（12分）</strong>地球绕太阳作椭圆轨道运动，太阳位于一个焦点上。设地球在近日点距太阳 $r_1$，速度为 $v_1$；在远日点距太阳 $r_2$。</p>
+        <p>（1）求远日点速度 $v_2$；（6分）</p>
+        <p>（2）求椭圆轨道的周期（用 $r_1$、$v_1$ 等表示）。（6分）</p>
+        <p>提示：开普勒第二定律（角动量守恒）和第三定律。</p>
+      </div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <button class="q-btn" onclick="toggleSolution(this)">▶ 展开解析</button>
+      <div class="q-answer">
+        <p>（1）角动量守恒：$mv_1 r_1 = mv_2 r_2$ → $v_2 = \frac{r_1}{r_2}v_1$</p>
+        <p>（2）$T = \frac{2\pi r_1 r_2}{v_1 r_2 - v_2 r_1}$ 或利用椭圆面积 $S = \pi ab$ 和掠面速度 $\frac{dS}{dt} = \frac{L}{2m}$</p>
+      </div>
+      <div class="q-solution">
+        <p>近日点和远日点处速度与位矢垂直，角动量 $L = mv_1 r_1 = mv_2 r_2$。</p>
+        <p>面积速度：$\frac{dS}{dt} = \frac{L}{2m}$，椭圆面积 $S = \pi a b = \pi\frac{r_1+r_2}{2}\sqrt{r_1 r_2}$，$T = S/(dS/dt)$。</p>
+      </div>
+    </div>
+
+    <div class="q-card" id="b-c4" data-score="12" data-exam="b">
+      <div class="q-meta"><span>📂 §6.5 受迫振动 + §7.7 驻波</span><span>难度 ★★★★</span></div>
+      <div class="q-body">
+        <p><strong>4.（12分）</strong>一长为 $L$ 的两端固定的弦，其波速为 $u$。</p>
+        <p>（1）求弦振动的基频和泛音频率；（4分）</p>
+        <p>（2）若弦中点的初始位移为 $A$（被拨开），从静止释放，写出其振动方程。（8分）</p>
+      </div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <button class="q-btn" onclick="toggleSolution(this)">▶ 展开解析</button>
+      <div class="q-answer">
+        <p>（1）$\nu_n = \frac{n}{2L}u$，$n=1,2,3,\dots$。基频 $\nu_1 = \frac{u}{2L}$。</p>
+        <p>（2）$y(x,t) = \sum_{n=1}^\infty A_n\sin\frac{n\pi x}{L}\cos\frac{n\pi u t}{L}$，$A_n = \frac{8A}{n^2\pi^2}\sin\frac{n\pi}{2}$（仅奇次项非零）</p>
+      </div>
+    </div>
+
+    <div class="q-card" id="b-c5" data-score="12" data-exam="b">
+      <div class="q-meta"><span>📂 §8.4 + §8.9 洛伦兹变换 + 质能关系</span><span>难度 ★★★★</span></div>
+      <div class="q-body">
+        <p><strong>5.（12分）</strong>一静止长度为 $l_0$ 的火箭以 $u=0.6c$ 相对地面飞行，火箭头 $A$ 和尾 $B$ 各有一个钟。</p>
+        <p>（1）地面观察者测得火箭长度是多少？（3分）</p>
+        <p>（2）地面观察者同时测得 $A$ 钟和 $B$ 钟的读数差是多少？（已知在火箭系中 $A$、$B$ 同步）；（5分）</p>
+        <p>（3）计算火箭的静能 $E_0$ 和总能量 $E$ 的关系。（4分）</p>
+      </div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <button class="q-btn" onclick="toggleSolution(this)">▶ 展开解析</button>
+      <div class="q-answer">
+        <p>（1）$l = l_0\sqrt{1-0.6^2} = 0.8l_0$</p>
+        <p>（2）由洛伦兹变换：$t_B' - t_A' = -\frac{u}{c^2}(x_B - x_A)$，在地面系中 $t_A=t_B$</p>
+        <p>$\Delta t' = t_B' - t_A' = -\frac{u}{c^2} \cdot l = -\frac{0.6c}{c^2} \cdot 0.8l_0 = -\frac{0.48 l_0}{c}$</p>
+        <p>即 $B$ 钟比 $A$ 钟慢（绝对值 $\frac{0.48 l_0}{c}$）</p>
+        <p>（3）$E = \gamma m_0 c^2 = \frac{1}{\sqrt{1-0.36}}E_0 = 1.25E_0$</p>
+      </div>
+    </div>
+
+    <div class="q-card" id="b-c6" data-score="12" data-exam="b">
+      <div class="q-meta"><span>📂 §4.3 一对力的功 + §4.9 碰撞</span><span>难度 ★★★★</span></div>
+      <div class="q-body">
+        <p><strong>6.（12分）</strong>光滑水平面上，两个质量分别为 $m_1$、$m_2$ 的物体用劲度系数为 $k$ 的轻弹簧相连，弹簧原长 $l_0$，处于自然长度。现给 $m_2$ 一个水平向右的冲量 $I$。</p>
+        <p>（1）求质心速度 $v_C$；（4分）</p>
+        <p>（2）求弹簧的最大压缩量。（8分）</p>
+      </div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <button class="q-btn" onclick="toggleSolution(this)">▶ 展开解析</button>
+      <div class="q-answer">
+        <p>（1）$v_C = \frac{I}{m_1+m_2}$</p>
+        <p>（2）在质心系中，$\frac12 \mu v_r^2 = \frac12 k\Delta x_{\max}^2$，其中 $v_r = \frac{I}{m_2}$（相对速度初始值）</p>
+        <p>$\Delta x_{\max} = \sqrt{\frac{m_1 I^2}{k m_2(m_1+m_2)}}$</p>
+      </div>
+      <div class="q-solution">
+        <p><strong>思路：</strong>质心系中看，两物体振动，初始时 $m_1$ 静止，$m_2$ 获得速度 $I/m_2$。</p>
+        <p>相对速度 $v_r = I/m_2$，约化质量 $\mu = m_1 m_2/(m_1+m_2)$。</p>
+        <p>最大压缩时全部相对动能转化为弹性势能。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== C卷（简化 - 仅计算题） ========== -->
+<section class="exam-section" id="examC">
+  <h2 class="part-title" style="font-family:var(--font-serif);font-size:22px;color:var(--red);margin-bottom:16px;">📕 C卷·冲刺挑战</h2>
+
+  <div class="question-group">
+    <h2>一、填空题（每空3分，共30分）</h2>
+
+    <div class="q-card" id="c-f1" data-score="3" data-exam="c">
+      <div class="q-meta"><span>📂 §2.6 惯性离心势能</span><span>难度 ★★★</span></div>
+      <div class="q-body"><p><strong>1.</strong> 在地球表面纬度 $\phi$ 处，质量为 $m$ 的物体受到的重力 $P = mg_0 - mR\omega^2\cos^2\phi$，其中 $g_0$ 是 <input class="q-input" type="text" style="width:80px;" data-answer="引力加速度">，$\omega$ 是地球自转角速度，$R$ 是地球半径。</p></div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <div class="q-answer"><p><strong>答案：</strong>引力加速度（极地重力加速度）</p></div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'c-f1', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'c-f1', false)">✗ 答错了</button>
+      </div>
+    </div>
+
+    <div class="q-card" id="c-f2" data-score="3" data-exam="c">
+      <div class="q-meta"><span>📂 §8.6 速度变换</span><span>难度 ★★★★</span></div>
+      <div class="q-body"><p><strong>2.</strong> 飞船 $A$ 相对地面以 $0.8c$ 向东飞行，飞船 $B$ 相对地面以 $0.6c$ 向西飞行，则 $A$ 测得 $B$ 的速度大小为 <input class="q-input" type="text" style="width:60px;" data-answer="0.946c">。</p></div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <div class="q-answer"><p>$v'_B = \frac{0.8c+0.6c}{1+0.8\times0.6} = \frac{1.4c}{1.48} \approx 0.946c$</p></div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'c-f2', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'c-f2', false)">✗ 答错了</button>
+      </div>
+    </div>
+
+    <div class="q-card" id="c-f3" data-score="3" data-exam="c">
+      <div class="q-meta"><span>📂 §3.10 质心系角动量</span><span>难度 ★★★★</span></div>
+      <div class="q-body"><p><strong>3.</strong> 质点系在质心系中总动量 <input class="q-input" type="text" style="width:40px;" data-answer="0">（=0/≠0），质心系也称为 <input class="q-input" type="text" style="width:80px;" data-answer="零动量参考系">。</p></div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <div class="q-answer"><p><strong>答案：</strong>= 0，零动量参考系</p></div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'c-f3', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'c-f3', false)">✗ 答错了</button>
+      </div>
+    </div>
+
+    <div class="q-card" id="c-f4" data-score="3" data-exam="c">
+      <div class="q-meta"><span>📂 §5.5 定轴转动功能关系</span><span>难度 ★★★</span></div>
+      <div class="q-body"><p><strong>4.</strong> 一刚体定轴转动的转动惯量为 $J$，角速度为 $\omega$，则转动动能 $E_k =$ <input class="q-input" type="text" style="width:40px;" data-answer="Jω²/2">。</p></div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <div class="q-answer"><p>$\frac12 J\omega^2$</p></div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'c-f4', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'c-f4', false)">✗ 答错了</button>
+      </div>
+    </div>
+
+    <div class="q-card" id="c-f5" data-score="3" data-exam="c">
+      <div class="q-meta"><span>📂 §7.9 多普勒效应(相对论)</span><span>难度 ★★★★</span></div>
+      <div class="q-body"><p><strong>5.</strong> 光源以 $v=0.6c$ 远离观察者，光的频率 $\nu_0$，观察者接收到的频率 $\nu = \nu_0 \sqrt{<input class="q-input" type="text" style="width:60px;" data-answer="(1-0.6)/(1+0.6)">} = 0.5\nu_0$。</p></div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <div class="q-answer"><p>$\nu = \nu_0 \sqrt{\frac{1-0.6}{1+0.6}} = 0.5\nu_0$</p></div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'c-f5', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'c-f5', false)">✗ 答错了</button>
+      </div>
+    </div>
+
+    <div class="q-card" id="c-f6" data-score="3" data-exam="c">
+      <div class="q-meta"><span>📂 §6.4 阻尼振动</span><span>难度 ★★★</span></div>
+      <div class="q-body"><p><strong>6.</strong> 阻尼振动中，阻尼力 $f = -\gamma v$，阻尼系数 $\gamma$ 越大，振幅衰减越 <input class="q-input" type="text" style="width:20px;" data-answer="快">，弛豫时间 $\tau =$ <input class="q-input" type="text" style="width:40px;" data-answer="m/γ">。</p></div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <div class="q-answer"><p>快，$\tau = \frac{m}{\gamma}$</p></div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'c-f6', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'c-f6', false)">✗ 答错了</button>
+      </div>
+    </div>
+
+    <div class="q-card" id="c-f7" data-score="3" data-exam="c">
+      <div class="q-meta"><span>📂 §1.4 自然坐标系</span><span>难度 ★★</span></div>
+      <div class="q-body"><p><strong>7.</strong> 一质点作抛体运动，在最高点处的曲率半径 $\rho =$ <input class="q-input" type="text" style="width:80px;" data-answer="(v₀cosθ)²/g">。</p></div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <div class="q-answer"><p>$\rho = \frac{(v_0\cos\theta)^2}{g}$</p></div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'c-f7', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'c-f7', false)">✗ 答错了</button>
+      </div>
+    </div>
+
+    <div class="q-card" id="c-f8" data-score="3" data-exam="c">
+      <div class="q-meta"><span>📂 §3.6 质心系</span><span>难度 ★★★</span></div>
+      <div class="q-body"><p><strong>8.</strong> 克尼希定理指出质点系的总动能等于 <input class="q-input" type="text" style="width:120px;" data-answer="质心动能+内动能">。</p></div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <div class="q-answer"><p>质心动能 $E_{kC}$ + 内动能 $E_k'$</p></div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'c-f8', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'c-f8', false)">✗ 答错了</button>
+      </div>
+    </div>
+
+    <div class="q-card" id="c-f9" data-score="3" data-exam="c">
+      <div class="q-meta"><span>📂 §8.5 因果律</span><span>难度 ★★★★</span></div>
+      <div class="q-body"><p><strong>9.</strong> 狭义相对论中，两个事件的间隔可以分类为类时、类光和 <input class="q-input" type="text" style="width:60px;" data-answer="类空">，其中 <input class="q-input" type="text" style="width:60px;" data-answer="类空"> 间隔的事件间无法建立因果联系。</p></div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <div class="q-answer"><p>类空，类空间隔。</p></div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'c-f9', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'c-f9', false)">✗ 答错了</button>
+      </div>
+    </div>
+
+    <div class="q-card" id="c-f10" data-score="3" data-exam="c">
+      <div class="q-meta"><span>📂 §1.6 相对论时空观</span><span>难度 ★★★</span></div>
+      <div class="q-body"><p><strong>10.</strong> 爱因斯坦狭义相对论的两个基本原理是 <input class="q-input" type="text" style="width:140px;" data-answer="相对性原理"> 和 <input class="q-input" type="text" style="width:100px;" data-answer="光速不变原理">。</p></div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <div class="q-answer"><p>爱因斯坦相对性原理 + 光速不变原理</p></div>
+      <div class="self-check">
+        <button onclick="selfCheckFill(this, 'c-f10', true)">✓ 答对了</button>
+        <button onclick="selfCheckFill(this, 'c-f10', false)">✗ 答错了</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="question-group">
+    <h2>二、计算题（共70分）</h2>
+
+    <div class="q-card" id="c-c1" data-score="12" data-exam="c">
+      <div class="q-meta"><span>📂 §3.7-3.9 + §5.7 平面平行运动 · 碰撞 · 守恒</span><span>难度 ★★★★★</span></div>
+      <div class="q-body">
+        <p><strong>1.（12分）</strong>光滑水平面上，一质量为 $m$、长为 $l$ 的均匀细杆静止。一质量为 $m$ 的小球以速度 $v_0$ 垂直于杆的方向与杆的一端发生弹性碰撞。</p>
+        <p>求碰撞后：</p>
+        <p>（1）杆的质心速度 $v_C$ 和角速度 $\omega$；（6分）</p>
+        <p>（2）小球的速度 $v$；（3分）</p>
+        <p>（3）验证碰撞过程中动能守恒。（3分）</p>
+      </div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <button class="q-btn" onclick="toggleSolution(this)">▶ 展开解析</button>
+      <div class="q-answer">
+        <p>（1）$v_C = \frac{v_0}{4}$，$\omega = \frac{3v_0}{2l}$</p>
+        <p>（2）$v = -\frac{v_0}{2}$（反弹）</p>
+      </div>
+      <div class="q-solution">
+        <p><strong>解析：</strong></p>
+        <p>动量守恒：$mv_0 = mv + mv_C$</p>
+        <p>对杆质心的角动量守恒：$mv_0\frac{l}{2} = mv\frac{l}{2} + J_C\omega$（$J_C = \frac{1}{12}ml^2$）</p>
+        <p>弹性碰撞：动能守恒</p>
+        <p>解得：$v = -\frac{v_0}{2}$，$v_C = \frac{v_0}{4}$，$\omega = \frac{3v_0}{2l}$</p>
+      </div>
+    </div>
+
+    <div class="q-card" id="c-c2" data-score="12" data-exam="c">
+      <div class="q-meta"><span>📂 §8.4-8.9 相对论综合</span><span>难度 ★★★★★</span></div>
+      <div class="q-body">
+        <p><strong>2.（12分）</strong>一粒子在加速器中被加速，其总能量达到静能的 5 倍。</p>
+        <p>（1）求粒子的速度 $v$；（4分）</p>
+        <p>（2）求粒子的动量 $p$ 与 $m_0c$ 的比值；（4分）</p>
+        <p>（3）若该粒子衰变为两个光子，求每个光子的能量和频率。（4分）</p>
+      </div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <button class="q-btn" onclick="toggleSolution(this)">▶ 展开解析</button>
+      <div class="q-answer">
+        <p>（1）$\gamma = 5$，$v = c\sqrt{1-1/25} = \frac{\sqrt{24}}{5}c \approx 0.9799c$</p>
+        <p>（2）$p = \gamma m_0 v = 5m_0 \cdot \frac{\sqrt{24}}{5}c = \sqrt{24}\,m_0c \approx 4.9 m_0c$，比值 $= \sqrt{24}$</p>
+        <p>（3）每个光子能量 $E_\gamma = \frac{5}{2}m_0c^2$，频率 $\nu = \frac{5m_0c^2}{2h}$</p>
+      </div>
+    </div>
+
+    <div class="q-card" id="c-c3" data-score="12" data-exam="c">
+      <div class="q-meta"><span>📂 §2.6 + §4.12 非惯性系 + 伯努利方程</span><span>难度 ★★★★★</span></div>
+      <div class="q-body">
+        <p><strong>3.（12分）</strong>盛有水的圆桶绕竖直轴以角速度 $\omega$ 匀速转动，水相对于圆桶静止。</p>
+        <p>（1）求水面在 $r$ 处的高度 $z(r)$（桶底中心为原点）；（6分）</p>
+        <p>（2）桶侧壁距桶底 $H$ 处开一小孔，求水从小孔流出的初速度。（6分）</p>
+      </div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <button class="q-btn" onclick="toggleSolution(this)">▶ 展开解析</button>
+      <div class="q-answer">
+        <p>（1）$z(r) = \frac{\omega^2}{2g}r^2 + z_0$（旋转抛物面）</p>
+        <p>（2）在转动系中利用伯努利方程（含惯性离心力势能）可求。</p>
+      </div>
+    </div>
+
+    <div class="q-card" id="c-c4" data-score="12" data-exam="c">
+      <div class="q-meta"><span>📂 §4.11 两体问题</span><span>难度 ★★★★★</span></div>
+      <div class="q-body">
+        <p><strong>4.（12分）</strong>两个质量为 $m_1$ 和 $m_2$ 的星体在相互引力作用下绕质心做椭圆运动，相距最远时为 $r_{\max}$，最近时为 $r_{\min}$。</p>
+        <p>（1）证明两星的轨道周期相同；（4分）</p>
+        <p>（2）求系统的总机械能 $E$（用 $G$、$m_1$、$m_2$、$r_{\max}$、$r_{\min}$ 表示）。（8分）</p>
+      </div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <button class="q-btn" onclick="toggleSolution(this)">▶ 展开解析</button>
+      <div class="q-answer">
+        <p>（1）两星始终在质心两侧，角速度相同，周期相同。</p>
+        <p>（2）$E = -\frac{G m_1 m_2}{r_{\max} + r_{\min}}$</p>
+      </div>
+    </div>
+
+    <div class="q-card" id="c-c5" data-score="10" data-exam="c">
+      <div class="q-meta"><span>📂 §5.8 + §2.6 进动 + 科氏力</span><span>难度 ★★★★★</span></div>
+      <div class="q-body">
+        <p><strong>5.（10分）</strong>一质量为 $m$、自转惯量为 $J$ 的陀螺，自转角速度为 $\omega_s$，质心到支点距离为 $l$，自转轴与竖直方向夹角 $\theta$。</p>
+        <p>（1）求进动角速度 $\Omega$；（5分）</p>
+        <p>（2）如果陀螺在 $\theta=90^\circ$ 时释放（即自转轴水平），初进动角速度为 0，定性描述其运动。（5分）</p>
+      </div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <div class="q-answer">
+        <p>（1）$\Omega = \frac{mgl}{J\omega_s}$</p>
+        <p>（2）$\theta=90^\circ$ 释放时，陀螺的轴会先下摆（章动），然后进动，形成进动+章动的复合运动。</p>
+      </div>
+    </div>
+
+    <div class="q-card" id="c-c6" data-score="12" data-exam="c">
+      <div class="q-meta"><span>📂 §1.5 + §3.8 极坐标系 + 角动量守恒</span><span>难度 ★★★★★</span></div>
+      <div class="q-body">
+        <p><strong>6.（12分）</strong>行星绕太阳做椭圆轨道运动，太阳位于焦点。已知行星在近日点速度为 $v_1$，距太阳 $r_1$；远日点距太阳 $r_2$。</p>
+        <p>（1）证明掠面速度 $\frac{dS}{dt} = \frac{r_1 v_1}{2}$ 为常量；（4分）</p>
+        <p>（2）求椭圆轨道的半长轴 $a$ 和半短轴 $b$；（4分）</p>
+        <p>（3）若行星在近日点时受一横向小冲量作用，略增其切向速度，定性描述轨道如何变化。（4分）</p>
+      </div>
+      <button class="q-btn" onclick="toggleAnswer(this)">▶ 展开答案</button>
+      <button class="q-btn" onclick="toggleSolution(this)">▶ 展开解析</button>
+      <div class="q-answer">
+        <p>（1）$\frac{dS}{dt} = \frac{L}{2m} = \frac{r_1 v_1}{2} = \text{常量}$（角动量守恒）</p>
+        <p>（2）$a = \frac{r_1 + r_2}{2}$，$b = \sqrt{r_1 r_2}$</p>
+        <p>（3）横向冲量增加角动量 → 轨道偏心率增大，近日点不变，远日点更远。若冲量足够大，可能变为抛物线（逃逸）或双曲线轨道。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- 计分栏 -->
+<div class="score-bar" id="scoreBar">
+  <span class="score-total">总分: <span id="totalScore">0</span>/100</span>
+  <span>填空: <span id="fillScore">0</span>/30</span>
+  <span>计算: <span id="calcScore">0</span>/70</span>
+  <span style="margin-left:auto;font-size:12px;color:var(--text-light);" id="currentExam">当前: A卷</span>
+  <button onclick="clearAll()">清空本卷记录</button>
+</div>
+
+<script>
+// ===== KaTeX render =====
+function renderAllMath() {
+  if (typeof katex !== 'undefined') {
+    document.querySelectorAll('.q-body p, .q-answer p, .q-solution p, .q-solution .row').forEach(el => {
+      try {
+        renderMathInElement(el, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ],
+          strict: false
+        });
+      } catch(e) {}
+    });
+  }
+}
+
+// ===== 暗色模式 =====
+function toggleDark() {
+  document.body.classList.toggle('dark');
+  document.querySelector('.theme-btn').textContent = document.body.classList.contains('dark') ? '☀️ 亮色' : '🌙 暗色';
+}
+
+// ===== Tab 切换 =====
+function switchExam(id) {
+  document.querySelectorAll('.exam-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.exam-tab').forEach(t => t.classList.remove('active'));
+  const sectionMap = { a: 'examA', b: 'examB', c: 'examC', info: 'examInfo' };
+  document.getElementById(sectionMap[id]).classList.add('active');
+  document.querySelector(`.exam-tab[onclick="switchExam('${id}')"]`).classList.add('active');
+  document.getElementById('currentExam').textContent = `当前: ${id === 'a' ? 'A卷' : id === 'b' ? 'B卷' : id === 'c' ? 'C卷' : '考试信息'}`;
+  updateScore();
+}
+
+// ===== 折叠 =====
+function toggleAnswer(btn) {
+  const answer = btn.parentElement.querySelector('.q-answer');
+  const isOpen = answer.classList.contains('open');
+  answer.classList.toggle('open');
+  btn.textContent = (isOpen ? '▶' : '▼') + btn.textContent.slice(1);
+}
+function toggleSolution(btn) {
+  const sol = btn.parentElement.querySelector('.q-solution');
+  const isOpen = sol.classList.contains('open');
+  sol.classList.toggle('open');
+  btn.textContent = (isOpen ? '▶' : '▼') + btn.textContent.slice(1);
+}
+
+// ===== 计时器 =====
+let timerInterval = null;
+let timerRunning = false;
+let timerSeconds = 7200; // 120 min
+function updateTimerDisplay() {
+  const h = Math.floor(timerSeconds / 3600);
+  const m = Math.floor((timerSeconds % 3600) / 60);
+  const s = timerSeconds % 60;
+  document.getElementById('timerDisplay').textContent =
+    String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+}
+function toggleTimer() {
+  if (!timerRunning) {
+    if (timerSeconds <= 0) return;
+    timerInterval = setInterval(() => {
+      timerSeconds--;
+      updateTimerDisplay();
+      localStorage.setItem('examTimer', timerSeconds);
+      if (timerSeconds <= 0) { clearInterval(timerInterval); timerRunning = false;
+        document.getElementById('timerToggle').textContent = '▶ 开始'; }
+    }, 1000);
+    timerRunning = true;
+    document.getElementById('timerToggle').textContent = '⏸ 暂停';
+  } else {
+    clearInterval(timerInterval);
+    timerRunning = false;
+    document.getElementById('timerToggle').textContent = '▶ 继续';
+  }
+}
+function resetTimer() {
+  clearInterval(timerInterval);
+  timerRunning = false;
+  timerSeconds = 7200;
+  updateTimerDisplay();
+  document.getElementById('timerToggle').textContent = '▶ 开始';
+  localStorage.setItem('examTimer', timerSeconds);
+}
+function hideTimer() {
+  const bar = document.querySelector('.timer-bar');
+  bar.style.display = bar.style.display === 'none' ? '' : 'none';
+}
+
+// 初始化 timer
+const savedTimer = localStorage.getItem('examTimer');
+if (savedTimer) { timerSeconds = parseInt(savedTimer); updateTimerDisplay(); }
+
+// ===== 自检计分 =====
+function selfCheckFill(btn, id, correct) {
+  const card = document.getElementById(id);
+  const wasCorrect = localStorage.getItem(id) === 'correct';
+  if (correct) {
+    btn.classList.toggle('correct');
+    if (btn.classList.contains('correct')) {
+      localStorage.setItem(id, 'correct');
+    } else {
+      localStorage.removeItem(id);
+    }
+  } else {
+    btn.classList.toggle('wrong');
+    if (btn.classList.contains('wrong')) {
+      localStorage.setItem(id, 'wrong');
+    } else {
+      localStorage.removeItem(id);
+    }
+  }
+  // 清除另一个状态
+  const siblings = btn.parentElement.querySelectorAll('button');
+  siblings.forEach(b => {
+    if (b !== btn) {
+      if (correct) { b.classList.remove('correct'); }
+      else { b.classList.remove('wrong'); }
+    }
+  });
+  updateScore();
+}
+
+function updateScore() {
+  const currentSection = document.querySelector('.exam-section.active');
+  if (!currentSection) return;
+  const cards = currentSection.querySelectorAll('.q-card');
+  let fillTotal = 0, fillCorrect = 0;
+  let calcTotal = 0, calcCorrect = 0;
+
+  cards.forEach(card => {
+    const score = parseInt(card.dataset.score) || 0;
+    const id = card.id;
+    const isFill = card.querySelector('.q-input') !== null;
+    const state = localStorage.getItem(id);
+    if (isFill) {
+      fillTotal += score;
+      if (state === 'correct') fillCorrect += score;
+    } else {
+      calcTotal += score;
+      if (state === 'correct') calcCorrect += score;
+    }
+  });
+
+  // 更新显示
+  document.getElementById('fillScore').textContent = fillCorrect;
+  document.getElementById('calcScore').textContent = calcCorrect;
+  document.getElementById('totalScore').textContent = fillCorrect + calcCorrect;
+}
+
+function clearAll() {
+  const currentSection = document.querySelector('.exam-section.active');
+  if (!currentSection) return;
+  const ids = currentSection.querySelectorAll('.q-card');
+  ids.forEach(card => { localStorage.removeItem(card.id); });
+  currentSection.querySelectorAll('.self-check button').forEach(b => {
+    b.classList.remove('correct', 'wrong');
+  });
+  updateScore();
+}
+
+// ===== localStorage 恢复自检状态 =====
+function restoreCheckStates() {
+  document.querySelectorAll('.q-card').forEach(card => {
+    const state = localStorage.getItem(card.id);
+    if (!state) return;
+    const btns = card.querySelectorAll('.self-check button');
+    btns.forEach(btn => {
+      if (state === 'correct' && btn.textContent.includes('答对了')) btn.classList.add('correct');
+      if (state === 'wrong' && btn.textContent.includes('答错了')) btn.classList.add('wrong');
+    });
+  });
+}
+
+// ===== localStorage 保存输入框内容 =====
+document.addEventListener('input', function(e) {
+  if (e.target.classList.contains('q-input')) {
+    localStorage.setItem(e.target.parentElement.id + '_val', e.target.value);
+  }
+});
+
+function restoreInputValues() {
+  document.querySelectorAll('.q-input').forEach(input => {
+    const val = localStorage.getItem(input.parentElement.id + '_val');
+    if (val) input.value = val;
+  });
+}
+
+// ===== 初始化 =====
+window.onload = function() {
+  renderAllMath();
+  restoreCheckStates();
+  restoreInputValues();
+  updateScore();
+};
+</script>
+</body>
+</html>
