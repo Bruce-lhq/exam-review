@@ -3,12 +3,13 @@
   "category_label": "创新大赛",
   "name": "exam-review",
   "display_name_zh": "期末复习资料生成器",
-  "description": "读取课程目录中的课件/笔记/真题/作业（PDF/DOCX/PPTX/MD），通过交互式对话确认范围与标签，或在 Auto Mode 下无人值守自动判断，生成复习笔记 + 模拟卷两份交互式 HTML。",
+  "description": "读取课程目录中的课件/笔记/真题/作业（PDF/DOCX/PPTX/MD），通过交互式对话确认范围与标签，或在 Auto Mode 下无人值守自动判断，生成复习笔记 + 模拟卷两份交互式 HTML；也可通过 Template Studio 读取课程资料、访谈校准并生成可分享的新课程复习模板。",
   "use_cases": [
     "从课程资料生成期末复习笔记（核心概念 / 题型 / 易错 / 真题详解）",
     "生成三套难度递进全真模拟卷并自评计分",
     "新增资料后增量更新已有复习 HTML",
-    "开启 Auto Mode 或中途切换自动模式，无人值守生成最终 HTML"
+    "开启 Auto Mode 或中途切换自动模式，无人值守生成最终 HTML",
+    "用 Template Studio 共创新课程模板，生成可分享模板包"
   ],
   "slug": "exam-review",
   "document_type": "agent-skill",
