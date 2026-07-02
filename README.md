@@ -67,12 +67,14 @@ exam-review/
 ├── scripts/
 │   └── extract.py            # markitdown 统一读取入口（文件/目录）
 ├── templates/
-│   └── default/              # 默认数学型模板（规格写在 SKILL.md）
+│   ├── math/                 # 数学型模板（特有规格见 templates/math/README.md）
+│   └── physics/              # 物理型模板（力学/热/电/光，见 templates/physics/README.md）
 ├── tests/
 │   └── example-usage.md      # 详细使用示例（概统真实案例）
 └── resources/
-    ├── example-review.html   # 复习笔记 demo（Part A–E）
-    └── example-exam.html     # 模拟卷 demo（三卷 + 计分）
+    ├── example-review.html      # 数学复习笔记 demo（Part A–E）
+    ├── example-exam.html        # 模拟卷 demo（三卷 + 计分）
+    └── physics-models-svg-demo.html  # 物理模型图鉴 demo（SVG + KaTeX）
 ```
 
 ## 设计亮点
