@@ -36,6 +36,16 @@
 
 唯一核心依赖是 [`markitdown[all]`](https://github.com/microsoft/markitdown)（微软开源，统一文档转 Markdown）。**无 MCP 依赖、不调用任何外部 skill——本 skill 完全自包含。**
 
+## 开发自检
+
+提交或打包前可运行：
+
+```bash
+python3 scripts/validate_skill.py
+```
+
+该脚本会检查技能包结构、`metadata.json`、版本号一致性、README 资源引用、关键能力覆盖和核心依赖声明。
+
 ## 快速上手
 
 把课程资料放在一个目录里，对搭载本 skill 的 agent 说：
@@ -89,7 +99,8 @@ exam-review/
 ├── README.md                        # 本文件
 ├── requirements.txt                 # markitdown[all]
 ├── scripts/
-│   └── extract.py                   # markitdown 统一读取入口（文件/目录）
+│   ├── extract.py                   # markitdown 统一读取入口（文件/目录）
+│   └── validate_skill.py            # 提交前结构与一致性自检
 ├── templates/
 │   ├── math/                        # 数学型模板（特有规格见 templates/math/README.md）
 │   └── physics/                     # 物理型模板（力学/热/电/光，见 templates/physics/README.md）
@@ -118,4 +129,4 @@ exam-review/
 
 ---
 
-版本 v1.3.0 · 2026-07 · 清华大学人工智能创新大赛参赛作品
+版本 v1.3.1 · 2026-07 · 清华大学人工智能创新大赛参赛作品
