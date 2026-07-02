@@ -76,7 +76,7 @@ metadata:
 
 - 推荐通过本 skill 自带脚本提取：`python scripts/extract.py <文件路径>`（依赖见 `requirements.txt`，用 `pip install -r requirements.txt` 安装）
 - 若宿主环境已内置文件读取能力，也可直接使用宿主能力，效果等价
-- **禁止设置行数限制或 `head` 截断**，必须读取全文
+- **读取全文（禁止截断）**：读取任何文件前，先 `wc -l <文件>` 看总行数。≤ 2000 行用 Read 一次读完；> 2000 行用 Read 的 `offset` / `limit` 参数**分块读完整个文件**（offset = 0、2000、4000…，每块 2000 行），不得只读默认 limit 就以为读完。严禁 `head -N` 截断。`scripts/extract.py` 的输出同理分块处理
 - **图片型 PDF / 扫描件**：markitdown 无法提取文字时，若宿主具备视觉识别能力则用之；否则提示用户补充该文件的文本内容（不强制依赖特定 MCP）
 
 ### 1.2 输出资料清单
