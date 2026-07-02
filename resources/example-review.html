@@ -23,8 +23,7 @@ aside.collapsed{width:46px;padding:10px 6px;overflow:hidden}
 aside.collapsed .col-only{display:none!important}
 .search-box{width:100%;padding:6px 10px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--text);margin-bottom:10px;font-size:.92em}
 .search-box:focus{outline:none;border-color:var(--accent)}
-.nav-back{position:fixed;left:20px;bottom:24px;background:var(--accent);color:#fff;padding:11px 22px;border-radius:24px;cursor:pointer;box-shadow:0 6px 18px rgba(196,30,58,.5);font-size:1em;z-index:40;display:none;font-weight:600;transition:opacity .2s}
-.nav-back:hover{opacity:.9}
+.nav-back{position:fixed;left:16px;bottom:16px;background:var(--accent);color:#fff;padding:8px 14px;border-radius:20px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2);font-size:.85em;display:none;z-index:20}
 aside h4{margin:14px 0 5px;color:var(--accent);font-size:.8em;display:flex;justify-content:space-between;align-items:center}
 aside h4 .mode-btn{background:var(--card);border:1px solid var(--border);color:var(--muted);font-size:.85em;padding:1px 7px;border-radius:9px;cursor:pointer}
 .nav-item{display:flex;justify-content:space-between;align-items:center;gap:6px;color:var(--text);text-decoration:none;padding:4px 8px;border-radius:5px;cursor:pointer;font-size:.92em;border-left:3px solid transparent}
@@ -209,7 +208,7 @@ h2.part{font-family:Georgia,serif;color:var(--accent);border-bottom:2px solid va
 </div>
 </main>
 </div>
-<div class="nav-back" id="navback" onclick="back()"><span id="navback-label">← 返回</span></div>
+<div class="nav-back" id="navback" onclick="goBack()">← 返回</div>
 <script>
 // ===== 主题 =====
 function toggleTheme(){const h=document.documentElement,t=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',t);document.querySelectorAll('.theme-btn').forEach(b=>{if(b.title==='暗色')b.textContent=t==='dark'?'☀️':'🌙'});localStorage.setItem('er-theme',t)}
@@ -236,25 +235,14 @@ function applyFilter(){
   });
 }
 
-// ===== 导航栈 + 左下角浮动返回按钮 =====
+// ===== 导航栈 + 浮动返回按钮（v1 风格：任何跳转都显示）=====
 const navStack=[];
-function scrollToId(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}
-function navigate(id,label){
-  if(navStack.length===0||navStack[navStack.length-1].id!==id)navStack.push({id,label});
-  scrollToId(id);showNavBack();
-}
-function navToFresh(id,label){
-  navStack.length=0;navStack.push({id,label});scrollToId(id);showNavBack();
-}
-function backTo(index){if(index<-1)index=-1;navStack.splice(index+1);if(navStack.length>0)scrollToId(navStack[navStack.length-1].id);else window.scrollTo({top:0,behavior:'smooth'});showNavBack()}
-function back(){backTo(navStack.length-2)}
-function showNavBack(){
-  const nb=document.getElementById('navback');
-  if(navStack.length>1){document.getElementById('navback-label').textContent='← 返回 '+navStack[navStack.length-2].label;nb.style.display='block'}
-  else nb.style.display='none';
-}
+function jump(id){const cur=window.scrollY;if(navStack.length===0||navStack[navStack.length-1]!==cur)navStack.push(cur);const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});document.getElementById('navback').style.display='block'}
+function goBack(){if(navStack.length){window.scrollTo({top:navStack.pop(),behavior:'smooth'});if(navStack.length===0)document.getElementById('navback').style.display='none'}}
+function navigate(id,label){jump(id)}
+function back(){goBack()}
 document.querySelectorAll('.nav-item[data-target]').forEach(n=>{
-  n.onclick=()=>navToFresh(n.dataset.target,n.querySelector('span').textContent.trim());
+  n.onclick=()=>jump(n.dataset.target);
 });
 
 // ===== 滚动高亮（IntersectionObserver）=====
