@@ -1,7 +1,7 @@
 ---
 name: exam-review
 description: "读取课程目录中的课件/笔记/真题/作业(PDF/DOCX/PPTX/MD)，通过交互式对话确认范围与标签，生成两份交互式复习HTML——完整复习笔记(核心概念/题型归纳/易错点/真题详解)与三套难度递进全真模拟卷。当用户提到'期末复习''备考''模拟卷''考前冲刺''整理复习资料''知识大纲'时使用。"
-version: "1.0.0"
+version: "1.1.0"
 metadata:
   display_name_zh: "期末复习资料生成器"
   category: "创新大赛 / chuangxin"
