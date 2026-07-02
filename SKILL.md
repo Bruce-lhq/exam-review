@@ -3,10 +3,12 @@ name: exam-review
 description: "读取课程目录中的课件/笔记/真题/作业(PDF/DOCX/PPTX/MD)，通过交互式对话确认范围与标签，生成两份交互式复习HTML——完整复习笔记(核心概念/题型归纳/易错点/真题详解)与三套难度递进全真模拟卷。当用户提到'期末复习''备考''模拟卷''考前冲刺''整理复习资料''知识大纲'时使用。"
 metadata:
   display_name_zh: "期末复习资料生成器"
-  version: "1.0.0"
   category: "创新大赛 / chuangxin"
   category_label: "创新大赛"
   category_slug: "chuangxin"
+  source: "local:chuangxin/exam-review/SKILL.md"
+  install_id: "haoqili/exam-review"
+  clawhub_slug: "exam-review"
   default_install_root: "~/soda-skillhub/skills"
   document_type: "agent-skill"
   purpose: "competition-entry-skill"
