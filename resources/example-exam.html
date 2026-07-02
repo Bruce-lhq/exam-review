@@ -45,7 +45,7 @@ main{max-width:880px;margin:0 auto;padding:20px 24px}
 </style>
 </head>
 <body>
-<header><div><h1>概率论与数理统计 · 期末模拟卷</h1><span class="sub">exam-review 产出示例 ②（模拟卷）</span></div><button class="theme-btn" onclick="toggleTheme()">🌙 暗色</button></header>
+<header><div><h1>概率论与数理统计 · 期末模拟卷</h1><span class="sub">exam-review 产出示例 ②（模拟卷）</span></div><div style="display:flex;gap:8px"><button class="theme-btn" onclick="window.print()">🖨 导出 PDF</button><button class="theme-btn" onclick="toggleTheme()">🌙 暗色</button></div></header>
 <main>
 <div class="banner">这是 exam-review 生成的<strong>模拟卷 HTML</strong>（配套的<a href="example-review.html">复习笔记</a>是另一份独立文件，对应 skill 的两份产出）。倒计时与自评计分自动存到浏览器，刷新不丢失。</div>
 <div class="exam-info">
@@ -62,14 +62,14 @@ main{max-width:880px;margin:0 auto;padding:20px 24px}
   <div class="q">
     <h3>一、（1）· 选择题（3 分）</h3>
     <p>设 $A,B$ 互斥，$P(A)=0.3$，$P(B)=0.4$，则 $P(A\cup B)=$</p>
-    <p>✏️ 你的答案：<input class="ans-input" data-q="q1" placeholder="如 0.7" oninput="saveAns('q1',this.value)"></p>
+    <p>✏️ 你的答案：<input class="ans-input" data-q="q1" placeholder="输入答案" oninput="saveAns('q1',this.value)"></p>
     <button class="toggle" data-on="▶ 展开答案与解析" data-off="▶ 收起" onclick="tog(this)">▶ 展开答案与解析</button>
     <div class="collapse"><div class="emph">答案：$0.7$。互斥 ⟹ $P(A\cup B)=P(A)+P(B)=0.7$。</div></div>
     <p class="self">自评：<button class="ok" onclick="selfScore('q1',3,true,this)">✓ 对</button><button class="no" onclick="selfScore('q1',3,false,this)">✗ 错</button></p>
   </div>
   <div class="q">
     <h3>二、（1）· 填空题（3 分）</h3>
-    <p>设 $X\sim B(n,p)$，则 $E[X]=$ <input class="ans-input" data-q="q2" placeholder="np">，$D(X)=$ <input class="ans-input" data-q="q2b" placeholder="np(1-p)">。</p>
+    <p>设 $X\sim B(n,p)$，则 $E[X]=$ <input class="ans-input" data-q="q2" placeholder="输入表达式">，$D(X)=$ <input class="ans-input" data-q="q2b" placeholder="输入表达式">。</p>
     <button class="toggle" data-on="▶ 展开答案" data-off="▶ 收起" onclick="tog(this)">▶ 展开答案</button>
     <div class="collapse"><div class="emph">$E[X]=np$，$D(X)=np(1-p)$。</div></div>
     <p class="self">自评：<button class="ok" onclick="selfScore('q2',3,true,this)">✓ 对</button><button class="no" onclick="selfScore('q2',3,false,this)">✗ 错</button></p>

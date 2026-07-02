@@ -141,7 +141,7 @@ metadata:
 
 #### 全局组件
 
-- **顶栏**：课程名 + 学期 + 🌙暗色模式切换按钮
+- **顶栏**：课程名 + 学期 + 🌙暗色模式切换按钮 + 🖨导出 PDF 按钮（调 `window.print()`，复用 @media print 适配；按钮本身在打印时随 `.theme-btn` 隐藏）
 - **侧边栏**（280px，可折叠为44px窄条）：
   - 🔍 搜索框：输入即时过滤侧边栏条目 + 正文卡片，高亮匹配文字
   - 📍 面包屑导航：显示当前跳转路径（导航栈），每级可点击跨级回退
@@ -368,7 +368,7 @@ metadata:
 #### 页面结构
 
 ```
-顶栏（课程名 + 学期 + 🌙暗色切换）
+顶栏（课程名 + 学期 + 🌙暗色切换 + 🖨导出 PDF）
 考试信息摘要（题型分布、分值、时间）+ [📋查看详情]
 Tab 切换（A卷基础 / B卷综合 / C卷冲刺）
 倒计时器（开始/暂停/重置/隐藏，可配置时长）
@@ -587,11 +587,13 @@ Tab 切换（A卷基础 / B卷综合 / C卷冲刺）
 
 Skill 目录本身是一个 Git 仓库。利用 Git 管理模板版本、分支定制和回退。
 
+> **注**：以下版本管理内容面向 skill 开发者（本地维护多版本/分支定制），与清小搭平台加载无关——平台只需 SKILL.md 与配套文件即可运行本 skill。
+
 ### 初始化
 
 首次安装 skill 时：
 ```bash
-cd ~/.claude/skills/exam-review
+cd ~/soda-skillhub/skills/exam-review
 git init
 git add -A
 git commit -m "v0.1: 初始版本 — 数学型默认模板 + 复习笔记 + 模拟卷"
@@ -728,7 +730,7 @@ git commit -m "gaowei: Part A 按定理群组织，强化链式法则实例"
 ## 模板系统与版本控制
 
 ```
-~/.claude/skills/exam-review/       ← Git 仓库
+~/soda-skillhub/skills/exam-review/  ← Git 仓库
 ├── .git/
 ├── SKILL.md                        # 主入口，跟随 Git 版本
 ├── templates/
