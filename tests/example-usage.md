@@ -183,6 +183,54 @@ skill 对照 manifest 识别变更，展示影响与可选范围：
 
 skill 在新增内容处标注 🆕，精准更新对应 Part 与 manifest，**不必从头生成**。
 
+## Auto Mode · 中途切换无人值守生成
+
+如果用户一开始想细看范围、后来希望剩余流程自动跑完，可以在任意确认节点切换 Auto Mode：
+
+```
+用户：/exam-review 整理全新的概统复习
+skill：📋 资料清单 + 📊 知识大纲如下，请确认范围……
+用户：范围按照课堂范围来（4.1、5.2 等课上没提到的就排除）
+skill：🏷️ 我提取了以下知识点标签，请审核……
+用户：进入自动模式，直接生成完
+```
+
+切换后，skill 的行为是：
+
+- 保留用户已经确认的资料范围和排除项
+- 自动采用或优化知识点标签
+- 默认生成 Part E「习题大全」（资料量过大时生成完整题目索引 + 精选详解）
+- 自动从真题 / 大纲推断模拟卷题型结构；没有真题时使用学科标准结构
+- 跳过代表题难度审核，使用 A/B/C 默认难度曲线
+- 不再继续提问，直接生成最终 HTML
+
+最终输出的两份 HTML 顶部会显示 Auto Mode 摘要，例如：
+
+```text
+Auto Mode 已从“知识点标签确认”阶段启用。
+已保留用户确认：资料范围。
+自动推断：知识标签、Part E、题型结构、难度。
+```
+
+`.exam-review-manifest.json` 也会记录模式信息：
+
+```json
+{
+  "generation_mode": "auto",
+  "auto_mode": {
+    "enabled": true,
+    "started_at_phase": "1.3 knowledge_tags",
+    "confirmed_before_auto": ["course_scope", "excluded_files"],
+    "auto_decided_after_switch": [
+      "knowledge_tags",
+      "part_e_enabled",
+      "exam_structure",
+      "difficulty_curve"
+    ]
+  }
+}
+```
+
 ## manifest 状态文件
 
 每次生成后，课程目录下会写入 `.exam-review-manifest.json`，记录已处理文件、知识标签与 skill 版本，是增量更新与版本追溯的依据：
@@ -191,7 +239,7 @@ skill 在新增内容处标注 🆕，精准更新对应 Part 与 manifest，**�
 {
   "course_name": "概率论与数理统计",
   "semester": "2025-2026春夏",
-  "skill_version": "v1.0.0",
+  "skill_version": "v1.2.0",
   "knowledge_tags": ["样本空间与事件运算", "古典概型与几何概型", "..."],
   "files_processed": {
     "PPT1.pdf": { "hash": "...", "last_modified": "2026-03-05" },
@@ -210,4 +258,4 @@ skill 在新增内容处标注 🆕，精准更新对应 Part 与 manifest，**�
 
 本次运行：**85+ 份散落资料 → 两份可交互的复习 HTML（81 张卡片 + 48 道题）**，全程 7 步、每步等待用户确认，最终支持增量更新。原本需要手工通读一整周的整理工作，被压缩为几次对话。
 
-这个案例完整覆盖了 exam-review 的全部能力：多格式统一读取、逐项确认的对话流程、双栏对齐的复习笔记、难度可调的模拟卷、基于 manifest 的增量更新。
+这个案例完整覆盖了 exam-review 的全部能力：多格式统一读取、逐项确认的对话流程、可中途切换的 Auto Mode、双栏对齐的复习笔记、难度可调的模拟卷、基于 manifest 的增量更新。
