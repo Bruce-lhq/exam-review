@@ -102,7 +102,7 @@ exam-review/
 │   ├── extract.py                   # markitdown 统一读取入口（文件/目录）
 │   └── validate_skill.py            # 提交前结构与一致性自检
 ├── templates/
-│   ├── _template/                   # Template Studio 标准模板包骨架
+│   ├── _template/                   # Template Studio 最小可用模板规范
 │   │   └── README.md
 │   ├── math/                        # 数学型模板（特有规格见 templates/math/README.md）
 │   └── physics/                     # 物理型模板（力学/热/电/光，见 templates/physics/README.md）

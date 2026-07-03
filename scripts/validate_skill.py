@@ -70,7 +70,7 @@ def check_versions(errors: list[str]) -> None:
         errors.append('SKILL.md 缺少 YAML version: "x.y.z"')
         return
     if not readme_match:
-        errors.append("README.md 缺少末尾版本号，例如：版本 v1.3.1")
+        errors.append("README.md 缺少末尾版本号，例如：版本 vX.Y.Z")
         return
 
     skill_version = skill_match.group(1)
@@ -113,7 +113,7 @@ def check_keyword_coverage(errors: list[str]) -> None:
         if keyword not in combined:
             errors.append(f"文档未覆盖关键能力：{keyword}")
     if "templates/_template/README.md" not in combined:
-        errors.append("文档未说明 Template Studio 标准模板包骨架：templates/_template/README.md")
+        errors.append("文档未说明 Template Studio 最小可用模板规范：templates/_template/README.md")
 
 
 def check_requirements(errors: list[str]) -> None:

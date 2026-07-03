@@ -319,7 +319,7 @@ Tab 切换（A卷基础 / B卷综合 / C卷冲刺）
 {
   "generated_at": "2026-06-04T12:00:00",
   "course_name": "高等微积分2",
-  "skill_version": "v0.1",
+  "skill_version": "v1.4.1",
   "skill_branch": "main",
   "generation_mode": "interactive",
   "auto_mode": {
@@ -422,10 +422,10 @@ auto mode 生成时，`generation_mode` 必须为 `"auto"`，并记录触发点�
 6. **版本检测**：更新时自动检测 manifest 中的 `skill_version` 是否滞后于当前 skill 版本。如果滞后，提示：
 
    ```
-   ⚠️ 该课程的复习资料是用 v0.1 生成的，当前 skill 已更新至 v0.2。
+   ⚠️ 该课程的复习资料是用 v1.4.1 生成的，当前 skill 已更新至 v1.5.0。
    是否用新版本模板重新生成？（推荐）
-   1. 是 — 用 v0.2 模板 + 现有资料重新生成
-   2. 否 — 继续用 v0.1 模板仅更新增量内容
+   1. 是 — 用 v1.5.0 模板 + 现有资料重新生成
+   2. 否 — 继续用 v1.4.1 模板仅更新增量内容
    ```
 
 ---
@@ -658,7 +658,7 @@ Future work：
 1. 用户描述不满意的地方
 2. 进入 brainstorming 对话，像初始设计一样逐步讨论
 3. 确认方案后更新 `templates/math/README.md` 与 SKILL.md 相关描述
-4. `git commit` + 打新版本 tag（如 `v0.2`）
+4. `git commit` + 打新版本 tag（如 `v1.5.0`）
 5. **不重新生成已有 HTML**。用户下次新建课程自然用到新版本
 
 ---
@@ -675,7 +675,7 @@ Future work：
 1. 用户描述交互问题或想法
 2. 进入 brainstorming 对话，逐步详细讨论（类似今天的设计过程）
 3. 确认方案后更新 SKILL.md 中的 HTML 样式指南和相关交互描述
-4. `git commit` + 打新版本 tag（如 `v0.3`）
+4. `git commit` + 打新版本 tag（如 `v1.6.0`）
 5. **不重新生成已有 HTML**
 
 ---
@@ -705,21 +705,21 @@ Skill 目录本身是一个 Git 仓库。利用 Git 管理模板版本、分支�
 cd ~/soda-skillhub/skills/exam-review
 git init
 git add -A
-git commit -m "v0.1: 初始版本 — 数学型默认模板 + 复习笔记 + 模拟卷"
-git tag v0.1
+git commit -m "v1.0.0: 初始版本 — 数学型默认模板 + 复习笔记 + 模拟卷"
+git tag v1.0.0
 ```
 
 ### 版本号规则
 
 ```
 main 分支           → 主版本线（默认模板 + 所有交互）
-  tag v0.1          → 初始版本
-  tag v0.2          → 改进 Part A 结构 / 暗色模式优化
-  tag v0.3          → 新增交互组件 / 调整折叠动画
+  tag v1.0.0        → 初始版本
+  tag v1.1.0        → 改进 Part A 结构 / 暗色模式优化
+  tag v1.2.0        → 新增交互组件 / 调整折叠动画
 
-v0.1-gaowei         → 分支：基于 v0.1，为高等微积分课程定制
-v0.2-gaowei         → merge main v0.2 后的 gaowei 分支
-v0.1-dianci         → 分支：电磁学定制
+v1.0.0-gaowei       → 分支：基于 v1.0.0，为高等微积分课程定制
+v1.1.0-gaowei       → merge main v1.1.0 后的 gaowei 分支
+v1.0.0-dianci       → 分支：电磁学定制
 ```
 
 ### 打 tag 的时机
@@ -729,8 +729,8 @@ v0.1-dianci         → 分支：电磁学定制
 | 3a 增量更新 | 不 | 内容层面，不涉及 skill 本身 |
 | 3b Template Studio 新建模板包 | 不 | 功能扩展，commit 即可 |
 | 3c 新建输出格式 | 不 | 功能扩展，commit 即可 |
-| 3d 迭代已有模板 | 是 | 模板结构变了 → `v0.2` |
-| 3e 更新交互机制 | 是 | 交互行为变了 → `v0.3` |
+| 3d 迭代已有模板 | 是 | 模板结构变了 → `v1.5.0` |
+| 3e 更新交互机制 | 是 | 交互行为变了 → `v1.6.0` |
 
 ### 专属分支
 
@@ -738,26 +738,26 @@ v0.1-dianci         → 分支：电磁学定制
 
 **创建分支：**
 ```bash
-git checkout -b v0.1-gaowei
+git checkout -b v1.4.1-gaowei
 # 用户修改模板（如调整 Part A 章节划分方式）...
 git commit -m "gaowei: Part A 按定理群组织，强化链式法则实例"
 ```
 
 **主版本升级后合并：**
 
-当 main 打新 tag（如 v0.2）后，向用户展示：
+当 main 打新 tag（如 v1.5.0）后，向用户展示：
 
 ```
-📢 主版本已更新至 v0.2
+📢 主版本已更新至 v1.5.0
 （改进：Part A 卡片结构 + 暗色模式优化）
 
 检测到以下专属分支：
-  · v0.1-gaowei（高等微积分定制）
-  · v0.1-dianci（电磁学定制）
+  · v1.4.1-gaowei（高等微积分定制）
+  · v1.4.1-dianci（电磁学定制）
 
-是否将 v0.2 的改动合并到这些分支？
+是否将 v1.5.0 的改动合并到这些分支？
 1. 全部合并
-2. 仅合并到 v0.1-gaowei
+2. 仅合并到 v1.4.1-gaowei
 3. 稍后再说（跳过）
 ```
 
@@ -773,14 +773,14 @@ git commit -m "gaowei: Part A 按定理群组织，强化链式法则实例"
 
 **指定版本生成：**
 ```
-用户: "用 v0.1 生成这份资料"
-→ git checkout v0.1 → 生成 HTML → git checkout 回之前的分支
+用户: "用 v1.4.1 生成这份资料"
+→ git checkout v1.4.1 → 生成 HTML → git checkout 回之前的分支
 ```
 
 **回退：**
 ```
-用户: "v0.3 的交互不如 v0.2，退回"
-→ git checkout main && git reset --hard v0.2
+用户: "v1.6.0 的交互不如 v1.5.0，退回"
+→ git checkout main && git reset --hard v1.5.0
 ```
 
 ### Manifest 中的版本追溯
@@ -851,10 +851,13 @@ git commit -m "gaowei: Part A 按定理群组织，强化链式法则实例"
 ├── templates/
 │   ├── math/                       # 数学型模板（特有规格见 templates/math/README.md）
 │   │   └── README.md               # 数学模板说明
+│   ├── _template/                  # Template Studio 最小可用模板规范
+│   │   └── README.md               # 新模板输出骨架与回退校验清单
 │   └── physics/                    # 物理型模板（力学/热/电/光/近代物理）
 │       └── README.md               # 物理模板完整规格（Part A–F，含模型图鉴）
 ├── scripts/
-│   └── (预留)
+│   ├── extract.py                  # markitdown 统一读取入口
+│   └── validate_skill.py           # 提交前结构与一致性自检
 └── (课程目录)/
     ├── xxxx期末复习.html
     ├── 期末模拟真题.html
@@ -864,9 +867,9 @@ git commit -m "gaowei: Part A 按定理群组织，强化链式法则实例"
 ### 版本控制要点
 
 - Skill 目录初始化为 Git 仓库（`git init`）
-- 模板改动（3d）和交互改动（3e）→ `git commit` + 打语义化 tag（`v0.1`, `v0.2`…）
+- 模板改动（3d）和交互改动（3e）→ `git commit` + 打语义化 tag（`v1.4.1`, `v1.5.0`…）
 - Template Studio 新模板包（3b）和新输出格式（3c）→ `git commit`，不打 tag
-- 用户可创建专属分支（如 `v0.1-gaowei`），基于某个 tag 做个性化
+- 用户可创建专属分支（如 `v1.4.1-gaowei`），基于某个 tag 做个性化
 - 主版本升级后询问用户是否 merge 到专属分支
 - 回退用 `git checkout <tag>`，生成完后切回
 - 每个课程的 manifest 记录生成时的 `skill_version` 和 `skill_branch`，可追溯
