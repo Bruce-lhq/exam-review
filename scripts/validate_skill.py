@@ -18,6 +18,7 @@ REQUIRED_FILES = [
     "requirements.txt",
     "scripts/extract.py",
     "scripts/validate_skill.py",
+    "templates/_template/README.md",
     "templates/math/README.md",
     "templates/physics/README.md",
     "resources/example-math-review.html",
@@ -111,6 +112,8 @@ def check_keyword_coverage(errors: list[str]) -> None:
     for keyword in ["Auto Mode", "Template Studio", "增量更新"]:
         if keyword not in combined:
             errors.append(f"文档未覆盖关键能力：{keyword}")
+    if "templates/_template/README.md" not in combined:
+        errors.append("文档未说明 Template Studio 标准模板包骨架：templates/_template/README.md")
 
 
 def check_requirements(errors: list[str]) -> None:

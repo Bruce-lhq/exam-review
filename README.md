@@ -73,7 +73,7 @@ python3 scripts/validate_skill.py
 
 > 帮我把《XXX》这门课设计成一个可分享的复习模板。
 
-Template Studio 会先读取课程资料，判断这门课更偏计算推导、概念记忆、案例论述、实验实践还是混合型；再只追问少量会影响模板质量的问题；最后给出 Part 结构、卡片字段、题型/考法规则和分享说明。
+Template Studio 会先读取课程资料，判断这门课更偏计算推导、概念记忆、案例论述、实验实践还是混合型；再只追问少量会影响模板结构的问题；最后给出 Part 结构、卡片字段、题型/考法规则和分享说明。`templates/_template/README.md` 是最终模板包的输出骨架和校验依据，不是让用户逐项填写的表单。
 
 用浏览器打开即可使用。
 
@@ -102,6 +102,8 @@ exam-review/
 │   ├── extract.py                   # markitdown 统一读取入口（文件/目录）
 │   └── validate_skill.py            # 提交前结构与一致性自检
 ├── templates/
+│   ├── _template/                   # Template Studio 标准模板包骨架
+│   │   └── README.md
 │   ├── math/                        # 数学型模板（特有规格见 templates/math/README.md）
 │   └── physics/                     # 物理型模板（力学/热/电/光，见 templates/physics/README.md）
 ├── tests/
@@ -129,4 +131,4 @@ exam-review/
 
 ---
 
-版本 v1.3.1 · 2026-07 · 清华大学人工智能创新大赛参赛作品
+版本 v1.4.0 · 2026-07 · 清华大学人工智能创新大赛参赛作品
