@@ -355,7 +355,7 @@ Auto Mode 已从“知识点标签确认”阶段启用。
 {
   "course_name": "概率论与数理统计",
   "semester": "2025-2026春夏",
-  "skill_version": "v1.4.1",
+  "skill_version": "v1.4.3",
   "knowledge_tags": ["样本空间与事件运算", "古典概型与几何概型", "..."],
   "files_processed": {
     "PPT1.pdf": { "hash": "...", "last_modified": "2026-03-05" },
