@@ -1,7 +1,7 @@
 ---
 name: exam-review
 description: "读取课程目录中的课件/笔记/真题/作业(PDF/DOCX/PPTX/MD)，通过交互式对话确认范围与标签，或在用户显式开启 auto mode 后无人值守一键生成两份最终复习HTML——完整复习笔记(核心概念/题型归纳/易错点/真题详解)与三套难度递进全真模拟卷。也支持 Template Studio：读取一门课的资料，经初步诊断、针对性访谈和反馈迭代，生成可分享的新课程复习模板。当用户提到'期末复习''备考''模拟卷''考前冲刺''整理复习资料''知识大纲''自动模式''直接生成''设计模板''新课程模板''共创模板'时使用。"
-version: "1.4.3"
+version: "1.4.4"
 metadata:
   display_name_zh: "期末复习资料生成器"
   category: "创新大赛 / chuangxin"
@@ -319,7 +319,7 @@ Tab 切换（A卷基础 / B卷综合 / C卷冲刺）
 {
   "generated_at": "2026-06-04T12:00:00",
   "course_name": "高等微积分2",
-  "skill_version": "v1.4.3",
+  "skill_version": "v1.4.4",
   "skill_branch": "main",
   "generation_mode": "interactive",
   "auto_mode": {
@@ -422,10 +422,10 @@ auto mode 生成时，`generation_mode` 必须为 `"auto"`，并记录触发点�
 6. **版本检测**：更新时自动检测 manifest 中的 `skill_version` 是否滞后于当前 skill 版本。如果滞后，提示：
 
    ```
-   ⚠️ 该课程的复习资料是用 v1.4.3 生成的，当前 skill 已更新至 v1.5.0。
+   ⚠️ 该课程的复习资料是用 v1.4.4 生成的，当前 skill 已更新至 v1.5.0。
    是否用新版本模板重新生成？（推荐）
    1. 是 — 用 v1.5.0 模板 + 现有资料重新生成
-   2. 否 — 继续用 v1.4.3 模板仅更新增量内容
+   2. 否 — 继续用 v1.4.4 模板仅更新增量内容
    ```
 
 ---
@@ -738,7 +738,7 @@ v1.0.0-dianci       → 分支：电磁学定制
 
 **创建分支：**
 ```bash
-git checkout -b v1.4.3-gaowei
+git checkout -b v1.4.4-gaowei
 # 用户修改模板（如调整 Part A 章节划分方式）...
 git commit -m "gaowei: Part A 按定理群组织，强化链式法则实例"
 ```
@@ -752,12 +752,12 @@ git commit -m "gaowei: Part A 按定理群组织，强化链式法则实例"
 （改进：Part A 卡片结构 + 暗色模式优化）
 
 检测到以下专属分支：
-  · v1.4.3-gaowei（高等微积分定制）
-  · v1.4.3-dianci（电磁学定制）
+  · v1.4.4-gaowei（高等微积分定制）
+  · v1.4.4-dianci（电磁学定制）
 
 是否将 v1.5.0 的改动合并到这些分支？
 1. 全部合并
-2. 仅合并到 v1.4.3-gaowei
+2. 仅合并到 v1.4.4-gaowei
 3. 稍后再说（跳过）
 ```
 
@@ -773,8 +773,8 @@ git commit -m "gaowei: Part A 按定理群组织，强化链式法则实例"
 
 **指定版本生成：**
 ```
-用户: "用 v1.4.3 生成这份资料"
-→ git checkout v1.4.3 → 生成 HTML → git checkout 回之前的分支
+用户: "用 v1.4.4 生成这份资料"
+→ git checkout v1.4.4 → 生成 HTML → git checkout 回之前的分支
 ```
 
 **回退：**
@@ -867,9 +867,9 @@ git commit -m "gaowei: Part A 按定理群组织，强化链式法则实例"
 ### 版本控制要点
 
 - Skill 目录初始化为 Git 仓库（`git init`）
-- 模板改动（3d）和交互改动（3e）→ `git commit` + 打语义化 tag（`v1.4.3`, `v1.5.0`…）
+- 模板改动（3d）和交互改动（3e）→ `git commit` + 打语义化 tag（`v1.4.4`, `v1.5.0`…）
 - Template Studio 新模板包（3b）和新输出格式（3c）→ `git commit`，不打 tag
-- 用户可创建专属分支（如 `v1.4.3-gaowei`），基于某个 tag 做个性化
+- 用户可创建专属分支（如 `v1.4.4-gaowei`），基于某个 tag 做个性化
 - 主版本升级后询问用户是否 merge 到专属分支
 - 回退用 `git checkout <tag>`，生成完后切回
 - 每个课程的 manifest 记录生成时的 `skill_version` 和 `skill_branch`，可追溯
