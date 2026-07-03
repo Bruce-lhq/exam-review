@@ -253,7 +253,7 @@ skill 更新结构：
 ✅ 已生成模板包
   templates/critical-thinking/README.md
 
-模板包按 templates/_template/README.md 骨架生成。骨架只用于输出校验和缺省回填，不是逐项询问用户的表单。
+模板包按 templates/_template/README.md 的最小可用模板规范生成。该规范只用于输出校验和缺省回填，不是逐项询问用户的表单。
 
 模板包包含：
   - 适用课程 / 不适用课程
@@ -355,7 +355,7 @@ Auto Mode 已从“知识点标签确认”阶段启用。
 {
   "course_name": "概率论与数理统计",
   "semester": "2025-2026春夏",
-  "skill_version": "v1.4.0",
+  "skill_version": "v1.4.1",
   "knowledge_tags": ["样本空间与事件运算", "古典概型与几何概型", "..."],
   "files_processed": {
     "PPT1.pdf": { "hash": "...", "last_modified": "2026-03-05" },
