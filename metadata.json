@@ -1,6 +1,4 @@
 {
-  "category": "chuangxin",
-  "category_label": "创新大赛",
   "name": "exam-review",
   "display_name_zh": "期末复习资料生成器",
   "description": "读取课程目录中的课件/笔记/真题/作业（PDF/DOCX/PPTX/MD），通过交互式对话确认范围与标签，或在 Auto Mode 下无人值守自动判断，生成复习笔记 + 模拟卷两份交互式 HTML；也可通过 Template Studio 读取课程资料、访谈校准并生成可分享的新课程复习模板。",
@@ -12,15 +10,5 @@
     "用 Template Studio 共创新课程模板，生成可分享模板包"
   ],
   "slug": "exam-review",
-  "document_type": "agent-skill",
-  "skill_md_path": "chuangxin/exam-review/SKILL.md",
-  "zip_path": "chuangxin/exam-review/exam-review.zip",
-  "metadata_path": "chuangxin/exam-review/metadata.json",
-  "readme_path": "chuangxin/exam-review/README.md",
-  "default_install_root": "~/soda-skillhub/skills",
-  "default_install_root_expanded": "$HOME/soda-skillhub/skills",
-  "install_path": "~/soda-skillhub/skills/exam-review",
-  "install_path_required": true,
-  "offline_supported": true,
-  "zip_contains_top_level_dir": true
+  "document_type": "agent-skill"
 }

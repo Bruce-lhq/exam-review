@@ -4,15 +4,7 @@ description: "读取课程目录中的课件/笔记/真题/作业(PDF/DOCX/PPTX/
 version: "1.4.4"
 metadata:
   display_name_zh: "期末复习资料生成器"
-  category: "创新大赛 / chuangxin"
-  category_label: "创新大赛"
-  category_slug: "chuangxin"
-  source: "local:chuangxin/exam-review/SKILL.md"
-  install_id: "haoqili/exam-review"
-  clawhub_slug: "exam-review"
-  default_install_root: "~/soda-skillhub/skills"
   document_type: "agent-skill"
-  purpose: "competition-entry-skill"
 ---
 
 # exam-review
@@ -696,13 +688,13 @@ Future work：
 
 Skill 目录本身是一个 Git 仓库。利用 Git 管理模板版本、分支定制和回退。
 
-> **注**：以下版本管理内容面向 skill 开发者（本地维护多版本/分支定制），与清小搭平台加载无关——平台只需 SKILL.md 与配套文件即可运行本 skill。
+> **注**：以下版本管理内容面向 skill 开发者（本地维护多版本/分支定制）。
 
 ### 初始化
 
 首次安装 skill 时：
 ```bash
-cd ~/soda-skillhub/skills/exam-review
+cd ~/.claude/skills/exam-review
 git init
 git add -A
 git commit -m "v1.0.0: 初始版本 — 数学型默认模板 + 复习笔记 + 模拟卷"
@@ -845,7 +837,7 @@ git commit -m "gaowei: Part A 按定理群组织，强化链式法则实例"
 ## 模板系统与版本控制
 
 ```
-~/soda-skillhub/skills/exam-review/  ← Git 仓库
+~/.claude/skills/exam-review/  ← Git 仓库
 ├── .git/
 ├── SKILL.md                        # 主入口，跟随 Git 版本
 ├── templates/
