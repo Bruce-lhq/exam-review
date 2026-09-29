@@ -1,8 +1,34 @@
+<p align="center">
+  <img src="resources/logo.svg" width="120" alt="exam-review logo">
+</p>
+
 # exam-review · 期末复习资料生成器
 
 > 读取一门课程的全部资料（课件 / 笔记 / 真题 / 作业），通过交互式对话确认范围与难度，或在 Auto Mode 下无人值守自动判断，生成两份交互式 HTML：一份完整的复习笔记 + 三套难度递进的全真模拟卷。还可以通过 Template Studio，帮助全校同学把自己的课程资料沉淀成可分享的复习模板。
 
 本项目曾参加清华大学人工智能创新大赛 · 技能开发专项赛。
+
+---
+
+## 效果展示
+
+**复习笔记**（核心概念 / 题型归纳 / 易错点 / 真题详解，双栏对齐 + 跨 Part 交叉引用导航）：
+
+<p>
+  <img src="resources/screenshot-math-review.png" width="420" alt="数学复习笔记">
+  <img src="resources/screenshot-physics-review.png" width="420" alt="物理复习笔记">
+</p>
+
+**全真模拟卷**（A 基础 / B 综合 / C 冲刺三卷，倒计时 + 自评计分 + localStorage 持久化）：
+
+<p>
+  <img src="resources/screenshot-math-exam.png" width="420" alt="数学模拟卷">
+  <img src="resources/screenshot-physics-exam.png" width="420" alt="物理模拟卷">
+</p>
+
+完整交互演示视频：
+
+<video src="https://github.com/user-attachments/assets/9480d56a-c993-4456-9ad5-2981342c3f6d" controls muted width="100%"></video>
 
 ---
 
@@ -109,10 +135,15 @@ exam-review/
 ├── tests/
 │   └── example-usage.md             # 详细使用示例（概统真实案例）
 └── resources/
-    ├── example-math-review.html     # 数学复习笔记 demo（Part A–E）
-    ├── example-math-exam.html       # 数学模拟卷 demo（三卷 + 计分）
-    ├── example-physics-review.html  # 物理复习笔记 demo（Part A–E，C 为模型图鉴 + SVG）
-    └── example-physics-exam.html    # 物理模拟卷 demo（完整三卷，120 分钟保真）
+    ├── logo.svg                      # 项目 logo
+    ├── screenshot-math-review.png    # 数学复习笔记截图
+    ├── screenshot-math-exam.png      # 数学模拟卷截图
+    ├── screenshot-physics-review.png # 物理复习笔记截图
+    ├── screenshot-physics-exam.png   # 物理模拟卷截图
+    ├── example-math-review.html      # 数学复习笔记 demo（Part A–E）
+    ├── example-math-exam.html        # 数学模拟卷 demo（三卷 + 计分）
+    ├── example-physics-review.html   # 物理复习笔记 demo（Part A–E，C 为模型图鉴 + SVG）
+    └── example-physics-exam.html     # 物理模拟卷 demo（完整三卷，120 分钟保真）
 ```
 
 ## 设计亮点

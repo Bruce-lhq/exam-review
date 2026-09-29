@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-labelledby="t d">
+  <title id="t">exam-review 期末复习资料生成器</title>
+  <desc id="d">一本打开的书,书脊升起金色光芒与闪光,右下角盖一枚金色 A+ 成绩章</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7B2D9A"/>
+      <stop offset="1" stop-color="#43065C"/>
+    </linearGradient>
+    <linearGradient id="titlebar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#9B5DCB"/>
+      <stop offset="1" stop-color="#6A1E94"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFE066"/>
+      <stop offset="1" stop-color="#FFA94D"/>
+    </linearGradient>
+    <linearGradient id="beam" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#FFE066" stop-opacity="0"/>
+      <stop offset="1" stop-color="#FFE066" stop-opacity="0.6"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="5"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.3"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+
+  <!-- 书脊升起的金光柱 -->
+  <path d="M250 150 L262 150 L259 98 L253 98 Z" fill="url(#beam)"/>
+
+  <!-- 闪光(AI 生成) -->
+  <g transform="translate(256 90)">
+    <path d="M0 -28 C 5 -5, 5 -5, 28 0 C 5 5, 5 5, 0 28 C -5 5, -5 5, -28 0 C -5 -5, -5 -5, 0 -28 Z" fill="url(#gold)"/>
+    <path d="M38 22 C 40 16, 40 16, 46 14 C 40 12, 40 12, 38 6 C 36 12, 36 12, 30 14 C 36 16, 36 16, 38 22 Z" fill="#FFD166"/>
+  </g>
+
+  <!-- 书·左页 -->
+  <rect x="90" y="150" width="158" height="210" rx="12" fill="#FFFFFF" filter="url(#shadow)"/>
+  <!-- 书·右页 -->
+  <rect x="264" y="150" width="158" height="210" rx="12" fill="#FFFFFF" filter="url(#shadow)"/>
+
+  <!-- 左页内容 -->
+  <rect x="108" y="172" width="92" height="16" rx="5" fill="url(#titlebar)"/>
+  <rect x="108" y="204" width="122" height="8" rx="4" fill="#DEE2E6"/>
+  <rect x="108" y="224" width="130" height="8" rx="4" fill="#DEE2E6"/>
+  <rect x="108" y="244" width="112" height="8" rx="4" fill="#DEE2E6"/>
+  <rect x="108" y="264" width="126" height="8" rx="4" fill="#DEE2E6"/>
+  <rect x="108" y="296" width="100" height="8" rx="4" fill="#E9ECEF"/>
+  <rect x="108" y="316" width="120" height="8" rx="4" fill="#E9ECEF"/>
+
+  <!-- 右页内容(与左页逐行对齐) -->
+  <rect x="278" y="172" width="92" height="16" rx="5" fill="url(#titlebar)"/>
+  <rect x="278" y="204" width="110" height="8" rx="4" fill="#DEE2E6"/>
+  <rect x="278" y="224" width="128" height="8" rx="4" fill="#DEE2E6"/>
+  <rect x="278" y="244" width="118" height="8" rx="4" fill="#DEE2E6"/>
+  <rect x="278" y="264" width="124" height="8" rx="4" fill="#DEE2E6"/>
+  <rect x="278" y="296" width="108" height="8" rx="4" fill="#E9ECEF"/>
+  <rect x="278" y="316" width="120" height="8" rx="4" fill="#E9ECEF"/>
+
+  <!-- 书脊装订点 -->
+  <circle cx="256" cy="255" r="3.5" fill="#D9B8EF"/>
+
+  <!-- A+ 成绩章(正骑书右下角) -->
+  <circle cx="422" cy="360" r="38" fill="url(#gold)" filter="url(#shadow)"/>
+  <circle cx="422" cy="360" r="38" fill="none" stroke="#FFFFFF" stroke-width="3"/>
+  <text x="422" y="371" text-anchor="middle" font-family="-apple-system, 'PingFang SC', Arial, sans-serif" font-size="30" font-weight="800" fill="#FFFFFF">A+</text>
+</svg>
