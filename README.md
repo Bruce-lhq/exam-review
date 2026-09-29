@@ -48,6 +48,12 @@
 
 ## 依赖与安装
 
+一键安装：
+
+```bash
+npx skills add Bruce-lhq/exam-review
+```
+
 需 Python ≥ 3.9。
 
 各系统安装依赖：
